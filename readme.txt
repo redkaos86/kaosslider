@@ -4,7 +4,7 @@ Tags: slider, carousel, hero, animation, video background
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ The plugin connects to external services only for the features that need them:
 3. Create your first slider from the KaosSlider menu.
 
 == Changelog ==
+
+= 1.1.0 =
+* The interface is now in English with a complete Italian translation, and it can be translated into other languages.
+* The admin bar menu and all messages follow the site language.
 
 = 1.0.1 =
 * Updates now work without any configuration: no GitHub token is needed.
