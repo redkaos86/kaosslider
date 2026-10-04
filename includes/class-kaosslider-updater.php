@@ -103,16 +103,17 @@ class KaosSlider_Updater {
 					'date'    => isset( $body['published_at'] ) ? (string) $body['published_at'] : '',
 				);
 			} else {
-				$error = 'l\'ultima release su GitHub non contiene lo zip firmato.';
+				$error = __( 'the latest GitHub release does not contain the signed zip.', 'kaosslider' );
 			}
 		} elseif ( 401 === $code ) {
-			$error = 'il token GitHub nel wp-config.php non è valido o è scaduto.';
+			$error = __( 'the GitHub token in wp-config.php is invalid or expired.', 'kaosslider' );
 		} elseif ( 403 === $code || 429 === $code ) {
-			$error = 'GitHub ha limitato temporaneamente le richieste da questo server: si riproverà più tardi.';
+			$error = __( 'GitHub has temporarily limited requests from this server: it will try again later.', 'kaosslider' );
 		} elseif ( 404 === $code ) {
-			$error = 'nessuna release trovata su GitHub (se il repository è privato serve il token nel wp-config.php).';
+			$error = __( 'no release found on GitHub (if the repository is private, a token is needed in wp-config.php).', 'kaosslider' );
 		} else {
-			$error = is_wp_error( $res ) ? $res->get_error_message() : 'risposta inattesa da GitHub (' . $code . ').';
+			/* translators: %d: HTTP status code. */
+			$error = is_wp_error( $res ) ? $res->get_error_message() : sprintf( __( 'unexpected response from GitHub (%d).', 'kaosslider' ), $code );
 		}
 
 		set_site_transient( self::CACHE, $rel ? $rel : array( 'ok' => false ), $rel ? 6 * HOUR_IN_SECONDS : 30 * MINUTE_IN_SECONDS );
@@ -193,7 +194,7 @@ class KaosSlider_Updater {
 		if ( in_array( $code, array( 301, 302, 303, 307, 308 ), true ) ) {
 			$location = wp_remote_retrieve_header( $res, 'location' );
 			if ( ! is_string( $location ) || 0 !== strpos( $location, 'https://' ) ) {
-				return new WP_Error( 'kaosslider_download', 'Indirizzo di download non valido.' );
+				return new WP_Error( 'kaosslider_download', __( 'Invalid download address.', 'kaosslider' ) );
 			}
 			$args = array( 'timeout' => 300 );
 			if ( $file ) {
@@ -209,7 +210,7 @@ class KaosSlider_Updater {
 			return $res;
 		}
 		if ( 200 !== $code ) {
-			return new WP_Error( 'kaosslider_download', 'Download da GitHub non riuscito (' . $code . ').' );
+			return new WP_Error( 'kaosslider_download', sprintf( /* translators: %d: HTTP status code. */ __( 'Download from GitHub failed (%d).', 'kaosslider' ), $code ) );
 		}
 		return $file ? $file : wp_remote_retrieve_body( $res );
 	}
@@ -227,11 +228,11 @@ class KaosSlider_Updater {
 			$rel = self::release( true ); // la release potrebbe essere cambiata nel frattempo
 		}
 		if ( ! $rel || (int) substr( $package, strlen( $prefix ) ) !== $rel['zip'] ) {
-			return new WP_Error( 'kaosslider_download', 'Pacchetto di aggiornamento sconosciuto.' );
+			return new WP_Error( 'kaosslider_download', __( 'Unknown update package.', 'kaosslider' ) );
 		}
 
 		if ( $upgrader && isset( $upgrader->skin ) ) {
-			$upgrader->skin->feedback( 'Download dell\'aggiornamento da GitHub…' );
+			$upgrader->skin->feedback( __( 'Downloading the update from GitHub…', 'kaosslider' ) );
 		}
 		$sig = self::fetch_asset( $rel['sig'] );
 		if ( is_wp_error( $sig ) ) {
@@ -246,10 +247,10 @@ class KaosSlider_Updater {
 
 		if ( ! self::verify( (string) file_get_contents( $tmp ), $sig ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions
 			wp_delete_file( $tmp );
-			return new WP_Error( 'kaosslider_signature', 'La firma del pacchetto non è valida: aggiornamento annullato per sicurezza.' );
+			return new WP_Error( 'kaosslider_signature', __( 'The package signature is not valid: update cancelled for security.', 'kaosslider' ) );
 		}
 		if ( $upgrader && isset( $upgrader->skin ) ) {
-			$upgrader->skin->feedback( 'Firma del pacchetto verificata.' );
+			$upgrader->skin->feedback( __( 'Package signature verified.', 'kaosslider' ) );
 		}
 		return $tmp;
 	}
@@ -281,10 +282,10 @@ class KaosSlider_Updater {
 		if ( plugin_basename( KAOSSLIDER_FILE ) !== $file || ! current_user_can( 'update_plugins' ) ) {
 			return $links;
 		}
-		$links[] = '<a href="' . esc_url( wp_nonce_url( admin_url( 'plugins.php?kaosslider_check=1' ), 'kaosslider_check' ) ) . '">' . esc_html__( 'Controlla aggiornamenti', 'kaosslider' ) . '</a>';
+		$links[] = '<a href="' . esc_url( wp_nonce_url( admin_url( 'plugins.php?kaosslider_check=1' ), 'kaosslider_check' ) ) . '">' . esc_html__( 'Check for updates', 'kaosslider' ) . '</a>';
 		$error   = get_site_transient( self::ERROR );
 		if ( $error ) {
-			$links[] = '<span style="color:#b32d2e">' . esc_html( 'Aggiornamenti: ' . $error ) . '</span>';
+			$links[] = '<span style="color:#b32d2e">' . esc_html( sprintf( /* translators: %s: description of the update problem. */ __( 'Updates: %s', 'kaosslider' ), $error ) ) . '</span>';
 		}
 		return $links;
 	}

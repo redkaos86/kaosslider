@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       KaosSlider
- * Description:       Slider, caroselli e hero animati con editor visuale a livelli. Integrazione con Gutenberg/Kadence, Elementor e Divi.
+ * Description:       Animated sliders, carousels and hero sections with a visual layer editor. Works with Gutenberg/Kadence, Elementor and Divi.
  * Version:           1.0.1
  * Requires at least: 6.2
  * Requires PHP:      7.4
@@ -66,6 +66,13 @@ function kaosslider( $id_or_alias ) {
 	return KaosSlider_Render::render( $id_or_alias );
 }
 
+add_action(
+	'init',
+	function () {
+		load_plugin_textdomain( 'kaosslider', false, dirname( plugin_basename( KAOSSLIDER_FILE ) ) . '/languages' );
+	},
+	0
+);
 add_action( 'init', array( 'KaosSlider_Store', 'register_post_type' ) );
 add_action( 'init', array( 'KaosSlider_Render', 'init' ) );
 add_action( 'rest_api_init', array( 'KaosSlider_REST', 'register_routes' ) );

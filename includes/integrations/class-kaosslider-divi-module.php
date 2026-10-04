@@ -17,7 +17,7 @@ class KaosSlider_Divi_Module extends ET_Builder_Module {
 		$this->settings_modal_toggles = array(
 			'general' => array(
 				'toggles' => array(
-					'main_content' => 'Slider',
+					'main_content' => __( 'Slider', 'kaosslider' ),
 				),
 			),
 		);
@@ -41,13 +41,13 @@ class KaosSlider_Divi_Module extends ET_Builder_Module {
 	public function get_fields() {
 		return array(
 			'slider_id' => array(
-				'label'           => 'Slider',
+				'label'           => __( 'Slider', 'kaosslider' ),
 				'type'            => 'select',
 				'option_category' => 'basic_option',
 				'options'         => kaosslider_options(),
 				'default'         => '',
 				'toggle_slug'     => 'main_content',
-				'description'     => 'Scegli lo slider da mostrare. Per un hero a tutta larghezza usa una sezione a larghezza piena senza padding.',
+				'description'     => __( 'Choose the slider to show. For a full-width hero use a full-width section without padding.', 'kaosslider' ),
 			),
 		);
 	}

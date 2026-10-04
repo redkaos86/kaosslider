@@ -1,0 +1,184 @@
+{
+    "translation-revision-date": "2026-10-04 21:05+0000",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/js\/admin-list.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "it_IT",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Imported slider": [
+                "Slider importato"
+            ],
+            "Slider": [
+                "Slider"
+            ],
+            "Error": [
+                "Errore"
+            ],
+            "Close": [
+                "Chiudi"
+            ],
+            "Cancel": [
+                "Annulla"
+            ],
+            "Confirm": [
+                "Conferma"
+            ],
+            "Search sliders\u2026": [
+                "Cerca slider\u2026"
+            ],
+            "Search sliders": [
+                "Cerca slider"
+            ],
+            "Settings": [
+                "Impostazioni"
+            ],
+            "Import": [
+                "Importa"
+            ],
+            "New slider": [
+                "Nuovo slider"
+            ],
+            "Insert a slider with the %1$s shortcode, the %2$s block (Gutenberg\/Kadence), the Elementor widget or the Divi module. In theme files: %3$s": [
+                "Inserisci uno slider con lo shortcode %1$s, con il blocco %2$s (Gutenberg\/Kadence), con il widget di Elementor o con il modulo di Divi. Nei file del tema: %3$s"
+            ],
+            "Start from a blank canvas": [
+                "Parti da una tela vuota"
+            ],
+            "No slider matches \"%s\".": [
+                "Nessuno slider corrisponde a \"%s\"."
+            ],
+            "Edit %s": [
+                "Modifica %s"
+            ],
+            "Carousel": [
+                "Carosello"
+            ],
+            "Edit": [
+                "Modifica"
+            ],
+            "Preview on the site": [
+                "Anteprima sul sito"
+            ],
+            "Duplicate": [
+                "Duplica"
+            ],
+            "Export JSON": [
+                "Esporta JSON"
+            ],
+            "Delete": [
+                "Elimina"
+            ],
+            "%d slide": [
+                "%d slide",
+                "%d slide"
+            ],
+            "Click to copy": [
+                "Clicca per copiare"
+            ],
+            "Copied!": [
+                "Copiato!"
+            ],
+            "Unable to load the sliders: %s": [
+                "Impossibile caricare gli slider: %s"
+            ],
+            "Slider \/ Hero": [
+                "Slider \/ Hero"
+            ],
+            "Full-width slides, one at a time": [
+                "Slide a tutta larghezza, una alla volta"
+            ],
+            "Several cards side by side that scroll": [
+                "Pi\u00f9 card affiancate che scorrono"
+            ],
+            "Height in px (desktop)": [
+                "Altezza in px (desktop)"
+            ],
+            "Card height": [
+                "Altezza card"
+            ],
+            "Height of each card": [
+                "Altezza di ogni card"
+            ],
+            "Fullscreen": [
+                "Schermo intero"
+            ],
+            "Takes up the full height of the window": [
+                "Occupa tutta l'altezza della finestra"
+            ],
+            "height\u0004Custom": [
+                "Personalizzata"
+            ],
+            "Choose the height in px yourself": [
+                "Scegli tu l'altezza in px"
+            ],
+            "On smaller screens layers and texts shrink proportionally. Recommended.": [
+                "Sugli schermi pi\u00f9 piccoli livelli e testi si riducono in proporzione. Consigliato."
+            ],
+            "Real px sizes on every screen: on small ones, whatever goes beyond the slide is cut off.": [
+                "Misure reali in px su ogni schermo: su quelli piccoli ci\u00f2 che esce dalla slide viene tagliato."
+            ],
+            "Responsive": [
+                "Responsive"
+            ],
+            "Name": [
+                "Nome"
+            ],
+            "Type": [
+                "Tipo"
+            ],
+            "Height": [
+                "Altezza"
+            ],
+            "Adaptation": [
+                "Adattamento"
+            ],
+            "Create and open the editor": [
+                "Crea e apri l'editor"
+            ],
+            "Slider duplicated": [
+                "Slider duplicato"
+            ],
+            "Delete the slider?": [
+                "Eliminare lo slider?"
+            ],
+            "\"%s\" will be deleted. Pages that use it will no longer show it.": [
+                "\"%s\" verr\u00e0 eliminato. Le pagine che lo usano non lo mostreranno pi\u00f9."
+            ],
+            "Slider deleted": [
+                "Slider eliminato"
+            ],
+            "Hosted on the site (recommended)": [
+                "Ospitati sul sito (consigliato)"
+            ],
+            "The font files are downloaded once to your server: visitors do not contact any external service. Ideal for GDPR.": [
+                "I file dei font vengono scaricati una volta sul tuo server: i visitatori non contattano servizi esterni. Ideale per il GDPR."
+            ],
+            "European CDN without tracking, same catalogue. No files on the server.": [
+                "CDN europea senza tracciamento, stesso catalogo. Nessun file sul server."
+            ],
+            "Google Fonts direct": [
+                "Google Fonts diretto"
+            ],
+            "Not recommended in the EU: the IP address of visitors is sent to Google.": [
+                "Sconsigliato in UE: l'indirizzo IP dei visitatori viene inviato a Google."
+            ],
+            "Web font loading": [
+                "Caricamento dei web font"
+            ],
+            "Save": [
+                "Salva"
+            ],
+            "Settings saved": [
+                "Impostazioni salvate"
+            ],
+            "The file is not valid JSON.": [
+                "Il file non \u00e8 un JSON valido."
+            ]
+        }
+    }
+}

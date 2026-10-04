@@ -2,68 +2,70 @@
 (function () {
 	'use strict';
 
+	const { __, _x, _n, sprintf } = wp.i18n;
+
 	const C = window.KaosSliderConfig;
 	const A = window.KaosSlider.anim;
 	const root = document.getElementById('kaosslider-editor');
 
 	const DEVICES = ['desktop', 'tablet', 'mobile'];
-	const DEVICE_LABEL = { desktop: 'Desktop', tablet: 'Tablet', mobile: 'Mobile' };
+	const DEVICE_LABEL = { desktop: __( 'Desktop', 'kaosslider' ), tablet: __( 'Tablet', 'kaosslider' ), mobile: __( 'Mobile', 'kaosslider' ) };
 	const DEVICE_ICON = { desktop: 'desktop', tablet: 'tablet', mobile: 'smartphone' };
-	const TYPE_LABEL = { text: 'Testo', button: 'Bottone', image: 'Immagine', shape: 'Forma', draw: 'Disegno', film: 'Pellicola' };
+	const TYPE_LABEL = { text: _x( 'Text', 'layer type', 'kaosslider' ), button: __( 'Button', 'kaosslider' ), image: __( 'Image', 'kaosslider' ), shape: __( 'Shape', 'kaosslider' ), draw: __( 'Drawing', 'kaosslider' ), film: __( 'Filmstrip', 'kaosslider' ) };
 	const TYPE_ICON = { text: 'editor-textcolor', button: 'button', image: 'format-image', shape: 'marker', draw: 'art', film: 'images-alt2' };
 	let DRAW_SHAPES = {};
 
 	const EFFECTS_IN = [
-		['none', 'Nessuno (appare)'], ['fade', 'Dissolvenza'], ['fadeUp', 'Dal basso'], ['fadeDown', "Dall'alto"],
-		['fadeLeft', 'Da sinistra'], ['fadeRight', 'Da destra'], ['zoomIn', 'Zoom avanti'], ['zoomOut', 'Zoom indietro'],
-		['rotateIn', 'Rotazione'], ['blurIn', 'Sfocatura'], ['maskUp', 'Maschera dal basso'], ['maskLeft', 'Maschera da sinistra'],
-		['flipUp', 'Ribaltamento'], ['revealUp', 'Rivela dal basso'], ['skewIn', 'Inclinato'], ['dropIn', 'Caduta dall\'alto']
+		['none', __( 'None (appears)', 'kaosslider' )], ['fade', __( 'Fade', 'kaosslider' )], ['fadeUp', __( 'From below', 'kaosslider' )], ['fadeDown', __( 'From above', 'kaosslider' )],
+		['fadeLeft', __( 'From the left', 'kaosslider' )], ['fadeRight', __( 'From the right', 'kaosslider' )], ['zoomIn', __( 'Zoom in', 'kaosslider' )], ['zoomOut', __( 'Zoom out', 'kaosslider' )],
+		['rotateIn', __( 'Rotation', 'kaosslider' )], ['blurIn', __( 'Blur', 'kaosslider' )], ['maskUp', __( 'Mask from below', 'kaosslider' )], ['maskLeft', __( 'Mask from the left', 'kaosslider' )],
+		['flipUp', __( 'Flip', 'kaosslider' )], ['revealUp', __( 'Reveal from below', 'kaosslider' )], ['skewIn', __( 'Skewed', 'kaosslider' )], ['dropIn', __( 'Drop from above', 'kaosslider' )]
 	];
 	const EFFECTS_OUT = [
-		['none', 'Nessuna (resta visibile)'], ['fade', 'Dissolvenza'], ['fadeUp', 'Verso il basso'], ['fadeDown', "Verso l'alto"],
-		['fadeLeft', 'Verso sinistra'], ['fadeRight', 'Verso destra'], ['zoomIn', 'Rimpicciolisce'], ['zoomOut', 'Ingrandisce'],
-		['rotateIn', 'Rotazione'], ['blurIn', 'Sfocatura'], ['maskUp', 'Maschera verso il basso'], ['maskLeft', 'Maschera verso sinistra'],
-		['flipUp', 'Ribaltamento'], ['revealUp', 'Scompare verso il basso'], ['skewIn', 'Inclinato'], ['dropIn', "Verso l'alto"]
+		['none', __( 'None (stays visible)', 'kaosslider' )], ['fade', __( 'Fade', 'kaosslider' )], ['fadeUp', __( 'Downwards', 'kaosslider' )], ['fadeDown', __( 'Upwards', 'kaosslider' )],
+		['fadeLeft', __( 'To the left', 'kaosslider' )], ['fadeRight', __( 'To the right', 'kaosslider' )], ['zoomIn', __( 'Shrink', 'kaosslider' )], ['zoomOut', __( 'Grow', 'kaosslider' )],
+		['rotateIn', __( 'Rotation', 'kaosslider' )], ['blurIn', __( 'Blur', 'kaosslider' )], ['maskUp', __( 'Mask downwards', 'kaosslider' )], ['maskLeft', __( 'Mask to the left', 'kaosslider' )],
+		['flipUp', __( 'Flip', 'kaosslider' )], ['revealUp', __( 'Sink downwards', 'kaosslider' )], ['skewIn', __( 'Skewed', 'kaosslider' )], ['dropIn', __( 'Upwards', 'kaosslider' )]
 	];
 	EFFECTS_IN.push(
-		['bounceIn', 'Rimbalzo'], ['elasticUp', 'Elastico dal basso'], ['lightSpeed', 'Velocità luce'], ['rollIn', 'Rotolamento'],
-		['swingIn', 'Altalena 3D'], ['zoomBlur', 'Zoom sfocato'], ['scaleX', 'Allunga orizzontale'], ['scaleY', 'Allunga verticale'],
-		['rotateY', 'Rotazione 3D'], ['typewriter', 'Macchina da scrivere'], ['draw', 'Disegno a mano'], ['custom', 'Personalizzato…']
+		['bounceIn', __( 'Bounce', 'kaosslider' )], ['elasticUp', __( 'Elastic from below', 'kaosslider' )], ['lightSpeed', __( 'Light speed', 'kaosslider' )], ['rollIn', __( 'Roll', 'kaosslider' )],
+		['swingIn', __( '3D swing', 'kaosslider' )], ['zoomBlur', __( 'Blurred zoom', 'kaosslider' )], ['scaleX', __( 'Stretch horizontally', 'kaosslider' )], ['scaleY', __( 'Stretch vertically', 'kaosslider' )],
+		['rotateY', __( '3D rotation', 'kaosslider' )], ['typewriter', __( 'Typewriter', 'kaosslider' )], ['draw', __( 'Hand drawing', 'kaosslider' )], ['custom', __( 'Custom…', 'kaosslider' )]
 	);
 	EFFECTS_OUT.push(
-		['bounceIn', 'Rimbalzo'], ['elasticUp', 'Elastico verso il basso'], ['lightSpeed', 'Velocità luce'], ['rollIn', 'Rotolamento'],
-		['swingIn', 'Altalena 3D'], ['zoomBlur', 'Zoom sfocato'], ['scaleX', 'Restringe orizzontale'], ['scaleY', 'Restringe verticale'],
-		['rotateY', 'Rotazione 3D'], ['draw', 'Cancella il tratto'], ['custom', 'Personalizzato…']
+		['bounceIn', __( 'Bounce', 'kaosslider' )], ['elasticUp', __( 'Elastic downwards', 'kaosslider' )], ['lightSpeed', __( 'Light speed', 'kaosslider' )], ['rollIn', __( 'Roll', 'kaosslider' )],
+		['swingIn', __( '3D swing', 'kaosslider' )], ['zoomBlur', __( 'Blurred zoom', 'kaosslider' )], ['scaleX', __( 'Squeeze horizontally', 'kaosslider' )], ['scaleY', __( 'Squeeze vertically', 'kaosslider' )],
+		['rotateY', __( '3D rotation', 'kaosslider' )], ['draw', __( 'Erase the stroke', 'kaosslider' )], ['custom', __( 'Custom…', 'kaosslider' )]
 	);
 	/* Gruppi per i menu degli effetti dei livelli. */
 	const EFFECT_GROUPS = [
-		['Base', ['none', 'fade', 'fadeUp', 'fadeDown', 'fadeLeft', 'fadeRight', 'dropIn']],
-		['Zoom e rotazione', ['zoomIn', 'zoomOut', 'zoomBlur', 'rotateIn', 'rollIn', 'skewIn', 'blurIn']],
-		['Maschere e rivelazioni', ['maskUp', 'maskLeft', 'revealUp', 'scaleX', 'scaleY']],
-		['3D', ['flipUp', 'swingIn', 'rotateY']],
-		['Dinamici', ['bounceIn', 'elasticUp', 'lightSpeed']],
-		['Testo', ['typewriter']],
-		['Disegno', ['draw']],
-		['Avanzato', ['custom']]
+		[__( 'Basic', 'kaosslider' ), ['none', 'fade', 'fadeUp', 'fadeDown', 'fadeLeft', 'fadeRight', 'dropIn']],
+		[__( 'Zoom and rotation', 'kaosslider' ), ['zoomIn', 'zoomOut', 'zoomBlur', 'rotateIn', 'rollIn', 'skewIn', 'blurIn']],
+		[__( 'Masks and reveals', 'kaosslider' ), ['maskUp', 'maskLeft', 'revealUp', 'scaleX', 'scaleY']],
+		[__( '3D', 'kaosslider' ), ['flipUp', 'swingIn', 'rotateY']],
+		[__( 'Dynamic', 'kaosslider' ), ['bounceIn', 'elasticUp', 'lightSpeed']],
+		[_x( 'Text', 'layer type', 'kaosslider' ), ['typewriter']],
+		[__( 'Drawing', 'kaosslider' ), ['draw']],
+		[__( 'Advanced', 'kaosslider' ), ['custom']]
 	];
 	const TRANSITION_GROUPS = [
-		['Dissolvenze', [['fade', 'Dissolvenza'], ['fadeBlack', 'Dissolvenza attraverso lo sfondo'], ['blur', 'Sfocatura'], ['zoomBlur', 'Zoom sfocato']]],
-		['Zoom', [['zoom', 'Zoom avanti'], ['zoomOut', 'Zoom indietro']]],
-		['Scorrimento', [['slide', 'Scorrimento orizzontale'], ['slideV', 'Scorrimento verticale'], ['slideOver', 'Copertura'], ['slideReveal', 'Scoperta'], ['parallax', 'Scorrimento con parallasse']]],
-		['Tendine e forme', [['wipe', 'Tendina orizzontale'], ['wipeV', 'Tendina verticale'], ['curtain', 'Sipario (dal centro)'], ['curtainH', 'Sipario orizzontale'], ['circle', 'Cerchio'], ['diamond', 'Rombo']]],
-		['3D', [['cube', 'Cubo 3D'], ['flip', 'Ribaltamento orizzontale'], ['flipV', 'Ribaltamento verticale']]],
-		['A pezzi', [['stripsV', 'Strisce verticali'], ['stripsH', 'Strisce orizzontali'], ['blinds', 'Persiane'], ['mosaic', 'Mosaico']]],
-		['Altro', [['random', 'Casuale (ogni volta diversa)']]]
+		[__( 'Fades', 'kaosslider' ), [['fade', __( 'Fade', 'kaosslider' )], ['fadeBlack', __( 'Fade through background', 'kaosslider' )], ['blur', __( 'Blur', 'kaosslider' )], ['zoomBlur', __( 'Blurred zoom', 'kaosslider' )]]],
+		[__( 'Zoom', 'kaosslider' ), [['zoom', __( 'Zoom in', 'kaosslider' )], ['zoomOut', __( 'Zoom out', 'kaosslider' )]]],
+		[_x( 'Slide', 'transition', 'kaosslider' ), [['slide', __( 'Horizontal slide', 'kaosslider' )], ['slideV', __( 'Vertical slide', 'kaosslider' )], ['slideOver', __( 'Cover', 'kaosslider' )], ['slideReveal', __( 'Uncover', 'kaosslider' )], ['parallax', __( 'Parallax slide', 'kaosslider' )]]],
+		[__( 'Wipes and shapes', 'kaosslider' ), [['wipe', __( 'Horizontal wipe', 'kaosslider' )], ['wipeV', __( 'Vertical wipe', 'kaosslider' )], ['curtain', __( 'Curtain (from the centre)', 'kaosslider' )], ['curtainH', __( 'Horizontal curtain', 'kaosslider' )], ['circle', __( 'Circle', 'kaosslider' )], ['diamond', __( 'Diamond', 'kaosslider' )]]],
+		[__( '3D', 'kaosslider' ), [['cube', __( '3D cube', 'kaosslider' )], ['flip', __( 'Horizontal flip', 'kaosslider' )], ['flipV', __( 'Vertical flip', 'kaosslider' )]]],
+		[__( 'In pieces', 'kaosslider' ), [['stripsV', __( 'Vertical strips', 'kaosslider' )], ['stripsH', __( 'Horizontal strips', 'kaosslider' )], ['blinds', __( 'Blinds', 'kaosslider' )], ['mosaic', __( 'Mosaic', 'kaosslider' )]]],
+		[__( 'Other', 'kaosslider' ), [['random', __( 'Random (different every time)', 'kaosslider' )]]]
 	];
 
 	const EASINGS = [
-		['easeOut', 'Morbido in arrivo'], ['easeInOut', 'Morbido'], ['easeIn', 'Accelerato'], ['expo', 'Esponenziale'],
-		['back', 'Rimbalzo leggero'], ['linear', 'Lineare'], ['ease', 'Standard']
+		['easeOut', __( 'Smooth landing', 'kaosslider' )], ['easeInOut', _x( 'Smooth', 'easing', 'kaosslider' )], ['easeIn', __( 'Accelerating', 'kaosslider' )], ['expo', __( 'Exponential', 'kaosslider' )],
+		['back', __( 'Slight bounce', 'kaosslider' )], ['linear', __( 'Linear', 'kaosslider' )], ['ease', __( 'Standard', 'kaosslider' )]
 	];
 	const POSITIONS_LABEL = {
-		'left top': 'In alto a sinistra', 'center top': 'In alto al centro', 'right top': 'In alto a destra',
-		'left center': 'Al centro a sinistra', 'center center': 'Centro', 'right center': 'Al centro a destra',
-		'left bottom': 'In basso a sinistra', 'center bottom': 'In basso al centro', 'right bottom': 'In basso a destra'
+		'left top': __( 'Top left', 'kaosslider' ), 'center top': __( 'Top centre', 'kaosslider' ), 'right top': __( 'Top right', 'kaosslider' ),
+		'left center': __( 'Centre left', 'kaosslider' ), 'center center': __( 'Centre', 'kaosslider' ), 'right center': __( 'Centre right', 'kaosslider' ),
+		'left bottom': __( 'Bottom left', 'kaosslider' ), 'center bottom': __( 'Bottom centre', 'kaosslider' ), 'right bottom': __( 'Bottom right', 'kaosslider' )
 	};
 	const FONT_SUGGESTIONS = [
 		'var(--e-global-typography-primary-font-family)', 'var(--e-global-typography-secondary-font-family)',
@@ -118,7 +120,7 @@
 			body: opts.body ? JSON.stringify(opts.body) : undefined,
 			credentials: 'same-origin'
 		}).then((r) => r.json().then((json) => {
-			if (!r.ok) { throw new Error(json && json.message ? json.message : 'Errore ' + r.status); }
+			if (!r.ok) { throw new Error(json && json.message ? json.message : ( __( 'Error', 'kaosslider' ) + ' ' ) + r.status); }
 			return json;
 		}));
 	}
@@ -190,12 +192,12 @@
 			}
 		};
 		if (type === 'text') {
-			Object.assign(l, { tag: 'h2', content: 'Il tuo titolo qui' });
+			Object.assign(l, { tag: 'h2', content: __( 'Your headline here', 'kaosslider' ) });
 			Object.assign(l.resp.desktop, { fs: 56 });
 			Object.assign(l.style, { fontWeight: '700', lineHeight: 1.1 });
 		}
 		if (type === 'button') {
-			Object.assign(l, { content: 'Scopri di più', link: '#' });
+			Object.assign(l, { content: __( 'Learn more', 'kaosslider' ), link: '#' });
 			Object.assign(l.resp.desktop, { fs: 16, y: 65 });
 			Object.assign(l.style, { color: '#111111', bg: '#ffffff', fontWeight: '600', padV: 14, padH: 34, radius: 40, hoverColor: '#ffffff', hoverBg: '#111111', lineHeight: 1.2 });
 			l.anim.in.effect = 'fadeUp';
@@ -225,14 +227,14 @@
 	function cloneLayer(l) {
 		const c = clone(l);
 		c.id = uid('l');
-		c.name = l.name + ' copia';
+		c.name = l.name + ( ' ' + __( 'copy', 'kaosslider' ) );
 		return c;
 	}
 
 	function cloneSlide(sl) {
 		const c = clone(sl);
 		c.id = uid('s');
-		c.name = sl.name + ' copia';
+		c.name = sl.name + ( ' ' + __( 'copy', 'kaosslider' ) );
 		c.layers.forEach((l) => { l.id = uid('l'); });
 		return c;
 	}
@@ -247,11 +249,11 @@
 	const GLASS_DEFAULTS = { glassBlur: 30, glassSaturate: 180, glassBright: 108, glassEdge: 45, glassShine: 25, glassGrain: 0, glassDepth: 30 };
 	// Stili di partenza per il vetro: impostano solo i cursori, poi si personalizza.
 	const GLASS_PRESETS = [
-		['soft', 'Leggero', { glassBlur: 12, glassSaturate: 140, glassBright: 105, glassEdge: 25, glassShine: 10, glassGrain: 0, glassDepth: 15, bg: 'rgba(255,255,255,0.1)' }],
-		['light', 'Chiaro', { glassBlur: 30, glassSaturate: 180, glassBright: 110, glassEdge: 50, glassShine: 25, glassGrain: 12, glassDepth: 30, bg: 'rgba(255,255,255,0.18)' }],
-		['dark', 'Scuro', { glassBlur: 30, glassSaturate: 160, glassBright: 80, glassEdge: 25, glassShine: 10, glassGrain: 12, glassDepth: 40, bg: 'rgba(20,20,24,0.35)' }],
-		['frost', 'Ghiaccio', { glassBlur: 60, glassSaturate: 120, glassBright: 115, glassEdge: 60, glassShine: 35, glassGrain: 25, glassDepth: 20, bg: 'rgba(230,240,255,0.25)' }],
-		['liquid', 'Liquido', { glassBlur: 8, glassSaturate: 200, glassBright: 105, glassEdge: 90, glassShine: 45, glassGrain: 0, glassDepth: 35, bg: 'rgba(255,255,255,0.06)' }]
+		['soft', _x( 'Subtle', 'glass style', 'kaosslider' ), { glassBlur: 12, glassSaturate: 140, glassBright: 105, glassEdge: 25, glassShine: 10, glassGrain: 0, glassDepth: 15, bg: 'rgba(255,255,255,0.1)' }],
+		['light', _x( 'Light', 'glass style', 'kaosslider' ), { glassBlur: 30, glassSaturate: 180, glassBright: 110, glassEdge: 50, glassShine: 25, glassGrain: 12, glassDepth: 30, bg: 'rgba(255,255,255,0.18)' }],
+		['dark', _x( 'Dark', 'glass style', 'kaosslider' ), { glassBlur: 30, glassSaturate: 160, glassBright: 80, glassEdge: 25, glassShine: 10, glassGrain: 12, glassDepth: 40, bg: 'rgba(20,20,24,0.35)' }],
+		['frost', _x( 'Frost', 'glass style', 'kaosslider' ), { glassBlur: 60, glassSaturate: 120, glassBright: 115, glassEdge: 60, glassShine: 35, glassGrain: 25, glassDepth: 20, bg: 'rgba(230,240,255,0.25)' }],
+		['liquid', _x( 'Liquid', 'glass style', 'kaosslider' ), { glassBlur: 8, glassSaturate: 200, glassBright: 105, glassEdge: 90, glassShine: 45, glassGrain: 0, glassDepth: 35, bg: 'rgba(255,255,255,0.06)' }]
 	];
 	const grain = (amount) => `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 ${r3(amount / 100 * 0.3)}'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E")`;
 	// Specchio di KaosSlider_Render::glass_props.
@@ -463,36 +465,36 @@
 		root.innerHTML = '';
 
 		$.title = h('input', {
-			class: 'kse-title', type: 'text', value: S.title, 'aria-label': 'Nome slider',
+			class: 'kse-title', type: 'text', value: S.title, 'aria-label': __( 'Slider name', 'kaosslider' ),
 			oninput: (e) => change(() => { S.title = e.target.value; }, { only: [] })
 		});
-		$.devices = h('div', { class: 'kse-seg kse-devices', role: 'group', 'aria-label': 'Dispositivo' },
+		$.devices = h('div', { class: 'kse-seg kse-devices', role: 'group', 'aria-label': __( 'Device', 'kaosslider' ) },
 			DEVICES.map((d) => h('button', {
 				type: 'button', 'data-dev': d, title: DEVICE_LABEL[d],
 				onclick: () => { S.device = d; refresh({ skip: ['slides'] }); }
 			}, icon(DEVICE_ICON[d])))
 		);
-		$.undo = h('button', { type: 'button', class: 'kse-btn kse-icon', title: 'Annulla (Ctrl+Z)', onclick: undo }, icon('undo'));
-		$.redo = h('button', { type: 'button', class: 'kse-btn kse-icon', title: 'Ripeti (Ctrl+Shift+Z)', onclick: redo }, icon('redo'));
+		$.undo = h('button', { type: 'button', class: 'kse-btn kse-icon', title: __( 'Undo (Ctrl+Z)', 'kaosslider' ), onclick: undo }, icon('undo'));
+		$.redo = h('button', { type: 'button', class: 'kse-btn kse-icon', title: __( 'Redo (Ctrl+Shift+Z)', 'kaosslider' ), onclick: redo }, icon('redo'));
 		$.zoom = h('select', {
-			class: 'kse-zoom', title: 'Zoom',
+			class: 'kse-zoom', title: __( 'Zoom', 'kaosslider' ),
 			onchange: (e) => { S.zoom = e.target.value; fitZoom(); }
-		}, [['fit', 'Adatta'], ['50', '50%'], ['75', '75%'], ['100', '100%']].map(([v, t]) => h('option', { value: v }, t)));
+		}, [['fit', __( 'Fit', 'kaosslider' )], ['50', '50%'], ['75', '75%'], ['100', '100%']].map(([v, t]) => h('option', { value: v }, t)));
 		$.play = h('button', { type: 'button', class: 'kse-btn', onclick: () => (S.playing ? stopPlay() : playSlide()) });
-		$.preview = h('button', { type: 'button', class: 'kse-btn', title: 'Salva e apri l\'anteprima sul sito', onclick: openPreview }, icon('external'), ' Anteprima');
+		$.preview = h('button', { type: 'button', class: 'kse-btn', title: __( 'Save and open the preview on the site', 'kaosslider' ), onclick: openPreview }, icon('external'), ( ' ' + __( 'Preview', 'kaosslider' ) ));
 		$.settingsBtn = h('button', {
 			type: 'button', class: 'kse-btn',
 			onclick: () => { S.panel = S.panel === 'settings' ? 'auto' : 'settings'; renderProps(); updateTopbar(); }
-		}, icon('admin-generic'), ' Impostazioni');
+		}, icon('admin-generic'), ( ' ' + __( 'Settings', 'kaosslider' ) ));
 		const sc = '[kaosslider id="' + S.id + '"]';
 		$.shortcode = h('button', {
-			type: 'button', class: 'kse-btn kse-code', title: 'Copia shortcode',
-			onclick: () => navigator.clipboard.writeText(sc).then(() => toast('Shortcode copiato'))
+			type: 'button', class: 'kse-btn kse-code', title: __( 'Copy shortcode', 'kaosslider' ),
+			onclick: () => navigator.clipboard.writeText(sc).then(() => toast(__( 'Shortcode copied', 'kaosslider' )))
 		}, sc);
-		$.save = h('button', { type: 'button', class: 'kse-btn kse-primary', onclick: () => save() }, 'Salva');
+		$.save = h('button', { type: 'button', class: 'kse-btn kse-primary', onclick: () => save() }, __( 'Save', 'kaosslider' ));
 
 		const top = h('div', { class: 'kse-top' },
-			h('a', { class: 'kse-btn kse-icon', href: C.adminUrl, title: 'Torna all\'elenco' }, icon('arrow-left-alt')),
+			h('a', { class: 'kse-btn kse-icon', href: C.adminUrl, title: __( 'Back to the list', 'kaosslider' ) }, icon('arrow-left-alt')),
 			h('img', { class: 'kse-mark', src: C.markUrl, alt: 'KaosSlider' }),
 			$.title,
 			h('div', { class: 'kse-top-group' }, $.devices),
@@ -524,9 +526,9 @@
 		$.undo.disabled = undoStack.length < 2;
 		$.redo.disabled = !redoStack.length;
 		$.play.innerHTML = '';
-		$.play.append(icon(S.playing ? 'controls-pause' : 'controls-play'), S.playing ? ' Stop' : ' Riproduci');
+		$.play.append(icon(S.playing ? 'controls-pause' : 'controls-play'), S.playing ? ( ' ' + __( 'Stop', 'kaosslider' ) ) : ( ' ' + __( 'Play', 'kaosslider' ) ));
 		$.settingsBtn.classList.toggle('is-active', S.panel === 'settings');
-		if (!S.saving) { $.save.textContent = S.dirty ? 'Salva •' : 'Salvato'; }
+		if (!S.saving) { $.save.textContent = S.dirty ? __( 'Save •', 'kaosslider' ) : __( 'Saved', 'kaosslider' ); }
 		$.save.classList.toggle('is-dirty', S.dirty);
 	}
 
@@ -540,7 +542,7 @@
 			const tab = h('div', {
 				class: 'kse-slide-tab' + (i === S.slide ? ' is-active' : '') + (sl.hidden ? ' is-hidden' : ''),
 				draggable: 'true',
-				title: 'Trascina per riordinare',
+				title: __( 'Drag to reorder', 'kaosslider' ),
 				onclick: (e) => {
 					if (e.target.closest('button')) { return; }
 					S.slide = i;
@@ -564,12 +566,12 @@
 			h('span', { class: 'kse-slide-name' }, sl.name),
 			sl.hidden ? icon('hidden') : null,
 			i === S.slide ? h('span', { class: 'kse-slide-actions' },
-				h('button', { type: 'button', title: 'Duplica slide', onclick: () => change(() => { S.data.slides.splice(i + 1, 0, cloneSlide(sl)); S.slide = i + 1; S.sel = null; }, { immediate: true }) }, icon('admin-page')),
-				h('button', { type: 'button', title: sl.hidden ? 'Mostra slide' : 'Nascondi slide', onclick: () => change(() => { sl.hidden = !sl.hidden; }, { immediate: true }) }, icon(sl.hidden ? 'visibility' : 'hidden')),
+				h('button', { type: 'button', title: __( 'Duplicate slide', 'kaosslider' ), onclick: () => change(() => { S.data.slides.splice(i + 1, 0, cloneSlide(sl)); S.slide = i + 1; S.sel = null; }, { immediate: true }) }, icon('admin-page')),
+				h('button', { type: 'button', title: sl.hidden ? __( 'Show slide', 'kaosslider' ) : __( 'Hide slide', 'kaosslider' ), onclick: () => change(() => { sl.hidden = !sl.hidden; }, { immediate: true }) }, icon(sl.hidden ? 'visibility' : 'hidden')),
 				S.data.slides.length > 1 ? h('button', {
-					type: 'button', title: 'Elimina slide',
+					type: 'button', title: __( 'Delete slide', 'kaosslider' ),
 					onclick: () => {
-						if (!window.confirm('Eliminare la slide "' + sl.name + '"?')) { return; }
+						if (!window.confirm(sprintf( __( 'Delete the slide "%s"?', 'kaosslider' ), sl.name ))) { return; }
 						change(() => { S.data.slides.splice(i, 1); S.slide = clamp(i - 1, 0, S.data.slides.length - 1); S.sel = null; }, { immediate: true });
 					}
 				}, icon('trash')) : null
@@ -581,12 +583,12 @@
 			onclick: () => change(() => {
 				const sl = clone(C.newSlide);
 				sl.id = uid('s');
-				sl.name = 'Slide ' + (S.data.slides.length + 1);
+				sl.name = sprintf( __( 'Slide %d', 'kaosslider' ), S.data.slides.length + 1 );
 				S.data.slides.push(sl);
 				S.slide = S.data.slides.length - 1;
 				S.sel = null;
 			}, { immediate: true })
-		}, icon('plus-alt2'), ' Slide'));
+		}, icon('plus-alt2'), ( ' ' + __( 'Slide', 'kaosslider' ) )));
 	}
 
 	/* ================= Pannello livelli ================= */
@@ -624,18 +626,18 @@
 		const box = $.left;
 		box.innerHTML = '';
 		box.append(
-			h('div', { class: 'kse-panel-title' }, 'Aggiungi livello'),
+			h('div', { class: 'kse-panel-title' }, __( 'Add layer', 'kaosslider' )),
 			h('div', { class: 'kse-add-grid' },
 				['text', 'button', 'image', 'shape', 'draw', 'film'].map((t) => h('button', { type: 'button', class: 'kse-add-btn', onclick: () => addLayer(t) }, icon(TYPE_ICON[t]), h('span', null, TYPE_LABEL[t])))
 			),
-			h('div', { class: 'kse-panel-title' }, 'Livelli', h('small', null, 'in alto = in primo piano'))
+			h('div', { class: 'kse-panel-title' }, __( 'Layers', 'kaosslider' ), h('small', null, __( 'top = in front', 'kaosslider' )))
 		);
 
 		const list = h('div', { class: 'kse-layer-list' });
 		const layers = slide().layers;
 		let dragFrom = null;
 		if (!layers.length) {
-			list.append(h('p', { class: 'kse-empty' }, 'Nessun livello. Aggiungi un testo, un bottone, un\'immagine o una forma.'));
+			list.append(h('p', { class: 'kse-empty' }, __( 'No layers yet. Add a text, a button, an image or a shape.', 'kaosslider' )));
 		}
 		layers.slice().reverse().forEach((l) => {
 			const idx = layers.indexOf(l);
@@ -658,21 +660,21 @@
 			},
 			icon(TYPE_ICON[l.type]),
 			h('span', { class: 'kse-layer-name', title: l.name }, l.name),
-			h('button', { type: 'button', title: 'Duplica', onclick: () => duplicateLayer(l) }, icon('admin-page')),
-			h('button', { type: 'button', title: l.hidden ? 'Mostra' : 'Nascondi', class: l.hidden ? 'is-on' : '', onclick: () => change(() => { l.hidden = !l.hidden; }, { immediate: true }) }, icon(l.hidden ? 'hidden' : 'visibility')),
-			h('button', { type: 'button', title: l.locked ? 'Sblocca' : 'Blocca', class: l.locked ? 'is-on' : '', onclick: () => change(() => { l.locked = !l.locked; }, { immediate: true }) }, icon(l.locked ? 'lock' : 'unlock')),
-			h('button', { type: 'button', title: 'Elimina', onclick: () => deleteLayer(l.id) }, icon('trash')));
+			h('button', { type: 'button', title: __( 'Duplicate', 'kaosslider' ), onclick: () => duplicateLayer(l) }, icon('admin-page')),
+			h('button', { type: 'button', title: l.hidden ? __( 'Show', 'kaosslider' ) : __( 'Hide', 'kaosslider' ), class: l.hidden ? 'is-on' : '', onclick: () => change(() => { l.hidden = !l.hidden; }, { immediate: true }) }, icon(l.hidden ? 'hidden' : 'visibility')),
+			h('button', { type: 'button', title: l.locked ? __( 'Unlock', 'kaosslider' ) : __( 'Lock', 'kaosslider' ), class: l.locked ? 'is-on' : '', onclick: () => change(() => { l.locked = !l.locked; }, { immediate: true }) }, icon(l.locked ? 'lock' : 'unlock')),
+			h('button', { type: 'button', title: __( 'Delete', 'kaosslider' ), onclick: () => deleteLayer(l.id) }, icon('trash')));
 			list.append(item);
 		});
 		box.append(list);
 		box.append(h('div', { class: 'kse-shortcuts' },
-			h('strong', null, 'Scorciatoie'),
-			h('div', null, 'Doppio clic: modifica testo'),
+			h('strong', null, __( 'Shortcuts', 'kaosslider' )),
+			h('div', null, __( 'Double click: edit text', 'kaosslider' )),
 			h('div', null, 'Frecce: sposta (Shift = 10px)'),
-			h('div', null, 'Ctrl+C / Ctrl+V: copia/incolla livello'),
-			h('div', null, 'Ctrl+D: duplica · Canc: elimina'),
-			h('div', null, 'Shift durante il trascinamento: niente aggancio'),
-			h('div', null, 'Tasto destro: menu rapido')
+			h('div', null, __( 'Ctrl+C / Ctrl+V: copy/paste layer', 'kaosslider' )),
+			h('div', null, __( 'Ctrl+D: duplicate · Del: delete', 'kaosslider' )),
+			h('div', null, __( 'Shift while dragging: no snapping', 'kaosslider' )),
+			h('div', null, __( 'Right click: quick menu', 'kaosslider' ))
 		));
 	}
 
@@ -726,7 +728,7 @@
 			inner = h('div', {
 				class: 'ks-inner ks-film' + (fm.perforations ? ' ks-film-perf' : '') + (fm.grayscale ? ' ks-film-gray' : '') + (fm.pauseHover ? ' ks-film-hover' : ''),
 				'data-speed': fm.speed, 'data-dir': fm.direction
-			}, fm.images.length ? h('div', { class: 'ks-film-track' }, items) : h('div', { class: 'kse-img-ph' }, icon('images-alt2'), ' Aggiungi le immagini'));
+			}, fm.images.length ? h('div', { class: 'ks-film-track' }, items) : h('div', { class: 'kse-img-ph' }, icon('images-alt2'), ( ' ' + __( 'Add the images', 'kaosslider' ) )));
 		} else {
 			inner = h('div', { class: 'ks-inner ks-shape' });
 		}
@@ -764,10 +766,10 @@
 	function drawContent(l) {
 		const dr = l.draw;
 		const box = h('div');
-		box.append(section('Disegno',
-			field('Cosa disegnare', segCtl(dr.mode, [['shape', 'Forma'], ['text', 'Testo']], liveNow((v) => {
+		box.append(section(__( 'Drawing', 'kaosslider' ),
+			field(__( 'What to draw', 'kaosslider' ), segCtl(dr.mode, [['shape', __( 'Shape', 'kaosslider' )], ['text', _x( 'Text', 'layer type', 'kaosslider' )]], liveNow((v) => {
 				dr.mode = v;
-				if (v === 'text' && !l.content) { l.content = 'Firma'; }
+				if (v === 'text' && !l.content) { l.content = __( 'Signature', 'kaosslider' ); }
 				if (v === 'text' && (l.resp.desktop.fs || 0) < 40) { l.resp.desktop.fs = 90; }
 			})))
 		));
@@ -776,23 +778,23 @@
 				type: 'button', class: key === dr.shape ? 'is-active' : '', title: s.label,
 				onclick: () => change(() => { dr.shape = key; }, { immediate: true })
 			}, svgFromString('<svg viewBox="0 0 200 100" preserveAspectRatio="none"><path d="' + s.d + '" vector-effect="non-scaling-stroke"/></svg>'), h('span', null, s.label))));
-			box.append(section('Forma', grid));
+			box.append(section(__( 'Shape', 'kaosslider' ), grid));
 		} else {
-			box.append(section('Testo',
-				field('Testo da disegnare', textCtl(l.content, live((v) => { l.content = v; }))),
-				h('p', { class: 'kse-hint' }, 'Font e colore di riempimento si scelgono nella scheda Stile. I font calligrafici (es. "Dancing Script", "Caveat") rendono l\'effetto firma.')));
+			box.append(section(_x( 'Text', 'layer type', 'kaosslider' ),
+				field(__( 'Text to draw', 'kaosslider' ), textCtl(l.content, live((v) => { l.content = v; }))),
+				h('p', { class: 'kse-hint' }, __( 'Font and fill colour are chosen in the Style tab. Handwriting fonts (e.g. "Dancing Script", "Caveat") give the signature effect.', 'kaosslider' ))));
 		}
-		box.append(section('Tratto',
-			field('Colore', colorCtl(dr.stroke, live((v) => { dr.stroke = v; }))),
-			field('Spessore', rangeCtl(dr.width, live((v) => { dr.width = v; }), { min: 0.5, max: 40, step: 0.5 })),
-			field('', toggleCtl(dr.chalk, liveNow((v) => { dr.chalk = v; }), 'Effetto gesso'), { help: 'Bordi irregolari, come un tratto di gesso o pennarello.' }),
-			dr.mode === 'text' ? field('', toggleCtl(dr.fillAfter, liveNow((v) => { dr.fillAfter = v; }), 'Riempi il testo dopo il tratto')) : null,
-			h('p', { class: 'kse-hint' }, 'Velocità e ritardo del tratto: scheda Animazione, effetto "Disegno a mano".')));
+		box.append(section(__( 'Stroke', 'kaosslider' ),
+			field(__( 'Colour', 'kaosslider' ), colorCtl(dr.stroke, live((v) => { dr.stroke = v; }))),
+			field(__( 'Thickness', 'kaosslider' ), rangeCtl(dr.width, live((v) => { dr.width = v; }), { min: 0.5, max: 40, step: 0.5 })),
+			field('', toggleCtl(dr.chalk, liveNow((v) => { dr.chalk = v; }), __( 'Chalk effect', 'kaosslider' )), { help: __( 'Rough edges, like a chalk or marker stroke.', 'kaosslider' ) }),
+			dr.mode === 'text' ? field('', toggleCtl(dr.fillAfter, liveNow((v) => { dr.fillAfter = v; }), __( 'Fill the text after the stroke', 'kaosslider' ))) : null,
+			h('p', { class: 'kse-hint' }, __( 'Stroke speed and delay: Animation tab, "Hand drawing" effect.', 'kaosslider' ))));
 		return box;
 	}
 
 	function pickMediaMulti(cb) {
-		const frame = wp.media({ title: 'Scegli le immagini della pellicola', library: { type: 'image' }, multiple: 'add', button: { text: 'Aggiungi alla pellicola' } });
+		const frame = wp.media({ title: __( 'Choose the filmstrip images', 'kaosslider' ), library: { type: 'image' }, multiple: 'add', button: { text: __( 'Add to the filmstrip', 'kaosslider' ) } });
 		frame.on('select', () => cb(frame.state().get('selection').toJSON()));
 		frame.open();
 	}
@@ -800,21 +802,21 @@
 	function filmContent(l) {
 		const fm = l.film;
 		const list = h('div', { class: 'kse-film-list' }, fm.images.map((src, i) => h('div', { class: 'kse-film-thumb', style: { backgroundImage: 'url("' + src + '")' } },
-			h('button', { type: 'button', title: 'Sposta a sinistra', disabled: i === 0, onclick: () => change(() => { fm.images.splice(i - 1, 0, fm.images.splice(i, 1)[0]); }, { immediate: true }) }, icon('arrow-left-alt2')),
-			h('button', { type: 'button', title: 'Rimuovi', onclick: () => change(() => { fm.images.splice(i, 1); }, { immediate: true }) }, icon('no-alt')))));
-		return section('Pellicola',
+			h('button', { type: 'button', title: __( 'Move left', 'kaosslider' ), disabled: i === 0, onclick: () => change(() => { fm.images.splice(i - 1, 0, fm.images.splice(i, 1)[0]); }, { immediate: true }) }, icon('arrow-left-alt2')),
+			h('button', { type: 'button', title: __( 'Remove', 'kaosslider' ), onclick: () => change(() => { fm.images.splice(i, 1); }, { immediate: true }) }, icon('no-alt')))));
+		return section(__( 'Filmstrip', 'kaosslider' ),
 			list,
 			h('button', {
 				type: 'button', class: 'kse-btn kse-primary-ghost',
 				onclick: () => pickMediaMulti((sel) => change(() => { sel.forEach((a) => fm.images.push(a.url)); }, { immediate: true }))
-			}, icon('plus-alt2'), ' Aggiungi immagini'),
-			field('Velocità', rangeCtl(fm.speed, live((v) => { fm.speed = v; }), { min: 2, max: 400, step: 1 }), { help: 'Pixel al secondo.' }),
-			field('Direzione', segCtl(fm.direction, [['left', '← Verso sinistra'], ['right', 'Verso destra →']], liveNow((v) => { fm.direction = v; }))),
-			field('Spazio tra le immagini', numCtl(fm.gap, live((v) => { fm.gap = v; }), { min: 0, max: 200, unit: 'px' })),
-			field('', toggleCtl(fm.perforations, liveNow((v) => { fm.perforations = v; }), 'Bordi da pellicola cinematografica')),
-			field('', toggleCtl(fm.grayscale, liveNow((v) => { fm.grayscale = v; }), 'Bianco e nero (colore al passaggio del mouse)')),
-			field('', toggleCtl(fm.pauseHover, liveNow((v) => { fm.pauseHover = v; }), 'Pausa al passaggio del mouse')),
-			h('p', { class: 'kse-hint' }, 'Altezza e larghezza nella scheda Posizione (consigliata la modalità "Larghezza piena").'));
+			}, icon('plus-alt2'), ( ' ' + __( 'Add images', 'kaosslider' ) )),
+			field(__( 'Speed', 'kaosslider' ), rangeCtl(fm.speed, live((v) => { fm.speed = v; }), { min: 2, max: 400, step: 1 }), { help: __( 'Pixels per second.', 'kaosslider' ) }),
+			field(__( 'Direction', 'kaosslider' ), segCtl(fm.direction, [['left', __( '← To the left', 'kaosslider' )], ['right', __( 'To the right →', 'kaosslider' )]], liveNow((v) => { fm.direction = v; }))),
+			field(__( 'Space between images', 'kaosslider' ), numCtl(fm.gap, live((v) => { fm.gap = v; }), { min: 0, max: 200, unit: 'px' })),
+			field('', toggleCtl(fm.perforations, liveNow((v) => { fm.perforations = v; }), __( 'Film perforations', 'kaosslider' ))),
+			field('', toggleCtl(fm.grayscale, liveNow((v) => { fm.grayscale = v; }), __( 'Black and white (colour on hover)', 'kaosslider' ))),
+			field('', toggleCtl(fm.pauseHover, liveNow((v) => { fm.pauseHover = v; }), __( 'Pause on hover', 'kaosslider' ))),
+			h('p', { class: 'kse-hint' }, __( 'Height and width in the Position tab ("Full width" mode recommended).', 'kaosslider' )));
 	}
 
 	/* Effetto animato della slide nel canvas (stesso motore del sito). */
@@ -840,54 +842,54 @@
 		const N = (fn) => liveNow(fn);
 		const add = (...els) => els.forEach((e) => { if (e) { box.append(e); } });
 		const HELP = {
-			fluid: 'Inchiostro colorato che si muove e si mescola seguendo il mouse. Con "Spruzzi automatici" si anima anche da solo.',
-			rays: 'Fasci di luce che partono da un punto e ondeggiano lentamente. Si fondono con la slide in modalità "schiarisci".',
-			morph: 'Migliaia di particelle compongono le parole una dopo l\'altra; il mouse le scompone.',
-			liquid: 'L\'immagine di sfondo si deforma come un liquido al passaggio del mouse. Usa l\'immagine di sfondo della slide, oppure una scelta qui.',
-			panorama: 'Foto sferica a 360° (formato equirettangolare 2:1) che si gira trascinando. Gira da sola quando nessuno la tocca.'
+			fluid: __( 'Coloured ink that moves and mixes following the mouse. With "Automatic splashes" it also animates on its own.', 'kaosslider' ),
+			rays: __( 'Light beams that start from a point and sway slowly. They blend with the slide in "screen" mode.', 'kaosslider' ),
+			morph: __( 'Thousands of particles form the words one after another; the mouse scatters them.', 'kaosslider' ),
+			liquid: __( 'The background image ripples like a liquid on hover. It uses the slide background image, or one chosen here.', 'kaosslider' ),
+			panorama: __( '360° spherical photo (2:1 equirectangular format) that turns when dragged. It rotates on its own when nobody touches it.', 'kaosslider' )
 		};
 		add(h('p', { class: 'kse-hint' }, HELP[t]));
 		if (t === 'morph') {
-			add(field('Parole', textCtl(fx.text, L((v) => { fx.text = v; })), { help: 'Separale con | (es. CIAO|BENVENUTI|♥). Anche simboli come ★ ● ♥.' }),
-				field('Cambio ogni', numCtl(fx.interval, L((v) => { fx.interval = v; }), { min: 1, max: 60, step: 0.5, unit: 's' })),
-				field('Font', textCtl(fx.font, L((v) => { fx.font = v; }), { placeholder: 'Arial Black, sans-serif' }), { help: 'Un font del sistema o già caricato nella pagina.' }),
-				field('Quantità', rangeCtl(fx.count, L((v) => { fx.count = v; }), { min: 20, max: 400, step: 5 }), { help: '× 20 particelle.' }));
+			add(field(__( 'Words', 'kaosslider' ), textCtl(fx.text, L((v) => { fx.text = v; })), { help: __( 'Separate them with | (e.g. HELLO|WELCOME|♥). Symbols like ★ ● ♥ work too.', 'kaosslider' ) }),
+				field(__( 'Change every', 'kaosslider' ), numCtl(fx.interval, L((v) => { fx.interval = v; }), { min: 1, max: 60, step: 0.5, unit: 's' })),
+				field(__( 'Font', 'kaosslider' ), textCtl(fx.font, L((v) => { fx.font = v; }), { placeholder: 'Arial Black, sans-serif' }), { help: __( 'A system font or one already loaded on the page.', 'kaosslider' ) }),
+				field(__( 'Amount', 'kaosslider' ), rangeCtl(fx.count, L((v) => { fx.count = v; }), { min: 20, max: 400, step: 5 }), { help: __( '× 20 particles.', 'kaosslider' ) }));
 		}
 		if (t === 'panorama' || t === 'liquid') {
-			add(field(t === 'panorama' ? 'Immagine 360°' : 'Immagine (facoltativa)', mediaCtl(fx.image, 'image', N((v) => { fx.image = v; })), { wide: true }));
+			add(field(t === 'panorama' ? __( '360° image', 'kaosslider' ) : __( 'Image (optional)', 'kaosslider' ), mediaCtl(fx.image, 'image', N((v) => { fx.image = v; })), { wide: true }));
 		}
 		if (t !== 'panorama' && t !== 'liquid') {
-			add(field('Colore', colorCtl(fx.color === 'multi' ? '' : fx.color, L((v) => { fx.color = v || 'multi'; }), true, { alpha: false }),
-				{ help: t === 'rays' ? 'Colore della luce.' : 'Più colori separati da virgola; vuoto = arcobaleno.' }));
+			add(field(__( 'Colour', 'kaosslider' ), colorCtl(fx.color === 'multi' ? '' : fx.color, L((v) => { fx.color = v || 'multi'; }), true, { alpha: false }),
+				{ help: t === 'rays' ? __( 'Light colour.', 'kaosslider' ) : __( 'Several colours separated by commas; empty = rainbow.', 'kaosslider' ) }));
 		}
 		if (t === 'rays') {
-			add(field('Sorgente orizzontale', rangeCtl(fx.x, L((v) => { fx.x = v; }), { min: 0, max: 100, step: 1 }), { help: '%: 0 = sinistra, 100 = destra.' }),
-				field('Sorgente verticale', rangeCtl(fx.y, L((v) => { fx.y = v; }), { min: 0, max: 100, step: 1 }), { help: '%: 0 = in alto, 100 = in basso.' }));
+			add(field(__( 'Horizontal source', 'kaosslider' ), rangeCtl(fx.x, L((v) => { fx.x = v; }), { min: 0, max: 100, step: 1 }), { help: __( '%: 0 = left, 100 = right.', 'kaosslider' ) }),
+				field(__( 'Vertical source', 'kaosslider' ), rangeCtl(fx.y, L((v) => { fx.y = v; }), { min: 0, max: 100, step: 1 }), { help: __( '%: 0 = top, 100 = bottom.', 'kaosslider' ) }));
 		}
 		if (t === 'panorama') {
-			add(field('Direzione iniziale', rangeCtl(fx.x, L((v) => { fx.x = v; }), { min: 0, max: 100, step: 1 })));
+			add(field(__( 'Starting direction', 'kaosslider' ), rangeCtl(fx.x, L((v) => { fx.x = v; }), { min: 0, max: 100, step: 1 })));
 		}
-		const sizeLabel = { fluid: 'Dimensione spruzzi e vortici', rays: 'Numero di raggi', morph: 'Dimensione particelle', liquid: 'Raggio della distorsione', panorama: 'Zoom (campo visivo)' }[t];
+		const sizeLabel = { fluid: __( 'Splash and swirl size', 'kaosslider' ), rays: __( 'Number of rays', 'kaosslider' ), morph: __( 'Particle size', 'kaosslider' ), liquid: __( 'Distortion radius', 'kaosslider' ), panorama: __( 'Zoom (field of view)', 'kaosslider' ) }[t];
 		add(field(sizeLabel, rangeCtl(fx.size, L((v) => { fx.size = v; }), { min: 0.5, max: 12, step: 0.5 })));
 		if (t !== 'liquid') {
-			add(field({ fluid: 'Durata dell\'inchiostro', rays: 'Velocità', morph: 'Velocità di ricomposizione', panorama: 'Velocità di rotazione' }[t], rangeCtl(fx.speed, L((v) => { fx.speed = v; }), { min: 0.1, max: 4, step: 0.1 })));
+			add(field({ fluid: __( 'Ink duration', 'kaosslider' ), rays: __( 'Speed', 'kaosslider' ), morph: __( 'Reassembly speed', 'kaosslider' ), panorama: __( 'Rotation speed', 'kaosslider' ) }[t], rangeCtl(fx.speed, L((v) => { fx.speed = v; }), { min: 0.1, max: 4, step: 0.1 })));
 		}
 		if (t !== 'panorama' && t !== 'morph') {
-			add(field({ fluid: 'Forza', rays: 'Luminosità', liquid: 'Intensità' }[t], rangeCtl(fx.intensity, L((v) => { fx.intensity = v; }), { min: 0, max: 4, step: 0.1 })));
+			add(field({ fluid: __( 'Strength', 'kaosslider' ), rays: __( 'Brightness', 'kaosslider' ), liquid: __( 'Intensity', 'kaosslider' ) }[t], rangeCtl(fx.intensity, L((v) => { fx.intensity = v; }), { min: 0, max: 4, step: 0.1 })));
 		}
 		if (t !== 'panorama' && t !== 'liquid') {
-			add(field('Opacità', rangeCtl(fx.opacity, L((v) => { fx.opacity = v; }), { min: 0.05, max: 1, step: 0.05 })));
+			add(field(__( 'Opacity', 'kaosslider' ), rangeCtl(fx.opacity, L((v) => { fx.opacity = v; }), { min: 0.05, max: 1, step: 0.05 })));
 		}
 		if (t === 'fluid' || t === 'panorama') {
-			add(field('', toggleCtl(fx.auto, N((v) => { fx.auto = v; }), t === 'fluid' ? 'Spruzzi automatici' : 'Rotazione automatica')));
+			add(field('', toggleCtl(fx.auto, N((v) => { fx.auto = v; }), t === 'fluid' ? __( 'Automatic splashes', 'kaosslider' ) : __( 'Automatic rotation', 'kaosslider' ))));
 		}
 		if (t !== 'panorama') {
-			add(field('', toggleCtl(fx.interactive, N((v) => { fx.interactive = v; }), 'Reagisce al mouse')));
+			add(field('', toggleCtl(fx.interactive, N((v) => { fx.interactive = v; }), __( 'Reacts to the mouse', 'kaosslider' ))));
 		}
 		if (t === 'fluid' || t === 'rays' || t === 'morph') {
-			add(field('', toggleCtl(fx.front, N((v) => { fx.front = v; }), 'Davanti ai livelli')));
+			add(field('', toggleCtl(fx.front, N((v) => { fx.front = v; }), __( 'In front of the layers', 'kaosslider' ))));
 		}
-		add(h('p', { class: 'kse-hint' }, 'Effetto WebGL: se il dispositivo non lo supporta resta visibile lo sfondo normale della slide.'));
+		add(h('p', { class: 'kse-hint' }, __( 'WebGL effect: if the device does not support it, the normal slide background stays visible.', 'kaosslider' )));
 		return box;
 	}
 
@@ -913,7 +915,7 @@
 		const nextEl = $.canvas.querySelector('.ks-slide');
 		const prevEl = prevSl
 			? buildSlideEl(prevSl, 'is-leaving')
-			: h('div', { class: 'ks-slide is-leaving', style: { background: '#000' } }, h('div', { class: 'kse-video-badge' }, 'Slide precedente'));
+			: h('div', { class: 'ks-slide is-leaving', style: { background: '#000' } }, h('div', { class: 'kse-video-badge' }, __( 'Previous slide', 'kaosslider' )));
 		if (prevSl) {
 			$.css.textContent += prevSl.layers.map((l) => layerCss('#kse-canvas .ks-l-' + l.id, l, resolve(l, S.device))).join('');
 		}
@@ -1212,46 +1214,46 @@
 		const i = ls.indexOf(l);
 		const el = layerEl(l.id);
 		openContextMenu(e, TYPE_LABEL[l.type] + ': ' + l.name, [
-			{ icon: 'edit', label: 'Contenuto', action: () => openTab(l, 'content') },
-			{ icon: 'art', label: 'Stile', action: () => openTab(l, 'style') },
-			{ icon: 'controls-play', label: 'Animazione', action: () => openTab(l, 'anim') },
-			{ icon: 'move', label: 'Posizione e dimensioni', action: () => openTab(l, 'pos') },
-			(l.type === 'text' || l.type === 'button') && el ? { icon: 'editor-textcolor', label: 'Modifica il testo sul canvas', action: () => startInlineEdit(el) } : null,
-			(l.type === 'image' || l.type === 'button' || l.type === 'text') ? { icon: 'admin-links', label: 'Link', action: () => openTab(l, 'content') } : null,
+			{ icon: 'edit', label: __( 'Content', 'kaosslider' ), action: () => openTab(l, 'content') },
+			{ icon: 'art', label: __( 'Style', 'kaosslider' ), action: () => openTab(l, 'style') },
+			{ icon: 'controls-play', label: __( 'Animation', 'kaosslider' ), action: () => openTab(l, 'anim') },
+			{ icon: 'move', label: __( 'Position and size', 'kaosslider' ), action: () => openTab(l, 'pos') },
+			(l.type === 'text' || l.type === 'button') && el ? { icon: 'editor-textcolor', label: __( 'Edit the text on the canvas', 'kaosslider' ), action: () => startInlineEdit(el) } : null,
+			(l.type === 'image' || l.type === 'button' || l.type === 'text') ? { icon: 'admin-links', label: __( 'Link', 'kaosslider' ), action: () => openTab(l, 'content') } : null,
 			'-',
-			{ icon: 'admin-page', label: 'Duplica', key: 'Ctrl+D', action: () => duplicateLayer(l) },
-			{ icon: 'clipboard', label: 'Copia', key: 'Ctrl+C', action: () => { clipboard = clone(l); toast('Livello copiato'); } },
-			{ icon: 'editor-paste-text', label: 'Incolla', key: 'Ctrl+V', disabled: !clipboard, action: pasteLayer },
+			{ icon: 'admin-page', label: __( 'Duplicate', 'kaosslider' ), key: 'Ctrl+D', action: () => duplicateLayer(l) },
+			{ icon: 'clipboard', label: __( 'Copy', 'kaosslider' ), key: 'Ctrl+C', action: () => { clipboard = clone(l); toast(__( 'Layer copied', 'kaosslider' )); } },
+			{ icon: 'editor-paste-text', label: __( 'Paste', 'kaosslider' ), key: 'Ctrl+V', disabled: !clipboard, action: pasteLayer },
 			'-',
-			{ icon: 'arrow-up-alt', label: 'Porta in primo piano', disabled: i === ls.length - 1, action: () => moveLayer(l, 'front') },
-			{ icon: 'arrow-up-alt2', label: 'Porta avanti', disabled: i === ls.length - 1, action: () => moveLayer(l, 'forward') },
-			{ icon: 'arrow-down-alt2', label: 'Porta indietro', disabled: i === 0, action: () => moveLayer(l, 'backward') },
-			{ icon: 'arrow-down-alt', label: 'Porta in fondo', disabled: i === 0, action: () => moveLayer(l, 'back') },
+			{ icon: 'arrow-up-alt', label: __( 'Bring to front', 'kaosslider' ), disabled: i === ls.length - 1, action: () => moveLayer(l, 'front') },
+			{ icon: 'arrow-up-alt2', label: __( 'Bring forward', 'kaosslider' ), disabled: i === ls.length - 1, action: () => moveLayer(l, 'forward') },
+			{ icon: 'arrow-down-alt2', label: __( 'Send backward', 'kaosslider' ), disabled: i === 0, action: () => moveLayer(l, 'backward') },
+			{ icon: 'arrow-down-alt', label: __( 'Send to back', 'kaosslider' ), disabled: i === 0, action: () => moveLayer(l, 'back') },
 			'-',
-			{ icon: l.locked ? 'unlock' : 'lock', label: l.locked ? 'Sblocca' : 'Blocca', action: () => change(() => { l.locked = !l.locked; }, { immediate: true }) },
-			{ icon: 'hidden', label: 'Nascondi', action: () => change(() => { l.hidden = true; S.sel = null; }, { immediate: true }) },
-			{ icon: 'trash', label: 'Elimina', key: 'Canc', danger: true, action: () => deleteLayer(l.id) }
+			{ icon: l.locked ? 'unlock' : 'lock', label: l.locked ? __( 'Unlock', 'kaosslider' ) : __( 'Lock', 'kaosslider' ), action: () => change(() => { l.locked = !l.locked; }, { immediate: true }) },
+			{ icon: 'hidden', label: __( 'Hide', 'kaosslider' ), action: () => change(() => { l.hidden = true; S.sel = null; }, { immediate: true }) },
+			{ icon: 'trash', label: __( 'Delete', 'kaosslider' ), key: __( 'Del', 'kaosslider' ), danger: true, action: () => deleteLayer(l.id) }
 		]);
 	}
 
 	function slideMenu(e) {
 		const sl = slide();
-		openContextMenu(e, 'Slide: ' + sl.name, [
-			{ icon: 'format-image', label: 'Sfondo della slide', action: () => openSlideSection('Sfondo') },
-			{ icon: 'randomize', label: 'Transizione di entrata', action: () => openSlideSection('Transizione di entrata') },
-			{ icon: 'star-filled', label: 'Effetto animato', action: () => openSlideSection('Effetto animato') },
-			{ icon: 'clock', label: 'Nome e durata', action: () => openSlideSection('Generale') },
+		openContextMenu(e, sprintf( __( 'Slide: %s', 'kaosslider' ), sl.name ), [
+			{ icon: 'format-image', label: __( 'Slide background', 'kaosslider' ), action: () => openSlideSection(__( 'Background', 'kaosslider' )) },
+			{ icon: 'randomize', label: __( 'Entrance transition', 'kaosslider' ), action: () => openSlideSection(__( 'Entrance transition', 'kaosslider' )) },
+			{ icon: 'star-filled', label: __( 'Animated effect', 'kaosslider' ), action: () => openSlideSection(__( 'Animated effect', 'kaosslider' )) },
+			{ icon: 'clock', label: __( 'Name and duration', 'kaosslider' ), action: () => openSlideSection(__( 'General', 'kaosslider' )) },
 			'-',
-			{ icon: 'editor-paste-text', label: 'Incolla livello', key: 'Ctrl+V', disabled: !clipboard, action: pasteLayer },
-			{ icon: 'editor-textcolor', label: 'Aggiungi testo', action: () => addLayer('text') },
-			{ icon: 'button', label: 'Aggiungi bottone', action: () => addLayer('button') },
-			{ icon: 'format-image', label: 'Aggiungi immagine', action: () => addLayer('image') },
-			{ icon: 'marker', label: 'Aggiungi forma', action: () => addLayer('shape') },
-			{ icon: 'art', label: 'Aggiungi disegno', action: () => addLayer('draw') },
-			{ icon: 'images-alt2', label: 'Aggiungi pellicola', action: () => addLayer('film') },
+			{ icon: 'editor-paste-text', label: __( 'Paste layer', 'kaosslider' ), key: 'Ctrl+V', disabled: !clipboard, action: pasteLayer },
+			{ icon: 'editor-textcolor', label: __( 'Add text', 'kaosslider' ), action: () => addLayer('text') },
+			{ icon: 'button', label: __( 'Add button', 'kaosslider' ), action: () => addLayer('button') },
+			{ icon: 'format-image', label: __( 'Add image', 'kaosslider' ), action: () => addLayer('image') },
+			{ icon: 'marker', label: __( 'Add shape', 'kaosslider' ), action: () => addLayer('shape') },
+			{ icon: 'art', label: __( 'Add drawing', 'kaosslider' ), action: () => addLayer('draw') },
+			{ icon: 'images-alt2', label: __( 'Add filmstrip', 'kaosslider' ), action: () => addLayer('film') },
 			'-',
-			{ icon: 'controls-play', label: 'Riproduci la slide', action: playSlide },
-			{ icon: 'admin-generic', label: 'Impostazioni dello slider', action: () => { S.panel = 'settings'; renderProps(); updateTopbar(); } }
+			{ icon: 'controls-play', label: __( 'Play the slide', 'kaosslider' ), action: playSlide },
+			{ icon: 'admin-generic', label: _x( 'Slider settings', 'menu', 'kaosslider' ), action: () => { S.panel = 'settings'; renderProps(); updateTopbar(); } }
 		]);
 	}
 
@@ -1378,16 +1380,16 @@
 		for (let t = 0; t <= total; t += stepMs) {
 			ruler.append(h('span', { class: 'kse-tl-tick' + (t % 1000 ? ' is-minor' : ''), style: { left: pct(t) } }, t % 1000 ? '' : (t / 1000) + 's'));
 		}
-		ruler.append(h('div', { class: 'kse-tl-end', style: { left: pct(dur) }, title: 'Fine slide' }));
+		ruler.append(h('div', { class: 'kse-tl-end', style: { left: pct(dur) }, title: __( 'Slide end', 'kaosslider' ) }));
 
 		const durInput = h('input', {
 			type: 'number', min: 0, step: 100, value: sl.duration, placeholder: String(settings().delay),
-			title: 'Durata di questa slide in millisecondi (vuoto o 0 = durata predefinita dello slider)',
+			title: __( 'Duration of this slide in milliseconds (empty or 0 = slider default duration)', 'kaosslider' ),
 			onchange: (e) => change(() => { sl.duration = Math.max(0, parseInt(e.target.value, 10) || 0); }, { immediate: true })
 		});
 
 		tl.append(h('div', { class: 'kse-tl-head' },
-			h('div', { class: 'kse-tl-label' }, h('strong', null, 'Timeline'), h('label', null, 'Durata ', durInput, ' ms')),
+			h('div', { class: 'kse-tl-label' }, h('strong', null, __( 'Timeline', 'kaosslider' )), h('label', null, __( 'Duration', 'kaosslider' ) + ' ', durInput, ' ms')),
 			h('div', { class: 'kse-tl-track' }, ruler)
 		));
 
@@ -1400,14 +1402,14 @@
 			const bar = h('div', {
 				class: 'kse-tl-bar' + (l.id === S.sel ? ' is-active' : ''),
 				style: { left: pct(a.delay), width: 'calc(' + pct(Math.max(visEnd - a.delay, 50)) + ')' },
-				title: 'Trascina per cambiare il ritardo di entrata'
+				title: __( 'Drag to change the entrance delay', 'kaosslider' )
 			},
 			h('div', { class: 'kse-tl-in', style: { width: Math.min(100, a.duration / Math.max(visEnd - a.delay, 1) * 100) + '%' } },
-				h('span', { class: 'kse-tl-grip', title: 'Durata entrata' })),
+				h('span', { class: 'kse-tl-grip', title: __( 'Entrance duration', 'kaosslider' ) })),
 			o.effect !== 'none' ? h('div', {
 				class: 'kse-tl-out',
 				style: { left: ((outAt - a.delay) / Math.max(visEnd - a.delay, 1) * 100) + '%', right: '0' },
-				title: 'Trascina per cambiare il momento di uscita'
+				title: __( 'Drag to change the exit time', 'kaosslider' )
 			}) : null,
 			h('span', { class: 'kse-tl-text' }, (a.delay / 1000).toFixed(2) + 's'));
 
@@ -1419,7 +1421,7 @@
 			));
 		});
 		if (!sl.layers.length) {
-			rows.append(h('div', { class: 'kse-tl-empty' }, 'Aggiungi dei livelli per vedere la loro timeline.'));
+			rows.append(h('div', { class: 'kse-tl-empty' }, __( 'Add some layers to see their timeline.', 'kaosslider' )));
 		}
 		tl.append(rows);
 		tl.append(h('div', { class: 'kse-tl-overlay' }, h('div', { class: 'kse-tl-playhead' })));
@@ -1528,9 +1530,9 @@
 		const pick = h('input', { type: 'color', value: '#000000' });
 		const fillEl = h('i', { class: 'kse-swatch-fill' });
 		const sw = h('span', { class: 'kse-swatch' }, fillEl, pick);
-		const aRange = h('input', { type: 'range', min: 0, max: 100, step: 1, 'aria-label': 'Opacità del colore' });
+		const aRange = h('input', { type: 'range', min: 0, max: 100, step: 1, 'aria-label': __( 'Colour opacity', 'kaosslider' ) });
 		const aNum = h('input', { type: 'number', min: 0, max: 100, step: 1 });
-		const alphaRow = o.alpha === false ? null : h('div', { class: 'kse-alpha', title: 'Opacità del colore' },
+		const alphaRow = o.alpha === false ? null : h('div', { class: 'kse-alpha', title: __( 'Colour opacity', 'kaosslider' ) },
 			h('div', { class: 'kse-alpha-track' }, aRange), aNum, h('span', { class: 'kse-unit' }, '%'));
 		const sync = (v) => {
 			fillEl.style.background = v || 'transparent';
@@ -1538,7 +1540,7 @@
 			if (pc) { pick.value = pc.hex; }
 			if (!alphaRow) { return; }
 			alphaRow.classList.toggle('is-disabled', !pc);
-			alphaRow.title = pc ? 'Opacità del colore' : 'Opacità disponibile per i colori esadecimali, rgb e i nomi dei colori';
+			alphaRow.title = pc ? __( 'Colour opacity', 'kaosslider' ) : __( 'Opacity is available for hex, rgb and named colours', 'kaosslider' );
 			if (pc) {
 				aRange.value = aNum.value = Math.round(pc.a * 100);
 				alphaRow.style.setProperty('--ks-c', pc.hex);
@@ -1677,7 +1679,7 @@
 		cssArea.addEventListener('input', () => {
 			const v = cssArea.value.replace(/\s+/g, ' ').trim();
 			if (!validGradient(v)) {
-				msg.textContent = 'CSS non valido: usa linear-gradient(…), radial-gradient(…) o conic-gradient(…), senza url() o punti e virgola.';
+				msg.textContent = __( 'Invalid CSS: use linear-gradient(…), radial-gradient(…) or conic-gradient(…), without url() or semicolons.', 'kaosslider' );
 				msg.classList.add('is-error');
 				return;
 			}
@@ -1695,12 +1697,12 @@
 			visual.innerHTML = '';
 			if (!g) {
 				msg.classList.remove('is-error');
-				msg.textContent = 'Gradiente avanzato (più livelli, conico o con posizioni multiple): si modifica dal CSS qui sotto.';
+				msg.textContent = __( 'Advanced gradient (several layers, conic or with multiple positions): edit it in the CSS below.', 'kaosslider' );
 				return;
 			}
 			active = clamp(active, 0, g.stops.length - 1);
 			const fill = h('div', { class: 'kse-grad-fill', style: { background: 'linear-gradient(90deg, ' + stopsCss() + ')' } });
-			const bar = h('div', { class: 'kse-grad-bar', title: 'Clicca sulla barra per aggiungere un colore, trascina i punti per spostarli' }, fill);
+			const bar = h('div', { class: 'kse-grad-bar', title: __( 'Click the bar to add a colour, drag the points to move them', 'kaosslider' ) }, fill);
 
 			g.stops.forEach((s, i) => {
 				const handle = h('span', { class: 'kse-grad-handle' + (i === active ? ' is-active' : ''), style: { left: s.p + '%' } },
@@ -1766,43 +1768,43 @@
 				const val = makeColor(cur.hex, v / 100);
 				colorText.value = val;
 				setColor(val, false);
-			}, { min: 0, max: 100, step: 1 }) : h('span', { class: 'kse-help' }, 'Opacità non disponibile per questo colore');
+			}, { min: 0, max: 100, step: 1 }) : h('span', { class: 'kse-help' }, __( 'Opacity not available for this colour', 'kaosslider' ));
 			const pos = numCtl(s.p, (v) => { s.p = clamp(v, 0, 100); emit(); }, { min: 0, max: 100, step: 1, unit: '%' });
 			pos.addEventListener('change', () => renderVisual());
 
 			visual.append(
 				h('div', { class: 'kse-grad-row' },
-					segCtl(g.type, [['linear', 'Lineare'], ['radial', 'Radiale']], (v) => { g.type = v; emit(); renderVisual(); }),
+					segCtl(g.type, [['linear', __( 'Linear', 'kaosslider' )], ['radial', __( 'Radial', 'kaosslider' )]], (v) => { g.type = v; emit(); renderVisual(); }),
 					h('button', {
-						type: 'button', class: 'kse-btn', title: 'Inverti i colori',
+						type: 'button', class: 'kse-btn', title: __( 'Reverse the colours', 'kaosslider' ),
 						onclick: () => { g.stops.forEach((st) => { st.p = round(100 - st.p, 1); }); emit(); renderVisual(); }
 					}, icon('image-flip-horizontal'))),
 				g.type === 'linear'
-					? field('Angolo', rangeCtl(g.angle, (v) => { g.angle = v; emit(); }, { min: 0, max: 360, step: 1 }))
-					: field('Forma', segCtl(g.shape, [['circle', 'Cerchio'], ['ellipse', 'Ellisse']], (v) => { g.shape = v; emit(); renderVisual(); })),
+					? field(__( 'Angle', 'kaosslider' ), rangeCtl(g.angle, (v) => { g.angle = v; emit(); }, { min: 0, max: 360, step: 1 }))
+					: field(__( 'Shape', 'kaosslider' ), segCtl(g.shape, [['circle', __( 'Circle', 'kaosslider' )], ['ellipse', __( 'Ellipse', 'kaosslider' )]], (v) => { g.shape = v; emit(); renderVisual(); })),
 				bar,
 				h('div', { class: 'kse-grad-stop' },
-					h('div', { class: 'kse-grad-stop-title' }, 'Colore selezionato',
+					h('div', { class: 'kse-grad-stop-title' }, __( 'Selected colour', 'kaosslider' ),
 						g.stops.length > 2 ? h('button', {
 							type: 'button', class: 'kse-link-danger',
 							onclick: () => { g.stops.splice(active, 1); active = 0; emit(); renderVisual(); }
-						}, 'Elimina') : null),
+						}, __( 'Delete', 'kaosslider' )) : null),
 					h('div', { class: 'kse-color' }, swatch, colorText),
-					field('Opacità', alpha),
-					field('Posizione', pos)
+					field(__( 'Opacity', 'kaosslider' ), alpha),
+					field(__( 'Position', 'kaosslider' ), pos)
 				)
 			);
 		}
 
 		renderVisual();
-		box.append(visual, h('label', { class: 'kse-label' }, 'CSS del gradiente'), cssArea, msg,
-			h('p', { class: 'kse-help' }, 'Puoi incollare qualsiasi gradiente CSS, anche con più colori o più livelli separati da virgola.'));
+		box.append(visual, h('label', { class: 'kse-label' }, __( 'Gradient CSS', 'kaosslider' )), cssArea, msg,
+			h('p', { class: 'kse-help' }, __( 'You can paste any CSS gradient, even with several colours or several layers separated by commas.', 'kaosslider' )));
 		return box;
 	}
 
 	/* ---------- Web font (catalogo Google Fonts open source, anteprime via Bunny Fonts) ---------- */
 
-	const FONT_CATS = { s: 'Sans serif', r: 'Serif', d: 'Display', h: 'Scrittura a mano', m: 'Monospace' };
+	const FONT_CATS = { s: __( 'Sans serif', 'kaosslider' ), r: __( 'Serif', 'kaosslider' ), d: __( 'Display', 'kaosslider' ), h: __( 'Handwriting', 'kaosslider' ), m: __( 'Monospace', 'kaosslider' ) };
 	const FONT_FALLBACK = { s: 'sans-serif', r: 'serif', d: 'sans-serif', h: 'cursive', m: 'monospace' };
 	let FONTS = [];
 	const fontIndex = {};
@@ -1834,7 +1836,7 @@
 	}
 
 	function fontCtl(s) {
-		const label = s.gfont || (s.fontFamily ? 'Personalizzato' : 'Font del tema');
+		const label = s.gfont || (s.fontFamily ? _x( 'Custom', 'font', 'kaosslider' ) : __( 'Theme font', 'kaosslider' ));
 		const btn = h('button', { type: 'button', class: 'kse-font-btn', onclick: () => openFontPicker(s, btn) },
 			h('span', { class: 'kse-font-name', style: { fontFamily: s.fontFamily || 'inherit' } }, label),
 			s.gfont ? h('small', null, FONT_CATS[(fontInfo(s.gfont) || {}).cat] || '') : (s.fontFamily ? h('small', null, s.fontFamily) : null),
@@ -1879,7 +1881,7 @@
 				const row = h('button', {
 					type: 'button', class: 'kse-fp-item' + (f.family === s.gfont ? ' is-active' : ''), 'data-family': f.family,
 					onclick: () => choose(f.family)
-				}, h('span', { style: { fontFamily: "'" + f.family + "', " + FONT_FALLBACK[f.cat] } }, f.family), h('small', null, f.weights.length + (f.weights.length === 1 ? ' peso' : ' pesi')));
+				}, h('span', { style: { fontFamily: "'" + f.family + "', " + FONT_FALLBACK[f.cat] } }, f.family), h('small', null, sprintf( _n( '%d weight', '%d weights', f.weights.length, 'kaosslider' ), f.weights.length )));
 				list.append(row);
 				io.observe(row);
 			});
@@ -1890,7 +1892,7 @@
 			matches = FONTS.filter((f) => (!cat || f.cat === cat) && (!q || f.family.toLowerCase().includes(q)));
 			list.innerHTML = '';
 			shown = 0;
-			count.textContent = matches.length + ' font';
+			count.textContent = sprintf( _n( '%d font', '%d fonts', matches.length, 'kaosslider' ), matches.length );
 			renderMore();
 			list.scrollTop = 0;
 		};
@@ -1898,31 +1900,31 @@
 			if (list.scrollTop + list.clientHeight > list.scrollHeight - 200 && shown < matches.length) { renderMore(); }
 		});
 
-		const search = h('input', { type: 'search', class: 'kse-fp-search', placeholder: 'Cerca tra ' + FONTS.length + ' font…', oninput: refilter });
+		const search = h('input', { type: 'search', class: 'kse-fp-search', placeholder: sprintf( __( 'Search %d fonts…', 'kaosslider' ), FONTS.length ), oninput: refilter });
 		const count = h('span', { class: 'kse-fp-count' });
-		const chips = h('div', { class: 'kse-fp-chips' }, [['', 'Tutti']].concat(Object.entries(FONT_CATS)).map(([k, t]) => h('button', {
+		const chips = h('div', { class: 'kse-fp-chips' }, [['', __( 'All', 'kaosslider' )]].concat(Object.entries(FONT_CATS)).map(([k, t]) => h('button', {
 			type: 'button', class: k === cat ? 'is-active' : '',
 			onclick: (e) => { cat = k; chips.querySelectorAll('button').forEach((b) => b.classList.toggle('is-active', b === e.currentTarget)); refilter(); }
 		}, t)));
 
-		const custom = h('input', { type: 'text', list: 'kse-fonts', placeholder: 'es. var(--e-global-typography-primary-font-family)', value: s.gfont ? '' : (s.fontFamily || '') });
+		const custom = h('input', { type: 'text', list: 'kse-fonts', placeholder: __( 'e.g. var(--e-global-typography-primary-font-family)', 'kaosslider' ), value: s.gfont ? '' : (s.fontFamily || '') });
 		const customRow = h('div', { class: 'kse-fp-custom' },
 			custom, h('datalist', { id: 'kse-fonts' }, FONT_SUGGESTIONS.map((f) => h('option', { value: f }))),
 			h('button', {
 				type: 'button', class: 'kse-btn',
 				onclick: () => { change(() => { s.gfont = ''; s.fontFamily = custom.value.trim(); }, { immediate: true }); closeFontPicker(); }
-			}, 'Usa'));
+			}, __( 'Use', 'kaosslider' )));
 
-		const pop = h('div', { class: 'kse-fp', role: 'dialog', 'aria-label': 'Scegli il font' },
+		const pop = h('div', { class: 'kse-fp', role: 'dialog', 'aria-label': __( 'Choose the font', 'kaosslider' ) },
 			h('div', { class: 'kse-fp-head' }, search, count),
 			chips,
 			h('button', {
 				type: 'button', class: 'kse-fp-item kse-fp-theme' + (!s.gfont && !s.fontFamily ? ' is-active' : ''),
 				onclick: () => { change(() => { s.gfont = ''; s.fontFamily = ''; }, { immediate: true }); closeFontPicker(); }
-			}, h('span', null, 'Font del tema'), h('small', null, 'usa il font del sito')),
+			}, h('span', null, __( 'Theme font', 'kaosslider' )), h('small', null, __( 'use the site font', 'kaosslider' ))),
 			list,
-			h('details', { class: 'kse-fp-more' }, h('summary', null, 'Valore CSS personalizzato'), customRow,
-				h('p', { class: 'kse-help' }, 'Per i font già caricati dal tema o dai font globali di Elementor/Kadence.')));
+			h('details', { class: 'kse-fp-more' }, h('summary', null, __( 'Custom CSS value', 'kaosslider' )), customRow,
+				h('p', { class: 'kse-help' }, __( 'For fonts already loaded by the theme or by the Elementor/Kadence global fonts.', 'kaosslider' ))));
 
 		root.append(pop);
 		const r = anchor.getBoundingClientRect();
@@ -1967,7 +1969,7 @@
 				if (notify) { onInput(lastGrad); }
 			}
 		};
-		[['color', 'Colore'], ['gradient', 'Gradiente']].forEach(([m, t]) => {
+		[['color', __( 'Colour', 'kaosslider' )], ['gradient', __( 'Gradient', 'kaosslider' )]].forEach(([m, t]) => {
 			seg.append(h('button', { type: 'button', 'data-m': m, onclick: () => show(m, true) }, t));
 		});
 		show(isGradient(value) ? 'gradient' : 'color', false);
@@ -1975,7 +1977,7 @@
 	}
 
 	function pickMedia(type, cb) {
-		const frame = wp.media({ title: type === 'video' ? 'Scegli un video' : 'Scegli un\'immagine', library: { type }, multiple: false, button: { text: 'Usa questo file' } });
+		const frame = wp.media({ title: type === 'video' ? __( 'Choose a video', 'kaosslider' ) : __( 'Choose an image', 'kaosslider' ), library: { type }, multiple: false, button: { text: __( 'Use this file', 'kaosslider' ) } });
 		frame.on('select', () => cb(frame.state().get('selection').first().toJSON()));
 		frame.open();
 	}
@@ -1987,10 +1989,10 @@
 	function videoHelp(url, text) {
 		const ext = videoExt(url);
 		if (url && ['avi', 'wmv', 'mkv', 'flv', '3gp', '3g2', 'mpg', 'mpeg'].includes(ext)) {
-			return '⚠ I browser non riproducono i file .' + ext + ': convertilo in MP4 (H.264) o WebM.';
+			return sprintf( __( '⚠ Browsers cannot play .%s files: convert it to MP4 (H.264) or WebM.', 'kaosslider' ), ext );
 		}
 		if (ext === 'mov') {
-			return text + ' Attenzione: i MOV girati con iPhone (HEVC) non si vedono su tutti i browser, aggiungi un MP4 o WebM come alternativa.';
+			return text + ( ' ' + __( 'Note: MOV files shot on iPhone (HEVC) do not play in every browser, add an MP4 or WebM as an alternative.', 'kaosslider' ) );
 		}
 		return text;
 	}
@@ -2002,9 +2004,9 @@
 		}
 		box.append(
 			h('div', { class: 'kse-media-actions' },
-				h('button', { type: 'button', class: 'kse-btn', onclick: () => pickMedia(type, (a) => onChange(a.url, a)) }, url ? 'Cambia' : 'Scegli dalla libreria'),
-				url ? h('button', { type: 'button', class: 'kse-btn', onclick: () => onChange('', null) }, 'Rimuovi') : null),
-			textCtl(url, (v) => onChange(v, null), { placeholder: 'oppure incolla un URL', class: 'kse-media-url', onchange: () => renderProps() })
+				h('button', { type: 'button', class: 'kse-btn', onclick: () => pickMedia(type, (a) => onChange(a.url, a)) }, url ? __( 'Change', 'kaosslider' ) : __( 'Choose from the library', 'kaosslider' )),
+				url ? h('button', { type: 'button', class: 'kse-btn', onclick: () => onChange('', null) }, __( 'Remove', 'kaosslider' )) : null),
+			textCtl(url, (v) => onChange(v, null), { placeholder: __( 'or paste a URL', 'kaosslider' ), class: 'kse-media-url', onchange: () => renderProps() })
 		);
 		return box;
 	}
@@ -2019,10 +2021,10 @@
 		const over = keys.some((k) => isOverridden(l, k));
 		return over
 			? h('button', {
-				type: 'button', class: 'kse-badge is-custom', title: 'Valore personalizzato per ' + DEVICE_LABEL[S.device] + ': clicca per ripristinare l\'ereditarietà',
+				type: 'button', class: 'kse-badge is-custom', title: sprintf( __( 'Custom value for %s: click to restore inheritance', 'kaosslider' ), DEVICE_LABEL[S.device] ),
 				onclick: () => change(() => { keys.forEach((k) => delete l.resp[S.device][k]); }, { immediate: true })
 			}, '● ' + DEVICE_LABEL[S.device] + ' ×')
-			: h('span', { class: 'kse-badge', title: 'Valore ereditato' }, 'eredita');
+			: h('span', { class: 'kse-badge', title: __( 'Inherited value', 'kaosslider' ) }, 'eredita');
 	}
 
 	const live = (fn) => (v) => change(() => fn(v), { skip: ['props'] });
@@ -2035,46 +2037,46 @@
 		const set = (k) => live((x) => { s[pre + k] = x; });
 		const FROM = { soft: { Opacity: 0.35, Blur: 14, Distance: 2 }, strong: { Opacity: 0.75, Blur: 6, Distance: 3 } };
 		return h('div', null,
-			field('', segCtl(mode, [['none', 'Nessuna'], ['soft', 'Morbida'], ['strong', 'Netta'], ['custom', 'Personalizzata']], liveNow((m) => {
+			field('', segCtl(mode, [['none', _x( 'None', 'shadow', 'kaosslider' )], ['soft', _x( 'Soft', 'shadow', 'kaosslider' )], ['strong', _x( 'Sharp', 'shadow', 'kaosslider' )], ['custom', _x( 'Custom', 'shadow', 'kaosslider' )]], liveNow((m) => {
 				if (m === 'custom' && s[pre] !== 'custom') {
 					Object.keys(SHADOW_DEFAULTS).forEach((k) => { if (s[pre + k] == null) { s[pre + k] = SHADOW_DEFAULTS[k]; } });
 					if (FROM[s[pre]]) { Object.keys(FROM[s[pre]]).forEach((k) => { s[pre + k] = FROM[s[pre]][k]; }); s[pre + 'Angle'] = 90; s[pre + 'Density'] = 0; }
 				}
 				s[pre] = m;
 			})), { wide: true }),
-			mode === 'custom' ? field('Colore', colorCtl(v('Color'), set('Color'))) : null,
-			mode === 'custom' ? field('Opacità', rangeCtl(v('Opacity'), set('Opacity'), { min: 0, max: 1, step: 0.05 })) : null,
-			mode === 'custom' ? field('Dimensione', rangeCtl(v('Blur'), set('Blur'), { min: 0, max: 200, step: 1 }), { help: 'Quanto è sfumata e ampia l\'ombra.' }) : null,
-			mode === 'custom' ? field('Densità', rangeCtl(v('Density'), set('Density'), { min: 0, max: 100, step: 1 }),
-				{ help: letters ? 'Più alta = ombra più piena e scura attorno alle lettere.' : 'Più alta = ombra più piena, che si allarga oltre il riquadro.' }) : null,
-			mode === 'custom' ? field('Distanza', rangeCtl(v('Distance'), set('Distance'), { min: 0, max: 300, step: 1 }), { help: '0 = ombra tutto intorno (effetto alone).' }) : null,
-			mode === 'custom' ? field('Direzione', rangeCtl(v('Angle'), set('Angle'), { min: 0, max: 360, step: 5 }), { help: 'In gradi: 90 = verso il basso, 0 = a destra, 180 = a sinistra, 270 = verso l\'alto.' }) : null);
+			mode === 'custom' ? field(__( 'Colour', 'kaosslider' ), colorCtl(v('Color'), set('Color'))) : null,
+			mode === 'custom' ? field(__( 'Opacity', 'kaosslider' ), rangeCtl(v('Opacity'), set('Opacity'), { min: 0, max: 1, step: 0.05 })) : null,
+			mode === 'custom' ? field(__( 'Size', 'kaosslider' ), rangeCtl(v('Blur'), set('Blur'), { min: 0, max: 200, step: 1 }), { help: __( 'How blurred and wide the shadow is.', 'kaosslider' ) }) : null,
+			mode === 'custom' ? field(__( 'Density', 'kaosslider' ), rangeCtl(v('Density'), set('Density'), { min: 0, max: 100, step: 1 }),
+				{ help: letters ? __( 'Higher = fuller, darker shadow around the letters.', 'kaosslider' ) : __( 'Higher = fuller shadow that spreads beyond the box.', 'kaosslider' ) }) : null,
+			mode === 'custom' ? field(__( 'Distance', 'kaosslider' ), rangeCtl(v('Distance'), set('Distance'), { min: 0, max: 300, step: 1 }), { help: __( '0 = shadow all around (glow effect).', 'kaosslider' ) }) : null,
+			mode === 'custom' ? field(__( 'Direction', 'kaosslider' ), rangeCtl(v('Angle'), set('Angle'), { min: 0, max: 360, step: 5 }), { help: __( 'In degrees: 90 = down, 0 = right, 180 = left, 270 = up.', 'kaosslider' ) }) : null);
 	}
 
 	function glassGroup(s) {
 		const val = (k) => (s[k] != null ? s[k] : GLASS_DEFAULTS[k]);
 		const slider = (label, k, min, max, step, help) => field(label, rangeCtl(val(k), live((v) => { s[k] = v; }), { min, max, step }), help ? { help } : undefined);
 		return h('div', { class: 'kse-subgroup' },
-			h('div', { class: 'kse-subgroup-title' }, 'Effetto vetro'),
+			h('div', { class: 'kse-subgroup-title' }, __( 'Glass effect', 'kaosslider' )),
 			field('', toggleCtl(s.glass, liveNow((v) => {
 				s.glass = v;
 				if (v) {
 					Object.keys(GLASS_DEFAULTS).forEach((k) => { if (s[k] == null) { s[k] = GLASS_DEFAULTS[k]; } });
 					if (!s.bg || s.bg === 'transparent') { s.bg = 'rgba(255,255,255,0.14)'; }
 				}
-			}), 'Vetro smerigliato'),
-				{ help: 'Sfoca e illumina ciò che sta dietro al riquadro, come le superfici di vetro di iOS e macOS. La tinta del vetro è il colore di Sfondo qui sopra: usalo semitrasparente.' }),
-			s.glass ? field('Stile di partenza', h('div', { class: 'kse-seg kse-seg-wrap' }, GLASS_PRESETS.map(([id, label, values]) => h('button', {
-				type: 'button', title: 'Applica lo stile ' + label,
+			}), __( 'Frosted glass', 'kaosslider' )),
+				{ help: __( 'Blurs and brightens what is behind the box, like the glass surfaces of iOS and macOS. The glass tint is the Background colour above: use it semi-transparent.', 'kaosslider' ) }),
+			s.glass ? field(__( 'Starting style', 'kaosslider' ), h('div', { class: 'kse-seg kse-seg-wrap' }, GLASS_PRESETS.map(([id, label, values]) => h('button', {
+				type: 'button', title: sprintf( __( 'Apply the %s style', 'kaosslider' ), label ),
 				onclick: () => change(() => Object.assign(s, values), { immediate: true })
-			}, label))), { wide: true, help: 'Imposta i valori qui sotto, che puoi poi ritoccare.' }) : null,
-			s.glass ? slider('Sfocatura', 'glassBlur', 0, 150, 1) : null,
-			s.glass ? slider('Saturazione', 'glassSaturate', 50, 300, 5, 'Rende più vivi i colori dietro al vetro.') : null,
-			s.glass ? slider('Luminosità', 'glassBright', 50, 150, 1, 'Sotto 100 il vetro scurisce, sopra 100 schiarisce.') : null,
-			s.glass ? slider('Riflesso sui bordi', 'glassEdge', 0, 100, 1, 'Filo di luce sul bordo superiore e lungo il contorno.') : null,
-			s.glass ? slider('Lucentezza', 'glassShine', 0, 100, 1, 'Riflesso diagonale dall\'angolo in alto a sinistra.') : null,
-			s.glass ? slider('Grana', 'glassGrain', 0, 100, 1, 'Leggera texture opaca, tipica del vetro smerigliato.') : null,
-			s.glass ? slider('Profondità', 'glassDepth', 0, 100, 1, 'Ombra morbida che stacca il vetro dallo sfondo.') : null);
+			}, label))), { wide: true, help: __( 'Sets the values below, which you can then fine-tune.', 'kaosslider' ) }) : null,
+			s.glass ? slider(__( 'Blur', 'kaosslider' ), 'glassBlur', 0, 150, 1) : null,
+			s.glass ? slider(__( 'Saturation', 'kaosslider' ), 'glassSaturate', 50, 300, 5, __( 'Makes the colours behind the glass more vivid.', 'kaosslider' )) : null,
+			s.glass ? slider(__( 'Brightness', 'kaosslider' ), 'glassBright', 50, 150, 1, __( 'Below 100 the glass darkens, above 100 it brightens.', 'kaosslider' )) : null,
+			s.glass ? slider(__( 'Edge highlight', 'kaosslider' ), 'glassEdge', 0, 100, 1, __( 'Thin line of light on the top edge and along the outline.', 'kaosslider' )) : null,
+			s.glass ? slider(__( 'Sheen', 'kaosslider' ), 'glassShine', 0, 100, 1, __( 'Diagonal reflection from the top left corner.', 'kaosslider' )) : null,
+			s.glass ? slider(__( 'Grain', 'kaosslider' ), 'glassGrain', 0, 100, 1, __( 'Light matte texture, typical of frosted glass.', 'kaosslider' )) : null,
+			s.glass ? slider(__( 'Depth', 'kaosslider' ), 'glassDepth', 0, 100, 1, __( 'Soft shadow that lifts the glass off the background.', 'kaosslider' )) : null);
 	}
 
 	/* ================= Pannello proprietà ================= */
@@ -2096,37 +2098,37 @@
 		const sl = slide();
 		const bg = sl.bg;
 		const wrap = h('div', { class: 'kse-props' },
-			h('div', { class: 'kse-props-head' }, h('strong', null, 'Slide'), h('span', null, sl.name)),
-			h('p', { class: 'kse-hint' }, 'Clicca un livello sul canvas per modificarlo, oppure aggiungine uno dal pannello a sinistra.')
+			h('div', { class: 'kse-props-head' }, h('strong', null, __( 'Slide', 'kaosslider' )), h('span', null, sl.name)),
+			h('p', { class: 'kse-hint' }, __( 'Click a layer on the canvas to edit it, or add one from the panel on the left.', 'kaosslider' ))
 		);
-		wrap.append(section('Generale',
-			field('Nome', textCtl(sl.name, live((v) => { sl.name = v; }))),
-			field('Durata (ms)', numCtl(sl.duration, live((v) => { sl.duration = v; }), { min: 0, step: 100 }), { help: '0 = durata predefinita (' + settings().delay + ' ms)' })
+		wrap.append(section(__( 'General', 'kaosslider' ),
+			field(__( 'Name', 'kaosslider' ), textCtl(sl.name, live((v) => { sl.name = v; }))),
+			field(__( 'Duration (ms)', 'kaosslider' ), numCtl(sl.duration, live((v) => { sl.duration = v; }), { min: 0, step: 100 }), { help: sprintf( __( '0 = default duration (%d ms)', 'kaosslider' ), settings().delay ) })
 		));
 
 		if (!sl.transition) { sl.transition = { effect: 'default', duration: 0, easing: 'default', slices: 0 }; }
 		const tr = sl.transition;
 		const trEffect = tr.effect === 'default' ? settings().transition : tr.effect;
 		const sliced = ['stripsV', 'stripsH', 'blinds', 'mosaic'].includes(trEffect);
-		const defName = (TRANSITION_GROUPS.flatMap(([, o]) => o).find(([v]) => v === settings().transition) || [, 'Dissolvenza'])[1];
-		wrap.append(section('Transizione di entrata',
-			field('Effetto', groupSelectCtl(tr.effect, TRANSITION_GROUPS, liveNow((v) => { tr.effect = v; }), [['default', 'Predefinita dello slider (' + defName + ')']])),
-			field('Durata', numCtl(tr.duration, live((v) => { tr.duration = v; }), { min: 0, step: 50, unit: 'ms' }), { help: '0 = velocità predefinita (' + settings().speed + ' ms).' }),
-			field('Andamento', selectCtl(tr.easing, [['default', 'Predefinito']].concat(EASINGS), liveNow((v) => { tr.easing = v; }))),
-			sliced ? field(trEffect === 'mosaic' ? 'Colonne del mosaico' : 'Numero di strisce', numCtl(tr.slices, live((v) => { tr.slices = Math.round(v); }), { min: 0, max: 40 }), { help: '0 = automatico. Con sfondi video queste transizioni diventano una dissolvenza.' }) : null,
-			h('button', { type: 'button', class: 'kse-btn kse-primary-ghost', onclick: previewTransition }, icon('controls-play'), ' Anteprima transizione')
+		const defName = (TRANSITION_GROUPS.flatMap(([, o]) => o).find(([v]) => v === settings().transition) || [, __( 'Fade', 'kaosslider' )])[1];
+		wrap.append(section(__( 'Entrance transition', 'kaosslider' ),
+			field(__( 'Effect', 'kaosslider' ), groupSelectCtl(tr.effect, TRANSITION_GROUPS, liveNow((v) => { tr.effect = v; }), [['default', sprintf( __( 'Slider default (%s)', 'kaosslider' ), defName )]])),
+			field(__( 'Duration', 'kaosslider' ), numCtl(tr.duration, live((v) => { tr.duration = v; }), { min: 0, step: 50, unit: 'ms' }), { help: sprintf( __( '0 = default speed (%d ms).', 'kaosslider' ), settings().speed ) }),
+			field(__( 'Easing', 'kaosslider' ), selectCtl(tr.easing, [['default', _x( 'Default', 'easing', 'kaosslider' )]].concat(EASINGS), liveNow((v) => { tr.easing = v; }))),
+			sliced ? field(trEffect === 'mosaic' ? __( 'Mosaic columns', 'kaosslider' ) : __( 'Number of strips', 'kaosslider' ), numCtl(tr.slices, live((v) => { tr.slices = Math.round(v); }), { min: 0, max: 40 }), { help: __( '0 = automatic. With video backgrounds these transitions become a fade.', 'kaosslider' ) }) : null,
+			h('button', { type: 'button', class: 'kse-btn kse-primary-ghost', onclick: previewTransition }, icon('controls-play'), ( ' ' + __( 'Preview transition', 'kaosslider' ) ))
 		));
 
 		if (!sl.fx) { sl.fx = { type: 'none', color: '#ffffff', count: 120, size: 3, speed: 1, opacity: 0.8, wind: 0, interactive: true, front: false }; }
 		const fx = sl.fx;
 		if (fx.intensity == null) { Object.assign(fx, { intensity: 1, x: 50, y: 0, text: 'KAOS|SLIDER|♥', image: '', interval: 4, auto: true, font: '' }); }
 		const FX_GROUPS = [
-			['Particelle e meteo', [['snow', 'Neve'], ['rain', 'Pioggia'], ['stars', 'Stelle scintillanti'], ['bubbles', 'Bolle'], ['confetti', 'Coriandoli'], ['network', 'Rete di particelle'], ['fireflies', 'Lucciole']]],
-			['WebGL', [['fluid', 'Fluido / inchiostro'], ['rays', 'Raggi di luce'], ['morph', 'Particelle che diventano parole'], ['liquid', 'Distorsione liquida dello sfondo'], ['panorama', 'Panorama 360°']]]
+			[__( 'Particles and weather', 'kaosslider' ), [['snow', __( 'Snow', 'kaosslider' )], ['rain', __( 'Rain', 'kaosslider' )], ['stars', __( 'Twinkling stars', 'kaosslider' )], ['bubbles', __( 'Bubbles', 'kaosslider' )], ['confetti', __( 'Confetti', 'kaosslider' )], ['network', __( 'Particle network', 'kaosslider' )], ['fireflies', __( 'Fireflies', 'kaosslider' )]]],
+			['WebGL', [['fluid', __( 'Fluid / ink', 'kaosslider' )], ['rays', __( 'Light rays', 'kaosslider' )], ['morph', __( 'Particles that become words', 'kaosslider' )], ['liquid', __( 'Liquid background distortion', 'kaosslider' )], ['panorama', __( '360° panorama', 'kaosslider' )]]]
 		];
 		const GL = ['fluid', 'rays', 'morph', 'panorama', 'liquid'].includes(fx.type);
-		const fxSec = section('Effetto animato',
-			field('Tipo', groupSelectCtl(fx.type, FX_GROUPS, liveNow((v) => {
+		const fxSec = section(__( 'Animated effect', 'kaosslider' ),
+			field(__( 'Type', 'kaosslider' ), groupSelectCtl(fx.type, FX_GROUPS, liveNow((v) => {
 				fx.type = v;
 				const presets = { snow: [140, 3, 1], rain: [220, 3, 1], stars: [160, 2.5, 1], bubbles: [50, 4, 1], confetti: [150, 4, 1], network: [80, 3, 1], fireflies: [45, 3, 1], fluid: [120, 3, 1], rays: [120, 3, 0.6], morph: [150, 3, 1], panorama: [120, 3, 1], liquid: [120, 3, 1] };
 				if (v === 'rays' && fx.color === '#ffffff') { fx.color = '#fff3d6'; }
@@ -2140,46 +2142,46 @@
 		} else if (fx.type !== 'none') {
 			const mark = (fn) => live((v) => { fx._touched = true; fn(v); });
 			fxSec.append(
-				field('Colore', colorCtl(fx.color === 'multi' ? '' : fx.color, live((v) => { fx.color = v || 'multi'; }), true, { alpha: false }),
-					{ help: 'Puoi inserire più colori separati da virgola (es. #ff0000,#ffd166). Vuoto con i coriandoli = multicolore.' }),
-				field('Quantità', rangeCtl(fx.count, mark((v) => { fx.count = v; }), { min: 5, max: 800, step: 5 }), { help: 'Riferita a una slide di 1240×700: sui telefoni diminuisce in proporzione.' }),
-				field('Dimensione', rangeCtl(fx.size, mark((v) => { fx.size = v; }), { min: 0.5, max: 30, step: 0.5 })),
-				field('Velocità', rangeCtl(fx.speed, mark((v) => { fx.speed = v; }), { min: 0.1, max: 6, step: 0.1 })),
-				field('Opacità', rangeCtl(fx.opacity, live((v) => { fx.opacity = v; }), { min: 0.05, max: 1, step: 0.05 })),
-				['snow', 'rain', 'confetti', 'bubbles', 'stars'].includes(fx.type) ? field('Vento', rangeCtl(fx.wind, live((v) => { fx.wind = v; }), { min: -5, max: 5, step: 0.5 }), { help: 'Negativo = verso sinistra, positivo = verso destra.' }) : null,
-				field('', toggleCtl(fx.interactive, liveNow((v) => { fx.interactive = v; }), fx.type === 'network' ? 'Collega le particelle al mouse' : 'Le particelle si scansano dal mouse')),
-				field('', toggleCtl(fx.front, liveNow((v) => { fx.front = v; }), 'Davanti ai livelli'), { help: 'Disattivato: l\'effetto sta tra lo sfondo e i testi.' })
+				field(__( 'Colour', 'kaosslider' ), colorCtl(fx.color === 'multi' ? '' : fx.color, live((v) => { fx.color = v || 'multi'; }), true, { alpha: false }),
+					{ help: __( 'You can enter several colours separated by commas (e.g. #ff0000,#ffd166). Empty with confetti = multicoloured.', 'kaosslider' ) }),
+				field(__( 'Amount', 'kaosslider' ), rangeCtl(fx.count, mark((v) => { fx.count = v; }), { min: 5, max: 800, step: 5 }), { help: __( 'Based on a 1240×700 slide: on phones it shrinks proportionally.', 'kaosslider' ) }),
+				field(__( 'Size', 'kaosslider' ), rangeCtl(fx.size, mark((v) => { fx.size = v; }), { min: 0.5, max: 30, step: 0.5 })),
+				field(__( 'Speed', 'kaosslider' ), rangeCtl(fx.speed, mark((v) => { fx.speed = v; }), { min: 0.1, max: 6, step: 0.1 })),
+				field(__( 'Opacity', 'kaosslider' ), rangeCtl(fx.opacity, live((v) => { fx.opacity = v; }), { min: 0.05, max: 1, step: 0.05 })),
+				['snow', 'rain', 'confetti', 'bubbles', 'stars'].includes(fx.type) ? field(__( 'Wind', 'kaosslider' ), rangeCtl(fx.wind, live((v) => { fx.wind = v; }), { min: -5, max: 5, step: 0.5 }), { help: __( 'Negative = to the left, positive = to the right.', 'kaosslider' ) }) : null,
+				field('', toggleCtl(fx.interactive, liveNow((v) => { fx.interactive = v; }), fx.type === 'network' ? __( 'Connect the particles to the mouse', 'kaosslider' ) : __( 'The particles move away from the mouse', 'kaosslider' ))),
+				field('', toggleCtl(fx.front, liveNow((v) => { fx.front = v; }), __( 'In front of the layers', 'kaosslider' )), { help: __( 'Off: the effect sits between the background and the texts.', 'kaosslider' ) })
 			);
 		}
 		wrap.append(fxSec);
 
-		const bgSec = section('Sfondo',
-			field('Tipo', segCtl(bg.type, [['color', 'Colore'], ['image', 'Immagine'], ['video', 'Video']], liveNow((v) => { bg.type = v; }))),
-			field('Colore / gradiente', paintCtl(bg.color, live((v) => { bg.color = v; })), { wide: true, help: bg.type === 'color' ? null : 'Visibile sotto l\'immagine o il video mentre caricano.' })
+		const bgSec = section(__( 'Background', 'kaosslider' ),
+			field(__( 'Type', 'kaosslider' ), segCtl(bg.type, [['color', __( 'Colour', 'kaosslider' )], ['image', __( 'Image', 'kaosslider' )], ['video', __( 'Video', 'kaosslider' )]], liveNow((v) => { bg.type = v; }))),
+			field(__( 'Colour / gradient', 'kaosslider' ), paintCtl(bg.color, live((v) => { bg.color = v; })), { wide: true, help: bg.type === 'color' ? null : __( 'Visible under the image or video while they load.', 'kaosslider' ) })
 		);
 		if (bg.type === 'image') {
 			bgSec.append(
-				field('Immagine', mediaCtl(bg.image, 'image', liveNow((v) => { bg.image = v; })), { wide: true }),
-				field('Dimensione', selectCtl(bg.size, [['cover', 'Copri (riempie, può tagliare)'], ['contain', 'Contieni (intera, può lasciare bordi)'], ['100% auto', 'Larghezza piena'], ['auto 100%', 'Altezza piena'], ['100% 100%', 'Allunga (deforma)'], ['auto', 'Dimensione originale']], liveNow((v) => { bg.size = v; }))),
-				field('Ripetizione', selectCtl(bg.repeat || 'no-repeat', [['no-repeat', 'Nessuna'], ['repeat', 'Ripeti'], ['repeat-x', 'Ripeti in orizzontale'], ['repeat-y', 'Ripeti in verticale']], liveNow((v) => { bg.repeat = v; }))),
-				field('Posizione', selectCtl(bg.position, C.positions.map((x) => [x, POSITIONS_LABEL[x] || x]), liveNow((v) => { bg.position = v; }))),
-				field('Effetto Ken Burns', selectCtl(bg.kenburns, [['none', 'Nessuno'], ['in', 'Zoom avanti lento'], ['out', 'Zoom indietro lento'], ['left', 'Panoramica a sinistra'], ['right', 'Panoramica a destra']], liveNow((v) => { bg.kenburns = v; })), { help: 'Visibile nell\'anteprima e sul sito.' })
+				field(__( 'Image', 'kaosslider' ), mediaCtl(bg.image, 'image', liveNow((v) => { bg.image = v; })), { wide: true }),
+				field(__( 'Size', 'kaosslider' ), selectCtl(bg.size, [['cover', __( 'Cover (fills, may crop)', 'kaosslider' )], ['contain', __( 'Contain (whole, may leave edges)', 'kaosslider' )], ['100% auto', __( 'Full width', 'kaosslider' )], ['auto 100%', __( 'Full height', 'kaosslider' )], ['100% 100%', __( 'Stretch (distorts)', 'kaosslider' )], ['auto', __( 'Original size', 'kaosslider' )]], liveNow((v) => { bg.size = v; }))),
+				field(__( 'Tiling', 'kaosslider' ), selectCtl(bg.repeat || 'no-repeat', [['no-repeat', _x( 'None', 'shadow', 'kaosslider' )], ['repeat', __( 'Repeat', 'kaosslider' )], ['repeat-x', __( 'Repeat horizontally', 'kaosslider' )], ['repeat-y', __( 'Repeat vertically', 'kaosslider' )]], liveNow((v) => { bg.repeat = v; }))),
+				field(__( 'Position', 'kaosslider' ), selectCtl(bg.position, C.positions.map((x) => [x, POSITIONS_LABEL[x] || x]), liveNow((v) => { bg.position = v; }))),
+				field(__( 'Ken Burns effect', 'kaosslider' ), selectCtl(bg.kenburns, [['none', _x( 'None', 'effect', 'kaosslider' )], ['in', __( 'Slow zoom in', 'kaosslider' )], ['out', __( 'Slow zoom out', 'kaosslider' )], ['left', __( 'Pan left', 'kaosslider' )], ['right', __( 'Pan right', 'kaosslider' )]], liveNow((v) => { bg.kenburns = v; })), { help: __( 'Visible in the preview and on the site.', 'kaosslider' ) })
 			);
 		}
 		if (bg.type === 'video') {
 			bgSec.append(
-				field('Sorgente', segCtl(bg.videoSource, [['mp4', 'File video'], ['youtube', 'YouTube'], ['vimeo', 'Vimeo']], liveNow((v) => { bg.videoSource = v; }))),
-				bg.videoSource === 'mp4' ? field('Video', mediaCtl(bg.video, 'video', liveNow((v) => { bg.video = v; })), { wide: true, help: videoHelp(bg.video, 'Formati: MP4 (H.264), WebM, OGV o MOV. Consigliato: 10–30 secondi, sotto i 5 MB.') }) : null,
-				bg.videoSource === 'mp4' ? field('Formato alternativo', mediaCtl(bg.videoAlt, 'video', liveNow((v) => { bg.videoAlt = v; })), { wide: true, help: videoHelp(bg.videoAlt, 'Facoltativo: lo stesso video in un altro formato. Il browser usa il primo che sa riprodurre, es. WebM (più leggero) + MP4 per Safari e iPhone.') }) : null,
+				field(__( 'Source', 'kaosslider' ), segCtl(bg.videoSource, [['mp4', __( 'Video file', 'kaosslider' )], ['youtube', 'YouTube'], ['vimeo', 'Vimeo']], liveNow((v) => { bg.videoSource = v; }))),
+				bg.videoSource === 'mp4' ? field(__( 'Video', 'kaosslider' ), mediaCtl(bg.video, 'video', liveNow((v) => { bg.video = v; })), { wide: true, help: videoHelp(bg.video, __( 'Formats: MP4 (H.264), WebM, OGV or MOV. Recommended: 10–30 seconds, under 5 MB.', 'kaosslider' )) }) : null,
+				bg.videoSource === 'mp4' ? field(__( 'Alternative format', 'kaosslider' ), mediaCtl(bg.videoAlt, 'video', liveNow((v) => { bg.videoAlt = v; })), { wide: true, help: videoHelp(bg.videoAlt, __( 'Optional: the same video in another format. The browser uses the first one it can play, e.g. WebM (lighter) + MP4 for Safari and iPhone.', 'kaosslider' )) }) : null,
 				bg.videoSource !== 'mp4' ? videoLinkField(bg) : null,
-				field('Immagine poster', mediaCtl(bg.poster, 'image', liveNow((v) => { bg.poster = v; })), { wide: true, help: 'Mostrata mentre il video carica.' })
+				field(__( 'Poster image', 'kaosslider' ), mediaCtl(bg.poster, 'image', liveNow((v) => { bg.poster = v; })), { wide: true, help: __( 'Shown while the video loads.', 'kaosslider' ) })
 			);
 		}
 		bgSec.append(
-			field('Overlay', paintCtl(bg.overlayColor, live((v) => { bg.overlayColor = v; })), { wide: true, help: 'Un gradiente da trasparente a nero scurisce solo una parte della slide (es. il basso, dove c\'è il testo).' }),
-			field('Opacità overlay', rangeCtl(bg.overlayOpacity, live((v) => { bg.overlayOpacity = v; }), { min: 0, max: 1, step: 0.05 }), { help: 'Scurisce lo sfondo per rendere leggibile il testo.' }),
-			field('Parallasse sfondo (mouse)', rangeCtl(bg.parallax || 0, live((v) => { bg.parallax = v; }), { min: 0, max: 10, step: 1 }),
-				{ help: settings().parallax ? '0 = fermo. Di solito lo sfondo ha una profondità bassa (1–3) e i livelli in primo piano più alta.' : 'Attiva prima "Parallasse col mouse" nelle Impostazioni dello slider.' })
+			field(__( 'Overlay', 'kaosslider' ), paintCtl(bg.overlayColor, live((v) => { bg.overlayColor = v; })), { wide: true, help: __( 'A gradient from transparent to black darkens only part of the slide (e.g. the bottom, where the text is).', 'kaosslider' ) }),
+			field(__( 'Overlay opacity', 'kaosslider' ), rangeCtl(bg.overlayOpacity, live((v) => { bg.overlayOpacity = v; }), { min: 0, max: 1, step: 0.05 }), { help: __( 'Darkens the background to make the text readable.', 'kaosslider' ) }),
+			field(__( 'Background parallax (mouse)', 'kaosslider' ), rangeCtl(bg.parallax || 0, live((v) => { bg.parallax = v; }), { min: 0, max: 10, step: 1 }),
+				{ help: settings().parallax ? __( '0 = still. Usually the background has a low depth (1–3) and the foreground layers a higher one.', 'kaosslider' ) : __( 'First turn on "Mouse parallax" in the slider settings.', 'kaosslider' ) })
 		);
 		wrap.append(bgSec);
 		return wrap;
@@ -2197,23 +2199,23 @@
 			status.innerHTML = '';
 			if (!info) {
 				status.className = 'kse-video-status is-loading';
-				status.append('Verifico il video…');
+				status.append(__( 'Checking the video…', 'kaosslider' ));
 				return;
 			}
 			if (info.ok === true) {
 				status.className = 'kse-video-status is-ok';
-				status.append(icon('yes-alt'), ' ', info.title || 'Video disponibile');
+				status.append(icon('yes-alt'), ' ', info.title || __( 'Video available', 'kaosslider' ));
 				if (info.thumbnail && bg.poster !== info.thumbnail) {
 					status.append(h('button', {
 						type: 'button', class: 'kse-btn kse-btn-small',
 						onclick: () => change(() => { bg.poster = info.thumbnail; }, { immediate: true })
-					}, bg.poster ? 'Sostituisci poster con la miniatura' : 'Usa la miniatura come poster'));
+					}, bg.poster ? __( 'Replace the poster with the thumbnail', 'kaosslider' ) : __( 'Use the thumbnail as poster', 'kaosslider' )));
 				}
 			} else {
 				status.className = 'kse-video-status ' + (info.ok === false ? 'is-error' : 'is-warn');
 				status.append(icon('warning'), ' ', info.message);
 				if (info.ok === false) {
-					status.append(h('div', { class: 'kse-help' }, 'Sul sito resterà visibile il poster (o il colore di sfondo) al posto del video.'));
+					status.append(h('div', { class: 'kse-help' }, __( 'On the site the poster (or the background colour) will be shown instead of the video.', 'kaosslider' )));
 				}
 			}
 		};
@@ -2241,15 +2243,15 @@
 		}, { placeholder: bg.videoSource === 'youtube' ? 'https://www.youtube.com/watch?v=…' : 'https://vimeo.com/…' });
 
 		check();
-		return field('Link del video', h('div', null, input, status), { wide: true, help: 'Il video parte muto e in loop, senza controlli.' });
+		return field(__( 'Video link', 'kaosslider' ), h('div', null, input, status), { wide: true, help: __( 'The video starts muted and looping, without controls.', 'kaosslider' ) });
 	}
 
 	function layerPanel(l) {
-		const tabs = [['content', 'Contenuto'], ['style', 'Stile'], ['anim', 'Animazione'], ['pos', 'Posizione']];
+		const tabs = [['content', __( 'Content', 'kaosslider' )], ['style', __( 'Style', 'kaosslider' )], ['anim', __( 'Animation', 'kaosslider' )], ['pos', __( 'Position', 'kaosslider' )]];
 		const wrap = h('div', { class: 'kse-props' },
 			h('div', { class: 'kse-props-head' },
 				icon(TYPE_ICON[l.type]), h('strong', null, TYPE_LABEL[l.type]), h('span', null, l.name),
-				h('button', { type: 'button', class: 'kse-btn kse-icon', title: 'Chiudi (Esc)', onclick: () => select(null) }, icon('no-alt'))),
+				h('button', { type: 'button', class: 'kse-btn kse-icon', title: __( 'Close (Esc)', 'kaosslider' ), onclick: () => select(null) }, icon('no-alt'))),
 			h('div', { class: 'kse-tabs' }, tabs.map(([k, t]) => h('button', {
 				type: 'button', class: S.tab === k ? 'is-active' : '',
 				onclick: () => { S.tab = k; renderProps(); }
@@ -2262,36 +2264,36 @@
 
 	function contentTab(l) {
 		const box = h('div');
-		box.append(section(null, field('Nome livello', textCtl(l.name, live((v) => { l.name = v; })))));
+		box.append(section(null, field(__( 'Layer name', 'kaosslider' ), textCtl(l.name, live((v) => { l.name = v; })))));
 		if (l.type === 'text') {
-			box.append(section('Testo',
-				field('Tag HTML', selectCtl(l.tag, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span'].map((t) => [t, t.toUpperCase()]), liveNow((v) => { l.tag = v; })), { help: 'Usa un solo H1 per pagina (SEO).' }),
-				field('Contenuto', areaCtl(l.content, live((v) => { l.content = v; }), { rows: 4 }), { wide: true, help: 'Puoi usare HTML semplice: <br>, <strong>, <em>, <span style="…">. Oppure fai doppio clic sul testo nel canvas.' })
+			box.append(section(_x( 'Text', 'layer type', 'kaosslider' ),
+				field(__( 'HTML tag', 'kaosslider' ), selectCtl(l.tag, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span'].map((t) => [t, t.toUpperCase()]), liveNow((v) => { l.tag = v; })), { help: __( 'Use only one H1 per page (SEO).', 'kaosslider' ) }),
+				field(__( 'Content', 'kaosslider' ), areaCtl(l.content, live((v) => { l.content = v; }), { rows: 4 }), { wide: true, help: __( 'You can use simple HTML: <br>, <strong>, <em>, <span style="…">. Or double-click the text on the canvas.', 'kaosslider' ) })
 			));
 		}
 		if (l.type === 'button') {
-			box.append(section('Bottone',
-				field('Testo', textCtl(l.content, live((v) => { l.content = v; }))),
+			box.append(section(__( 'Button', 'kaosslider' ),
+				field(_x( 'Text', 'layer type', 'kaosslider' ), textCtl(l.content, live((v) => { l.content = v; }))),
 			));
 		}
 		if (l.type === 'image') {
-			box.append(section('Immagine',
-				field('File', mediaCtl(l.image, 'image', liveNow((v, a) => {
+			box.append(section(__( 'Image', 'kaosslider' ),
+				field(__( 'File', 'kaosslider' ), mediaCtl(l.image, 'image', liveNow((v, a) => {
 					l.image = v;
 					if (a && a.alt && !l.alt) { l.alt = a.alt; }
 				})), { wide: true }),
-				field('Testo alternativo', textCtl(l.alt, live((v) => { l.alt = v; })), { help: 'Descrive l\'immagine (accessibilità e SEO).' })
+				field(__( 'Alternative text', 'kaosslider' ), textCtl(l.alt, live((v) => { l.alt = v; })), { help: __( 'Describes the image (accessibility and SEO).', 'kaosslider' ) })
 			));
 		}
 		if (l.type === 'shape') {
-			box.append(h('p', { class: 'kse-hint' }, 'Le forme servono per linee decorative, riquadri, sfondi dietro al testo. Colore e angoli in "Stile", dimensioni in "Posizione".'));
+			box.append(h('p', { class: 'kse-hint' }, __( 'Shapes are for decorative lines, boxes and backgrounds behind text. Colour and corners in "Style", size in "Position".', 'kaosslider' )));
 		}
 		if (l.type === 'draw') { box.append(drawContent(l)); }
 		if (l.type === 'film') { box.append(filmContent(l)); }
 		if (l.type !== 'shape' && l.type !== 'film') {
-			box.append(section('Link',
-				field('URL', textCtl(l.link, live((v) => { l.link = v; }), { placeholder: 'https://… oppure /pagina/' }), { wide: true }),
-				field('Apri in', segCtl(l.target, [['_self', 'Stessa scheda'], ['_blank', 'Nuova scheda']], liveNow((v) => { l.target = v; })))
+			box.append(section(__( 'Link', 'kaosslider' ),
+				field(__( 'URL', 'kaosslider' ), textCtl(l.link, live((v) => { l.link = v; }), { placeholder: 'https://… oppure /pagina/' }), { wide: true }),
+				field(__( 'Open in', 'kaosslider' ), segCtl(l.target, [['_self', __( 'Same tab', 'kaosslider' )], ['_blank', __( 'New tab', 'kaosslider' )]], liveNow((v) => { l.target = v; })))
 			));
 		}
 		return box;
@@ -2302,52 +2304,52 @@
 		const box = h('div');
 		const isText = l.type === 'text' || l.type === 'button' || (l.type === 'draw' && l.draw.mode === 'text');
 		if (isText) {
-			const WEIGHT_NAMES = { 100: 'Thin', 200: 'Extra light', 300: 'Light', 400: 'Normale', 500: 'Medium', 600: 'Semibold', 700: 'Bold', 800: 'Extra bold', 900: 'Black' };
+			const WEIGHT_NAMES = { 100: _x( 'Thin', 'font weight', 'kaosslider' ), 200: _x( 'Extra light', 'font weight', 'kaosslider' ), 300: _x( 'Light', 'font weight', 'kaosslider' ), 400: _x( 'Regular', 'font weight', 'kaosslider' ), 500: _x( 'Medium', 'font weight', 'kaosslider' ), 600: _x( 'Semibold', 'font weight', 'kaosslider' ), 700: _x( 'Bold', 'font weight', 'kaosslider' ), 800: _x( 'Extra bold', 'font weight', 'kaosslider' ), 900: _x( 'Black', 'font weight', 'kaosslider' ) };
 			const gf = s.gfont && fontInfo(s.gfont);
 			const weights = gf ? gf.weights : [300, 400, 500, 600, 700, 800, 900];
-			box.append(section('Testo',
-				field('Colore testo', paintCtl(s.color, live((v) => { s.color = v; })), { wide: true, help: 'Con un gradiente il testo viene riempito dal gradiente (lo sfondo del riquadro non viene mostrato).' }),
-				field('Font', fontCtl(s), { wide: true }),
-				field('Peso', selectCtl(s.fontWeight, [['', 'Predefinito']].concat(weights.map((w) => [String(w), w + ' ' + (WEIGHT_NAMES[w] || '')])), liveNow((v) => { s.fontWeight = v; })),
-					{ help: gf ? 'Sono elencati solo i pesi disponibili per ' + s.gfont + '.' : null }),
-				field('Interlinea', numCtl(s.lineHeight, live((v) => { s.lineHeight = v; }), { min: 0.5, max: 4, step: 0.05 })),
-				field('Spaziatura lettere', numCtl(s.letterSpacing, live((v) => { s.letterSpacing = v; }), { min: -20, max: 50, step: 0.5, unit: 'px' })),
+			box.append(section(_x( 'Text', 'layer type', 'kaosslider' ),
+				field(__( 'Text colour', 'kaosslider' ), paintCtl(s.color, live((v) => { s.color = v; })), { wide: true, help: __( 'With a gradient the text is filled with it (the box background is not shown).', 'kaosslider' ) }),
+				field(__( 'Font', 'kaosslider' ), fontCtl(s), { wide: true }),
+				field(__( 'Weight', 'kaosslider' ), selectCtl(s.fontWeight, [['', _x( 'Default', 'easing', 'kaosslider' )]].concat(weights.map((w) => [String(w), w + ' ' + (WEIGHT_NAMES[w] || '')])), liveNow((v) => { s.fontWeight = v; })),
+					{ help: gf ? sprintf( __( 'Only the weights available for %s are listed.', 'kaosslider' ), s.gfont ) : null }),
+				field(__( 'Line height', 'kaosslider' ), numCtl(s.lineHeight, live((v) => { s.lineHeight = v; }), { min: 0.5, max: 4, step: 0.05 })),
+				field(__( 'Letter spacing', 'kaosslider' ), numCtl(s.letterSpacing, live((v) => { s.letterSpacing = v; }), { min: -20, max: 50, step: 0.5, unit: 'px' })),
 				field('', h('div', { class: 'kse-inline' },
-					toggleCtl(s.italic, liveNow((v) => { s.italic = v; }), 'Corsivo'),
-					toggleCtl(s.uppercase, liveNow((v) => { s.uppercase = v; }), 'Maiuscolo')))
+					toggleCtl(s.italic, liveNow((v) => { s.italic = v; }), __( 'Italic', 'kaosslider' )),
+					toggleCtl(s.uppercase, liveNow((v) => { s.uppercase = v; }), __( 'Uppercase', 'kaosslider' ))))
 			));
-			if (l.type !== 'draw') box.append(section('Contorno delle lettere',
-				field('Spessore', numCtl(s.strokeWidth || 0, live((v) => { s.strokeWidth = v; }), { min: 0, max: 30, step: 0.5, unit: 'px' }), { help: '0 = nessun contorno.' }),
-				field('Colore', colorCtl(s.strokeColor || '#000000', live((v) => { s.strokeColor = v; }))),
-				s.strokeOpacity != null && s.strokeOpacity < 1 ? field('Opacità', rangeCtl(s.strokeOpacity, live((v) => { s.strokeOpacity = v; }), { min: 0, max: 1, step: 0.05 }), { help: 'Impostazione precedente: ora puoi regolare l’opacità direttamente nel colore e riportare questa a 1.' }) : null,
-				field('', toggleCtl(s.strokeOnly, liveNow((v) => { s.strokeOnly = v; }), 'Solo contorno (lettere vuote)'),
-					{ help: 'Effetto "outline" molto usato nei titoli. Il contorno è sempre a tinta unita, anche se il testo è a gradiente.' })
+			if (l.type !== 'draw') box.append(section(__( 'Letter outline', 'kaosslider' ),
+				field(__( 'Thickness', 'kaosslider' ), numCtl(s.strokeWidth || 0, live((v) => { s.strokeWidth = v; }), { min: 0, max: 30, step: 0.5, unit: 'px' }), { help: __( '0 = no outline.', 'kaosslider' ) }),
+				field(__( 'Colour', 'kaosslider' ), colorCtl(s.strokeColor || '#000000', live((v) => { s.strokeColor = v; }))),
+				s.strokeOpacity != null && s.strokeOpacity < 1 ? field(__( 'Opacity', 'kaosslider' ), rangeCtl(s.strokeOpacity, live((v) => { s.strokeOpacity = v; }), { min: 0, max: 1, step: 0.05 }), { help: __( 'Previous setting: you can now set the opacity directly in the colour and put this back to 1.', 'kaosslider' ) }) : null,
+				field('', toggleCtl(s.strokeOnly, liveNow((v) => { s.strokeOnly = v; }), __( 'Outline only (hollow letters)', 'kaosslider' )),
+					{ help: __( 'The "outline" effect, popular for headlines. The outline is always a solid colour, even when the text uses a gradient.', 'kaosslider' ) })
 			));
-			if (isText) { box.append(section('Ombra delle lettere', shadowCtl(s, 'shadow', true))); }
+			if (isText) { box.append(section(__( 'Letter shadow', 'kaosslider' ), shadowCtl(s, 'shadow', true))); }
 		}
-		box.append(section('Riquadro',
-			field(l.type === 'shape' ? 'Colore forma' : 'Sfondo', paintCtl(s.bg, live((v) => { s.bg = v; }), true), { wide: true, help: 'Colore pieno (anche rgba(…) e var(--colore-globale)) oppure gradiente.' }),
-			isText ? field('Padding verticale', numCtl(s.padV, live((v) => { s.padV = v; }), { min: 0, unit: 'px' })) : null,
-			isText ? field('Padding orizzontale', numCtl(s.padH, live((v) => { s.padH = v; }), { min: 0, unit: 'px' })) : null,
-			field('Angoli arrotondati', radiusCtl(s), { wide: true }),
+		box.append(section(__( 'Box', 'kaosslider' ),
+			field(l.type === 'shape' ? __( 'Shape colour', 'kaosslider' ) : __( 'Background', 'kaosslider' ), paintCtl(s.bg, live((v) => { s.bg = v; }), true), { wide: true, help: __( 'Solid colour (rgba(…) and var(--global-colour) work too) or gradient.', 'kaosslider' ) }),
+			isText ? field(__( 'Vertical padding', 'kaosslider' ), numCtl(s.padV, live((v) => { s.padV = v; }), { min: 0, unit: 'px' })) : null,
+			isText ? field(__( 'Horizontal padding', 'kaosslider' ), numCtl(s.padH, live((v) => { s.padH = v; }), { min: 0, unit: 'px' })) : null,
+			field(__( 'Rounded corners', 'kaosslider' ), radiusCtl(s), { wide: true }),
 			h('div', { class: 'kse-subgroup' },
-				h('div', { class: 'kse-subgroup-title' }, 'Bordo del riquadro'),
-				field('Spessore', numCtl(s.borderWidth, live((v) => { s.borderWidth = v; }), { min: 0, max: 50, unit: 'px' }), { help: '0 = nessun bordo.' }),
-				field('Stile', segCtl(s.borderStyle || 'solid', [['solid', 'Pieno'], ['dashed', 'Tratteggiato'], ['dotted', 'Puntinato'], ['double', 'Doppio']], liveNow((v) => { s.borderStyle = v; }))),
-				field('Colore', colorCtl(s.borderColor, live((v) => { s.borderColor = v; }))),
-				s.borderOpacity != null && s.borderOpacity < 1 ? field('Opacità', rangeCtl(s.borderOpacity, live((v) => { s.borderOpacity = v; }), { min: 0, max: 1, step: 0.05 }), { help: 'Impostazione precedente: ora puoi regolare l’opacità direttamente nel colore e riportare questa a 1.' }) : null),
-			field('Opacità', rangeCtl(s.opacity, live((v) => { s.opacity = v; }), { min: 0, max: 1, step: 0.05 })),
+				h('div', { class: 'kse-subgroup-title' }, __( 'Box border', 'kaosslider' )),
+				field(__( 'Thickness', 'kaosslider' ), numCtl(s.borderWidth, live((v) => { s.borderWidth = v; }), { min: 0, max: 50, unit: 'px' }), { help: __( '0 = no border.', 'kaosslider' ) }),
+				field(__( 'Style', 'kaosslider' ), segCtl(s.borderStyle || 'solid', [['solid', _x( 'Solid', 'border style', 'kaosslider' )], ['dashed', __( 'Dashed', 'kaosslider' )], ['dotted', __( 'Dotted', 'kaosslider' )], ['double', __( 'Double', 'kaosslider' )]], liveNow((v) => { s.borderStyle = v; }))),
+				field(__( 'Colour', 'kaosslider' ), colorCtl(s.borderColor, live((v) => { s.borderColor = v; }))),
+				s.borderOpacity != null && s.borderOpacity < 1 ? field(__( 'Opacity', 'kaosslider' ), rangeCtl(s.borderOpacity, live((v) => { s.borderOpacity = v; }), { min: 0, max: 1, step: 0.05 }), { help: __( 'Previous setting: you can now set the opacity directly in the colour and put this back to 1.', 'kaosslider' ) }) : null),
+			field(__( 'Opacity', 'kaosslider' ), rangeCtl(s.opacity, live((v) => { s.opacity = v; }), { min: 0, max: 1, step: 0.05 })),
 			l.type !== 'draw' && l.type !== 'film' && l.type !== 'image' ? glassGroup(s) : null,
 			h('div', { class: 'kse-subgroup' },
-				h('div', { class: 'kse-subgroup-title' }, isText ? 'Ombra del riquadro' : 'Ombra'),
+				h('div', { class: 'kse-subgroup-title' }, isText ? __( 'Box shadow', 'kaosslider' ) : __( 'Shadow', 'kaosslider' )),
 				shadowCtl(s, isText ? 'boxShadow' : 'shadow', false)),
-			l.type === 'image' ? field('Adattamento nel riquadro', selectCtl(s.objectFit, [['cover', 'Copri (ritaglia)'], ['contain', 'Contieni (intera)'], ['fill', 'Allunga']], liveNow((v) => { s.objectFit = v; })), { help: 'Quando imposti sia larghezza che altezza. In "Copri/Contieni tutta la slide" vale la modalità scelta in Posizione.' }) : null,
-			l.type === 'image' ? field('Punto focale', selectCtl(s.objectPosition || 'center center', C.positions.map((x) => [x, POSITIONS_LABEL[x] || x]), liveNow((v) => { s.objectPosition = v; })), { help: 'Quale parte dell\'immagine resta visibile quando viene ritagliata.' }) : null
+			l.type === 'image' ? field(__( 'Fit inside the box', 'kaosslider' ), selectCtl(s.objectFit, [['cover', __( 'Cover (crops)', 'kaosslider' )], ['contain', __( 'Contain (whole)', 'kaosslider' )], ['fill', __( 'Stretch', 'kaosslider' )]], liveNow((v) => { s.objectFit = v; })), { help: __( 'When you set both width and height. In "Cover/Contain the whole slide" the mode chosen in Position applies.', 'kaosslider' ) }) : null,
+			l.type === 'image' ? field(__( 'Focal point', 'kaosslider' ), selectCtl(s.objectPosition || 'center center', C.positions.map((x) => [x, POSITIONS_LABEL[x] || x]), liveNow((v) => { s.objectPosition = v; })), { help: __( 'Which part of the image stays visible when it is cropped.', 'kaosslider' ) }) : null
 		));
 		if (l.type === 'button' || (l.link && l.type === 'text')) {
-			box.append(section('Al passaggio del mouse',
-				field('Colore testo', paintCtl(s.hoverColor, live((v) => { s.hoverColor = v; }), true), { wide: true }),
-				field('Sfondo', paintCtl(s.hoverBg, live((v) => { s.hoverBg = v; }), true), { wide: true, help: 'Visibile sul sito e nell\'anteprima.' })
+			box.append(section(__( 'On hover', 'kaosslider' ),
+				field(__( 'Text colour', 'kaosslider' ), paintCtl(s.hoverColor, live((v) => { s.hoverColor = v; }), true), { wide: true }),
+				field(__( 'Background', 'kaosslider' ), paintCtl(s.hoverBg, live((v) => { s.hoverBg = v; }), true), { wide: true, help: __( 'Visible on the site and in the preview.', 'kaosslider' ) })
 			));
 		}
 		return box;
@@ -2357,7 +2359,7 @@
 	function radiusCtl(s) {
 		const linked = s.radiusLinked !== false;
 		const toggle = h('button', {
-			type: 'button', class: 'kse-btn kse-icon' + (linked ? ' is-active' : ''), title: linked ? 'Angoli collegati: clicca per impostarli uno per uno' : 'Angoli separati: clicca per collegarli',
+			type: 'button', class: 'kse-btn kse-icon' + (linked ? ' is-active' : ''), title: linked ? __( 'Linked corners: click to set them one by one', 'kaosslider' ) : __( 'Separate corners: click to link them', 'kaosslider' ),
 			onclick: () => change(() => {
 				if (linked) {
 					s.radiusTL = s.radiusTR = s.radiusBR = s.radiusBL = s.radius;
@@ -2374,8 +2376,8 @@
 		const corner = (key, label) => h('label', { class: 'kse-corner' }, h('span', null, label), numCtl(s[key], live((v) => { s[key] = v; }), { min: 0, unit: 'px' }));
 		return h('div', { class: 'kse-radius' },
 			h('div', { class: 'kse-corners' },
-				corner('radiusTL', '↖ Alto sx'), corner('radiusTR', '↗ Alto dx'),
-				corner('radiusBL', '↙ Basso sx'), corner('radiusBR', '↘ Basso dx')),
+				corner('radiusTL', __( '↖ Top left', 'kaosslider' )), corner('radiusTR', __( '↗ Top right', 'kaosslider' )),
+				corner('radiusBL', __( '↙ Bottom left', 'kaosslider' )), corner('radiusBR', __( '↘ Bottom right', 'kaosslider' ))),
 			toggle);
 	}
 
@@ -2384,53 +2386,53 @@
 		const o = l.anim.out;
 		const box = h('div');
 		box.append(h('div', { class: 'kse-test-row' },
-			h('button', { type: 'button', class: 'kse-btn kse-primary-ghost', onclick: () => testLayer(l) }, icon('controls-play'), ' Prova questo livello'),
-			h('button', { type: 'button', class: 'kse-btn', onclick: playSlide }, 'Riproduci slide')));
+			h('button', { type: 'button', class: 'kse-btn kse-primary-ghost', onclick: () => testLayer(l) }, icon('controls-play'), ( ' ' + __( 'Test this layer', 'kaosslider' ) )),
+			h('button', { type: 'button', class: 'kse-btn', onclick: playSlide }, __( 'Play slide', 'kaosslider' ))));
 
 		const typewriter = a.effect === 'typewriter';
-		const inSec = section('Entrata',
-			field('Effetto', effectSelect(a.effect, EFFECTS_IN, liveNow((v) => {
+		const inSec = section(__( 'Entrance', 'kaosslider' ),
+			field(__( 'Effect', 'kaosslider' ), effectSelect(a.effect, EFFECTS_IN, liveNow((v) => {
 				a.effect = v;
 				if (v === 'typewriter' && a.stagger < 20) { a.stagger = 60; }
 			}), l)),
-			a.effect === 'custom' ? customAnimFields(a, 'Stato di partenza') : null,
+			a.effect === 'custom' ? customAnimFields(a, __( 'Starting state', 'kaosslider' )) : null,
 			typewriter
-				? field('Velocità di scrittura', numCtl(a.stagger, live((v) => { a.stagger = v; }), { min: 10, step: 10, unit: 'ms' }), { help: 'Millisecondi tra una lettera e la successiva. A fine scrittura compare un cursore lampeggiante.' })
-				: field('Durata', numCtl(a.duration, live((v) => { a.duration = v; }), { min: 0, step: 50, unit: 'ms' })),
-			field('Ritardo', numCtl(a.delay, live((v) => { a.delay = v; }), { min: 0, step: 50, unit: 'ms' }), { help: 'Dall\'inizio della slide. Puoi anche trascinare la barra nella timeline.' }),
-			typewriter ? null : field('Andamento', selectCtl(a.easing, EASINGS, liveNow((v) => { a.easing = v; })))
+				? field(__( 'Typing speed', 'kaosslider' ), numCtl(a.stagger, live((v) => { a.stagger = v; }), { min: 10, step: 10, unit: 'ms' }), { help: __( 'Milliseconds between one letter and the next. When typing ends a blinking cursor appears.', 'kaosslider' ) })
+				: field(__( 'Duration', 'kaosslider' ), numCtl(a.duration, live((v) => { a.duration = v; }), { min: 0, step: 50, unit: 'ms' })),
+			field(__( 'Delay', 'kaosslider' ), numCtl(a.delay, live((v) => { a.delay = v; }), { min: 0, step: 50, unit: 'ms' }), { help: __( 'From the start of the slide. You can also drag the bar in the timeline.', 'kaosslider' ) }),
+			typewriter ? null : field(__( 'Easing', 'kaosslider' ), selectCtl(a.easing, EASINGS, liveNow((v) => { a.easing = v; })))
 		);
 		if (typewriter && l.type !== 'text') {
-			inSec.append(h('p', { class: 'kse-hint' }, 'La macchina da scrivere funziona sui livelli di testo: qui il livello comparirà con una dissolvenza.'));
+			inSec.append(h('p', { class: 'kse-hint' }, __( 'The typewriter works on text layers: here the layer will fade in.', 'kaosslider' )));
 		}
 		if (l.type === 'text' && !typewriter) {
 			inSec.append(
-				field('Anima per', segCtl(a.split, [['none', 'Blocco'], ['lines', 'Righe'], ['words', 'Parole'], ['chars', 'Lettere']], liveNow((v) => { a.split = v; }))),
-				a.split !== 'none' ? field('Intervallo', numCtl(a.stagger, live((v) => { a.stagger = v; }), { min: 0, step: 10, unit: 'ms' }), { help: 'Ritardo tra una parola/lettera/riga e la successiva.' }) : null
+				field(__( 'Animate by', 'kaosslider' ), segCtl(a.split, [['none', __( 'Block', 'kaosslider' )], ['lines', __( 'Lines', 'kaosslider' )], ['words', __( 'Words', 'kaosslider' )], ['chars', __( 'Letters', 'kaosslider' )]], liveNow((v) => { a.split = v; }))),
+				a.split !== 'none' ? field(__( 'Interval', 'kaosslider' ), numCtl(a.stagger, live((v) => { a.stagger = v; }), { min: 0, step: 10, unit: 'ms' }), { help: __( 'Delay between one word/letter/line and the next.', 'kaosslider' ) }) : null
 			);
 			if (a.split !== 'none' && a.effect === 'revealUp') {
-				inSec.append(h('p', { class: 'kse-hint' }, 'Effetto "Rivela" con testo spezzato: ogni parte sale da sotto una maschera. Ottimo per i titoli hero.'));
+				inSec.append(h('p', { class: 'kse-hint' }, __( '"Reveal" effect with split text: each part rises from under a mask. Great for hero headlines.', 'kaosslider' )));
 			}
 		}
 		box.append(inSec);
 
-		box.append(section('Uscita',
-			field('Effetto', effectSelect(o.effect, EFFECTS_OUT, liveNow((v) => { o.effect = v; }), l)),
-			o.effect === 'custom' ? customAnimFields(o, 'Stato di arrivo') : null,
-			o.effect !== 'none' ? field('Durata', numCtl(o.duration, live((v) => { o.duration = v; }), { min: 0, step: 50, unit: 'ms' })) : null,
-			o.effect !== 'none' ? field('Momento', numCtl(o.at, live((v) => { o.at = v; }), { min: 0, step: 50, unit: 'ms' }), { help: '0 = esce alla fine della slide. Altrimenti, millisecondi dall\'inizio della slide.' }) : null,
-			o.effect !== 'none' ? field('Andamento', selectCtl(o.easing, EASINGS, liveNow((v) => { o.easing = v; }))) : null
+		box.append(section(__( 'Exit', 'kaosslider' ),
+			field(__( 'Effect', 'kaosslider' ), effectSelect(o.effect, EFFECTS_OUT, liveNow((v) => { o.effect = v; }), l)),
+			o.effect === 'custom' ? customAnimFields(o, __( 'End state', 'kaosslider' )) : null,
+			o.effect !== 'none' ? field(__( 'Duration', 'kaosslider' ), numCtl(o.duration, live((v) => { o.duration = v; }), { min: 0, step: 50, unit: 'ms' })) : null,
+			o.effect !== 'none' ? field(__( 'Time', 'kaosslider' ), numCtl(o.at, live((v) => { o.at = v; }), { min: 0, step: 50, unit: 'ms' }), { help: __( '0 = exits at the end of the slide. Otherwise, milliseconds from the start of the slide.', 'kaosslider' ) }) : null,
+			o.effect !== 'none' ? field(__( 'Easing', 'kaosslider' ), selectCtl(o.easing, EASINGS, liveNow((v) => { o.easing = v; }))) : null
 		));
 
-		box.append(section('Animazione continua',
-			field('Dopo l\'entrata', selectCtl(l.anim.loop, [['none', 'Nessuna'], ['pulse', 'Pulsazione'], ['float', 'Fluttua'], ['rotate', 'Rotazione continua'], ['swing', 'Oscillazione'], ['blink', 'Lampeggio']], liveNow((v) => { l.anim.loop = v; })))
+		box.append(section(__( 'Continuous animation', 'kaosslider' ),
+			field(__( 'After the entrance', 'kaosslider' ), selectCtl(l.anim.loop, [['none', _x( 'None', 'shadow', 'kaosslider' )], ['pulse', __( 'Pulse', 'kaosslider' )], ['float', __( 'Float', 'kaosslider' )], ['rotate', __( 'Continuous rotation', 'kaosslider' )], ['swing', __( 'Swing', 'kaosslider' )], ['blink', __( 'Blink', 'kaosslider' )]], liveNow((v) => { l.anim.loop = v; })))
 		));
 
-		box.append(section('Parallasse col mouse',
-			field('Profondità', rangeCtl(l.parallax || 0, live((v) => { l.parallax = v; }), { min: 0, max: 10, step: 1 }),
+		box.append(section(__( 'Mouse parallax', 'kaosslider' ),
+			field(__( 'Depth', 'kaosslider' ), rangeCtl(l.parallax || 0, live((v) => { l.parallax = v; }), { min: 0, max: 10, step: 1 }),
 				{ help: settings().parallax
-					? '0 = fermo. Più è alto, più il livello si sposta seguendo il mouse: livelli con profondità diverse creano l\'effetto 3D.'
-					: 'Attiva prima "Parallasse col mouse" nelle Impostazioni dello slider.' })
+					? __( '0 = still. The higher it is, the more the layer moves with the mouse: layers with different depths create the 3D effect.', 'kaosslider' )
+					: __( 'First turn on "Mouse parallax" in the slider settings.', 'kaosslider' ) })
 		));
 		return box;
 	}
@@ -2443,16 +2445,16 @@
 		return h('div', { class: 'kse-custom-anim' },
 			h('div', { class: 'kse-custom-title' }, title),
 			h('div', { class: 'kse-grid2' },
-				n('x', 'Sposta X', { step: 10, unit: 'px' }),
-				n('y', 'Sposta Y', { step: 10, unit: 'px' }),
-				n('scale', 'Scala', { min: 0, max: 5, step: 0.05 }),
-				n('rotate', 'Rotazione', { step: 5, unit: '°' }),
-				n('rotateX', 'Rotazione 3D X', { step: 5, unit: '°' }),
-				n('rotateY', 'Rotazione 3D Y', { step: 5, unit: '°' }),
-				n('skewX', 'Inclinazione', { min: -80, max: 80, step: 1, unit: '°' }),
-				n('blur', 'Sfocatura', { min: 0, max: 50, step: 1, unit: 'px' })),
-			field('Opacità', rangeCtl(c.opacity, live((v) => { c.opacity = v; }), { min: 0, max: 1, step: 0.05 })),
-			field('Punto di rotazione', selectCtl(c.origin, C.positions.map((x) => [x, POSITIONS_LABEL[x] || x]), liveNow((v) => { c.origin = v; }))));
+				n('x', __( 'Move X', 'kaosslider' ), { step: 10, unit: 'px' }),
+				n('y', __( 'Move Y', 'kaosslider' ), { step: 10, unit: 'px' }),
+				n('scale', __( 'Scale', 'kaosslider' ), { min: 0, max: 5, step: 0.05 }),
+				n('rotate', __( 'Rotation', 'kaosslider' ), { step: 5, unit: '°' }),
+				n('rotateX', __( '3D rotation X', 'kaosslider' ), { step: 5, unit: '°' }),
+				n('rotateY', __( '3D rotation Y', 'kaosslider' ), { step: 5, unit: '°' }),
+				n('skewX', __( 'Skew', 'kaosslider' ), { min: -80, max: 80, step: 1, unit: '°' }),
+				n('blur', __( 'Blur', 'kaosslider' ), { min: 0, max: 50, step: 1, unit: 'px' })),
+			field(__( 'Opacity', 'kaosslider' ), rangeCtl(c.opacity, live((v) => { c.opacity = v; }), { min: 0, max: 1, step: 0.05 })),
+			field(__( 'Rotation point', 'kaosslider' ), selectCtl(c.origin, C.positions.map((x) => [x, POSITIONS_LABEL[x] || x]), liveNow((v) => { c.origin = v; }))));
 	}
 
 	function groupSelectCtl(value, groups, onChange, top) {
@@ -2481,61 +2483,61 @@
 
 		box.append(h('div', { class: 'kse-device-note' }, icon(DEVICE_ICON[S.device]),
 			S.device === 'desktop'
-				? ' Stai modificando Desktop: tablet e mobile ereditano questi valori.'
-				: ' Stai modificando ' + DEVICE_LABEL[S.device] + ': i valori modificati qui valgono solo per questo dispositivo.'));
+				? ( ' ' + __( 'You are editing Desktop: tablet and mobile inherit these values.', 'kaosslider' ) )
+				: ' ' + sprintf( __( 'You are editing %s: the values changed here apply only to this device.', 'kaosslider' ), DEVICE_LABEL[S.device] )));
 
 		const quick = h('div', { class: 'kse-quick-align' },
-			[['left', 'Allinea a sinistra', 'align-left'], ['center', 'Centra orizzontalmente', 'align-center'], ['right', 'Allinea a destra', 'align-right']].map(([ax, t, ic]) =>
+			[['left', __( 'Align left', 'kaosslider' ), 'align-left'], ['center', __( 'Centre horizontally', 'kaosslider' ), 'align-center'], ['right', __( 'Align right', 'kaosslider' ), 'align-right']].map(([ax, t, ic]) =>
 				h('button', { type: 'button', class: 'kse-btn kse-icon', title: t, onclick: () => change(() => { setResp(l, 'ax', ax); setResp(l, 'x', ax === 'left' ? 5 : ax === 'right' ? 95 : 50); }, { immediate: true }) }, icon(ic))),
 			h('span', { class: 'kse-sep' }),
-			[['top', 'In alto', 'arrow-up-alt2'], ['middle', 'Centra verticalmente', 'minus'], ['bottom', 'In basso', 'arrow-down-alt2']].map(([ay, t, ic]) =>
+			[['top', __( 'Top', 'kaosslider' ), 'arrow-up-alt2'], ['middle', __( 'Centre vertically', 'kaosslider' ), 'minus'], ['bottom', __( 'Bottom', 'kaosslider' ), 'arrow-down-alt2']].map(([ay, t, ic]) =>
 				h('button', { type: 'button', class: 'kse-btn kse-icon', title: t, onclick: () => change(() => { setResp(l, 'ay', ay); setResp(l, 'y', ay === 'top' ? 8 : ay === 'bottom' ? 92 : 50); }, { immediate: true }) }, icon(ic)))
 		);
 
 		const anchor = h('div', { class: 'kse-anchor' },
 			['top', 'middle', 'bottom'].map((ay) => ['left', 'center', 'right'].map((ax) => h('button', {
-				type: 'button', class: r.ax === ax && r.ay === ay ? 'is-active' : '', title: 'Punto di ancoraggio: ' + ay + ' ' + ax,
+				type: 'button', class: r.ax === ax && r.ay === ay ? 'is-active' : '', title: sprintf( __( 'Anchor point: %s', 'kaosslider' ), POSITIONS_LABEL[ax + ' ' + (ay === 'middle' ? 'center' : ay)] ),
 				onclick: () => change(() => { setResp(l, 'ax', ax); setResp(l, 'ay', ay); }, { immediate: true })
 			}))));
 
 		const media = l.type === 'image' || l.type === 'shape';
 		const fit = fitOf(l, r);
 		const FIT_HELP = {
-			custom: 'Larghezza e altezza in px, scalate in proporzione sugli schermi piccoli.',
-			fullw: 'Occupa tutta la larghezza della slide; puoi spostarlo solo in verticale.',
-			fullh: 'Occupa tutta l\'altezza della slide; puoi spostarlo solo in orizzontale.',
-			cover: 'Riempie tutta la slide, ritagliando i bordi se le proporzioni non coincidono.',
-			contain: 'Sta tutta dentro la slide senza tagli, lasciando spazio vuoto ai lati se serve.'
+			custom: __( 'Width and height in px, scaled proportionally on small screens.', 'kaosslider' ),
+			fullw: __( 'Takes up the full width of the slide; you can only move it vertically.', 'kaosslider' ),
+			fullh: __( 'Takes up the full height of the slide; you can only move it horizontally.', 'kaosslider' ),
+			cover: __( 'Fills the whole slide, cropping the edges if the proportions do not match.', 'kaosslider' ),
+			contain: __( 'Fits entirely inside the slide without cropping, leaving empty space at the sides if needed.', 'kaosslider' )
 		};
 		if (media) {
-			box.append(section('Dimensionamento',
-				field('Modalità', selectCtl(fit, [['custom', 'Personalizzata'], ['fullw', 'Larghezza piena'], ['fullh', 'Altezza piena'], ['cover', 'Copri tutta la slide'], ['contain', 'Contieni nella slide']], setNow('fit')),
+			box.append(section(__( 'Sizing', 'kaosslider' ),
+				field(__( 'Mode', 'kaosslider' ), selectCtl(fit, [['custom', _x( 'Custom', 'shadow', 'kaosslider' )], ['fullw', __( 'Full width', 'kaosslider' )], ['fullh', __( 'Full height', 'kaosslider' )], ['cover', __( 'Cover the whole slide', 'kaosslider' )], ['contain', __( 'Contain in the slide', 'kaosslider' )]], setNow('fit')),
 					{ badge: respBadge(l, ['fit']), help: FIT_HELP[fit] })
 			));
 		}
 
 		if (fit !== 'cover' && fit !== 'contain') {
-			box.append(section('Posizione', fit === 'custom' ? quick : null,
-				fit !== 'fullw' ? field('X (orizzontale)', numCtl(r.x, set('x'), { step: 0.5, unit: '%' }), { badge: respBadge(l, ['x']) }) : null,
-				fit !== 'fullh' ? field('Y (verticale)', numCtl(r.y, set('y'), { step: 0.5, unit: '%' }), { badge: respBadge(l, ['y']) }) : null,
-				fit === 'custom' ? field('Ancoraggio', anchor, { badge: respBadge(l, ['ax', 'ay']), help: 'Quale punto del livello si trova alle coordinate X/Y.' }) : null,
-				fit === 'fullw' ? field('Ancoraggio verticale', segCtl(r.ay, [['top', 'Alto'], ['middle', 'Centro'], ['bottom', 'Basso']], setNow('ay')), { badge: respBadge(l, ['ay']) }) : null,
-				fit === 'fullh' ? field('Ancoraggio orizzontale', segCtl(r.ax, [['left', 'Sinistra'], ['center', 'Centro'], ['right', 'Destra']], setNow('ax')), { badge: respBadge(l, ['ax']) }) : null
+			box.append(section(__( 'Position', 'kaosslider' ), fit === 'custom' ? quick : null,
+				fit !== 'fullw' ? field(__( 'X (horizontal)', 'kaosslider' ), numCtl(r.x, set('x'), { step: 0.5, unit: '%' }), { badge: respBadge(l, ['x']) }) : null,
+				fit !== 'fullh' ? field(__( 'Y (vertical)', 'kaosslider' ), numCtl(r.y, set('y'), { step: 0.5, unit: '%' }), { badge: respBadge(l, ['y']) }) : null,
+				fit === 'custom' ? field(__( 'Anchor', 'kaosslider' ), anchor, { badge: respBadge(l, ['ax', 'ay']), help: __( 'Which point of the layer sits at the X/Y coordinates.', 'kaosslider' ) }) : null,
+				fit === 'fullw' ? field(__( 'Vertical anchor', 'kaosslider' ), segCtl(r.ay, [['top', _x( 'Top', 'anchor', 'kaosslider' )], ['middle', __( 'Centre', 'kaosslider' )], ['bottom', _x( 'Bottom', 'anchor', 'kaosslider' )]], setNow('ay')), { badge: respBadge(l, ['ay']) }) : null,
+				fit === 'fullh' ? field(__( 'Horizontal anchor', 'kaosslider' ), segCtl(r.ax, [['left', __( 'Left', 'kaosslider' )], ['center', __( 'Centre', 'kaosslider' )], ['right', __( 'Right', 'kaosslider' )]], setNow('ax')), { badge: respBadge(l, ['ax']) }) : null
 			));
 		}
 
-		box.append(section('Dimensioni',
-			(fit === 'custom' || fit === 'fullh') ? field('Larghezza', numCtl(r.w, set('w'), { min: 0, unit: 'px' }), { badge: respBadge(l, ['w']), help: l.type === 'text' ? '0 = automatica (il testo non va a capo da solo).' : '0 = automatica.' }) : null,
-			media && (fit === 'custom' || fit === 'fullw') ? field('Altezza', numCtl(r.h, set('h'), { min: 0, unit: 'px' }), { badge: respBadge(l, ['h']), help: '0 = automatica (proporzioni originali).' }) : null,
-			media && (fit === 'cover' || fit === 'contain') ? h('p', { class: 'kse-hint' }, 'Dimensioni automatiche: il livello segue sempre la slide.') : null,
-			(l.type === 'text' || l.type === 'button') ? field('Dimensione testo', numCtl(r.fs, set('fs'), { min: 4, max: 400, unit: 'px' }), { badge: respBadge(l, ['fs']) }) : null,
-			(l.type === 'text' || l.type === 'button') ? field('Allineamento testo', segCtl(r.ta, [['left', 'Sinistra', 'editor-alignleft'], ['center', 'Centro', 'editor-aligncenter'], ['right', 'Destra', 'editor-alignright']], setNow('ta')), { badge: respBadge(l, ['ta']) }) : null
+		box.append(section(__( 'Dimensions', 'kaosslider' ),
+			(fit === 'custom' || fit === 'fullh') ? field(__( 'Width', 'kaosslider' ), numCtl(r.w, set('w'), { min: 0, unit: 'px' }), { badge: respBadge(l, ['w']), help: l.type === 'text' ? __( '0 = automatic (the text does not wrap on its own).', 'kaosslider' ) : __( '0 = automatic.', 'kaosslider' ) }) : null,
+			media && (fit === 'custom' || fit === 'fullw') ? field(__( 'Height', 'kaosslider' ), numCtl(r.h, set('h'), { min: 0, unit: 'px' }), { badge: respBadge(l, ['h']), help: __( '0 = automatic (original proportions).', 'kaosslider' ) }) : null,
+			media && (fit === 'cover' || fit === 'contain') ? h('p', { class: 'kse-hint' }, __( 'Automatic size: the layer always follows the slide.', 'kaosslider' )) : null,
+			(l.type === 'text' || l.type === 'button') ? field(__( 'Text size', 'kaosslider' ), numCtl(r.fs, set('fs'), { min: 4, max: 400, unit: 'px' }), { badge: respBadge(l, ['fs']) }) : null,
+			(l.type === 'text' || l.type === 'button') ? field(__( 'Text alignment', 'kaosslider' ), segCtl(r.ta, [['left', __( 'Left', 'kaosslider' ), 'editor-alignleft'], ['center', __( 'Centre', 'kaosslider' ), 'editor-aligncenter'], ['right', __( 'Right', 'kaosslider' ), 'editor-alignright']], setNow('ta')), { badge: respBadge(l, ['ta']) }) : null
 		));
 
-		box.append(section('Visibilità',
-			field('', toggleCtl(r.hide, setNow('hide'), 'Nascondi su ' + DEVICE_LABEL[S.device]), { badge: respBadge(l, ['hide']) })
+		box.append(section(__( 'Visibility', 'kaosslider' ),
+			field('', toggleCtl(r.hide, setNow('hide'), sprintf( __( 'Hide on %s', 'kaosslider' ), DEVICE_LABEL[S.device] )), { badge: respBadge(l, ['hide']) })
 		));
-		box.append(h('p', { class: 'kse-hint' }, 'Le misure in px sono riferite alla tela di ' + grid().w + 'px e si riducono in proporzione sugli schermi più piccoli.'));
+		box.append(h('p', { class: 'kse-hint' }, sprintf( __( 'Sizes in px refer to the %dpx canvas and shrink proportionally on smaller screens.', 'kaosslider' ), grid().w )));
 		// A modifica confermata (invio/uscita dal campo) aggiorna le etichette "eredita" / "personalizzato".
 		box.addEventListener('change', (e) => { if (e.target.type === 'number') { setTimeout(renderProps); } });
 		return box;
@@ -2547,13 +2549,13 @@
 		const N = (fn) => liveNow(fn);
 		const isCar = st.type === 'carousel';
 		const wrap = h('div', { class: 'kse-props' },
-			h('div', { class: 'kse-props-head' }, icon('admin-generic'), h('strong', null, 'Impostazioni slider'),
-				h('button', { type: 'button', class: 'kse-btn kse-icon', title: 'Chiudi', onclick: () => { S.panel = 'auto'; renderProps(); updateTopbar(); } }, icon('no-alt')))
+			h('div', { class: 'kse-props-head' }, icon('admin-generic'), h('strong', null, __( 'Slider settings', 'kaosslider' )),
+				h('button', { type: 'button', class: 'kse-btn kse-icon', title: __( 'Close', 'kaosslider' ), onclick: () => { S.panel = 'auto'; renderProps(); updateTopbar(); } }, icon('no-alt')))
 		);
 
-		wrap.append(section('Generale',
-			field('Alias', textCtl(S.alias, (v) => change(() => { S.alias = v; }, { only: [] })), { help: 'Permette anche [kaosslider alias="' + (S.alias || 'nome') + '"].' }),
-			field('Tipo', segCtl(st.type, [['slider', 'Slider'], ['carousel', 'Carosello']], N((v) => {
+		wrap.append(section(__( 'General', 'kaosslider' ),
+			field(__( 'Alias', 'kaosslider' ), textCtl(S.alias, (v) => change(() => { S.alias = v; }, { only: [] })), { help: sprintf( __( 'Also allows [kaosslider alias="%s"].', 'kaosslider' ), S.alias || __( 'name', 'kaosslider' ) ) }),
+			field(__( 'Type', 'kaosslider' ), segCtl(st.type, [['slider', __( 'Slider', 'kaosslider' )], ['carousel', __( 'Carousel', 'kaosslider' )]], N((v) => {
 				st.type = v;
 				if (v === 'carousel' && st.grid.desktop.w > 800) {
 					st.grid = { desktop: { w: 400, h: 500 }, tablet: { w: 400, h: 500 }, mobile: { w: 400, h: 500 } };
@@ -2563,65 +2565,65 @@
 					st.grid = { desktop: { w: 1240, h: 700 }, tablet: { w: 1024, h: 700 }, mobile: { w: 480, h: 720 } };
 				}
 			}))),
-			!isCar ? field('Altezza', segCtl(st.height, [['fullscreen', 'Schermo intero'], ['fixed', 'Proporzionale']], N((v) => { st.height = v; })), { help: st.height === 'fullscreen' ? 'Occupa tutta l\'altezza della finestra.' : 'Altezza = altezza della tela, ridotta in proporzione sugli schermi stretti.' }) : null,
-			!isCar && st.height === 'fullscreen' ? field('Sottrai all\'altezza', numCtl(st.offset, L((v) => { st.offset = v; }), { min: 0, unit: 'px' }), { help: 'Es. l\'altezza dell\'header, se lo slider deve stare tutto sopra la piega.' }) : null,
-			field('', toggleCtl(st.fullWidth, N((v) => { st.fullWidth = v; }), 'Larghezza piena (esce dal contenitore del tema)')),
-			field('', toggleCtl(st.responsive !== false, N((v) => { st.responsive = v; }), 'Responsive'),
+			!isCar ? field(__( 'Height', 'kaosslider' ), segCtl(st.height, [['fullscreen', __( 'Fullscreen', 'kaosslider' )], ['fixed', __( 'Proportional', 'kaosslider' )]], N((v) => { st.height = v; })), { help: st.height === 'fullscreen' ? __( 'Takes up the full height of the window.', 'kaosslider' ) : __( 'Height = canvas height, reduced proportionally on narrow screens.', 'kaosslider' ) }) : null,
+			!isCar && st.height === 'fullscreen' ? field(__( 'Subtract from the height', 'kaosslider' ), numCtl(st.offset, L((v) => { st.offset = v; }), { min: 0, unit: 'px' }), { help: __( 'E.g. the header height, if the slider must fit entirely above the fold.', 'kaosslider' ) }) : null,
+			field('', toggleCtl(st.fullWidth, N((v) => { st.fullWidth = v; }), __( 'Full width (breaks out of the theme container)', 'kaosslider' ))),
+			field('', toggleCtl(st.responsive !== false, N((v) => { st.responsive = v; }), __( 'Responsive', 'kaosslider' )),
 				{ help: st.responsive !== false
-					? 'Sugli schermi più stretti della tela livelli e testi si riducono in proporzione (le versioni tablet/mobile restano personalizzabili).'
-					: 'Misure reali in px su ogni schermo: su quelli più stretti ciò che esce dalla slide viene tagliato.' }),
-			field('Sfondo dello slider', paintCtl(st.bgColor, L((v) => { st.bgColor = v; }), true), { wide: true })
+					? __( 'On screens narrower than the canvas, layers and texts shrink proportionally (the tablet/mobile versions can still be customised).', 'kaosslider' )
+					: __( 'Real px sizes on every screen: on narrower ones, whatever goes beyond the slide is cut off.', 'kaosslider' ) }),
+			field(__( 'Slider background', 'kaosslider' ), paintCtl(st.bgColor, L((v) => { st.bgColor = v; }), true), { wide: true })
 		));
 
-		const gridSec = section(isCar ? 'Dimensioni card (tela)' : 'Dimensioni tela',
+		const gridSec = section(isCar ? __( 'Card size (canvas)', 'kaosslider' ) : __( 'Canvas size', 'kaosslider' ),
 			h('p', { class: 'kse-hint' }, isCar
-				? 'Dimensioni di riferimento di ogni card. Le card si adattano alla larghezza disponibile mantenendo le proporzioni.'
-				: 'Area di lavoro su cui posizioni i livelli. Sugli schermi più stretti della tela, tutto viene ridotto in proporzione.')
+				? __( 'Reference size of each card. Cards adapt to the available width keeping their proportions.', 'kaosslider' )
+				: __( 'Work area where you position the layers. On screens narrower than the canvas, everything is reduced proportionally.', 'kaosslider' ))
 		);
 		DEVICES.forEach((d) => {
 			gridSec.append(field(DEVICE_LABEL[d], h('div', { class: 'kse-inline' },
-				numCtl(st.grid[d].w, L((v) => { st.grid[d].w = v; }), { min: 200, max: 4000, unit: 'L' }),
-				numCtl(st.grid[d].h, L((v) => { st.grid[d].h = v; }), { min: 100, max: 4000, unit: 'A' }))));
+				numCtl(st.grid[d].w, L((v) => { st.grid[d].w = v; }), { min: 200, max: 4000, unit: _x( 'W', 'width abbreviation', 'kaosslider' ) }),
+				numCtl(st.grid[d].h, L((v) => { st.grid[d].h = v; }), { min: 100, max: 4000, unit: _x( 'H', 'height abbreviation', 'kaosslider' ) }))));
 		});
 		wrap.append(gridSec);
 
 		if (isCar) {
-			const carSec = section('Carosello');
+			const carSec = section(__( 'Carousel', 'kaosslider' ));
 			DEVICES.forEach((d) => {
-				carSec.append(field('Card visibili · ' + DEVICE_LABEL[d], numCtl(st.perView[d], L((v) => { st.perView[d] = Math.round(v); }), { min: 1, max: 8 })));
+				carSec.append(field(sprintf( __( 'Visible cards · %s', 'kaosslider' ), DEVICE_LABEL[d] ), numCtl(st.perView[d], L((v) => { st.perView[d] = Math.round(v); }), { min: 1, max: 8 })));
 			});
-			carSec.append(field('Spazio tra le card', numCtl(st.gap, L((v) => { st.gap = v; }), { min: 0, max: 400, unit: 'px' })));
-			carSec.append(field('Stile', segCtl(st.carouselStyle || 'flat', [['flat', 'Piatto'], ['coverflow', '3D'], ['zoom', 'Zoom centrale']], N((v) => { st.carouselStyle = v; })),
-				{ help: st.carouselStyle && st.carouselStyle !== 'flat' ? 'La card attiva sta al centro e quelle laterali ruotano o rimpiccioliscono. Con 3 card visibili l\'effetto rende al meglio.' : 'Card affiancate tutte uguali.' }));
+			carSec.append(field(__( 'Space between cards', 'kaosslider' ), numCtl(st.gap, L((v) => { st.gap = v; }), { min: 0, max: 400, unit: 'px' })));
+			carSec.append(field(__( 'Style', 'kaosslider' ), segCtl(st.carouselStyle || 'flat', [['flat', __( 'Flat', 'kaosslider' )], ['coverflow', __( '3D', 'kaosslider' )], ['zoom', __( 'Centre zoom', 'kaosslider' )]], N((v) => { st.carouselStyle = v; })),
+				{ help: st.carouselStyle && st.carouselStyle !== 'flat' ? __( 'The active card sits in the centre and the side ones rotate or shrink. It looks best with 3 visible cards.', 'kaosslider' ) : __( 'Identical cards side by side.', 'kaosslider' ) }));
 			wrap.append(carSec);
 		}
 
 		if (!isCar) {
-			wrap.append(section('Video guidato dallo scroll',
-				field('', toggleCtl(st.scrollVideo, N((v) => { st.scrollVideo = v; }), 'Attiva'),
-					{ help: 'Il video di sfondo (file) della prima slide avanza e torna indietro seguendo lo scroll, mentre la slide resta ferma sullo schermo. Le altre slide non vengono mostrate.' }),
-				st.scrollVideo ? field('Lunghezza dello scroll', rangeCtl(st.scrollLength, L((v) => { st.scrollLength = v; }), { min: 150, max: 1000, step: 10 }), { help: 'In % dell\'altezza dello schermo (300 = tre schermate di scroll per vedere tutto il video).' }) : null,
-				st.scrollVideo ? h('p', { class: 'kse-hint' }, 'Per uno scorrimento fluido usa un MP4 breve (5–15 s) con un fotogramma chiave ogni pochi frame, es. con ffmpeg: -g 5. Visibile solo sul sito e nell\'anteprima.') : null));
+			wrap.append(section(__( 'Scroll-driven video', 'kaosslider' ),
+				field('', toggleCtl(st.scrollVideo, N((v) => { st.scrollVideo = v; }), __( 'Enable', 'kaosslider' )),
+					{ help: __( 'The background video (file) of the first slide moves forwards and backwards with the scroll, while the slide stays fixed on screen. The other slides are not shown.', 'kaosslider' ) }),
+				st.scrollVideo ? field(__( 'Scroll length', 'kaosslider' ), rangeCtl(st.scrollLength, L((v) => { st.scrollLength = v; }), { min: 150, max: 1000, step: 10 }), { help: __( 'In % of the screen height (300 = three screens of scrolling to see the whole video).', 'kaosslider' ) }) : null,
+				st.scrollVideo ? h('p', { class: 'kse-hint' }, __( 'For smooth scrubbing use a short MP4 (5–15 s) with a keyframe every few frames, e.g. with ffmpeg: -g 5. Visible only on the site and in the preview.', 'kaosslider' )) : null));
 		}
-		wrap.append(section('Riproduzione',
-			!isCar ? field('Transizione predefinita', groupSelectCtl(st.transition, TRANSITION_GROUPS, N((v) => { st.transition = v; })), { help: 'Ogni slide può usarne una diversa (pannello della slide).' }) : null,
-			field('Velocità transizione', numCtl(st.speed, L((v) => { st.speed = v; }), { min: 0, max: 10000, step: 50, unit: 'ms' })),
-			field('', toggleCtl(st.parallax, N((v) => { st.parallax = v; }), 'Parallasse col mouse'), { help: 'I livelli e lo sfondo seguono il mouse in base alla "profondità" impostata su ciascuno. Solo su computer.' }),
-			st.parallax ? field('Intensità parallasse', rangeCtl(st.parallaxStrength, L((v) => { st.parallaxStrength = v; }), { min: 0, max: 100, step: 1 })) : null,
-			field('', toggleCtl(st.scrollParallax, N((v) => { st.scrollParallax = v; }), 'Parallasse dello sfondo allo scroll'), { help: 'Lo sfondo scorre più lentamente della pagina.' }),
-			field('', toggleCtl(st.autoplay, N((v) => { st.autoplay = v; }), 'Avanzamento automatico')),
-			field(isCar ? 'Intervallo' : 'Durata predefinita slide', numCtl(st.delay, L((v) => { st.delay = v; }), { min: 500, step: 100, unit: 'ms' })),
-			field('', toggleCtl(st.pauseOnHover, N((v) => { st.pauseOnHover = v; }), 'Pausa al passaggio del mouse')),
-			field('', toggleCtl(st.loop, N((v) => { st.loop = v; }), 'Ricomincia dopo l\'ultima slide'))
+		wrap.append(section(__( 'Playback', 'kaosslider' ),
+			!isCar ? field(__( 'Default transition', 'kaosslider' ), groupSelectCtl(st.transition, TRANSITION_GROUPS, N((v) => { st.transition = v; })), { help: __( 'Each slide can use a different one (slide panel).', 'kaosslider' ) }) : null,
+			field(__( 'Transition speed', 'kaosslider' ), numCtl(st.speed, L((v) => { st.speed = v; }), { min: 0, max: 10000, step: 50, unit: 'ms' })),
+			field('', toggleCtl(st.parallax, N((v) => { st.parallax = v; }), __( 'Mouse parallax', 'kaosslider' )), { help: __( 'Layers and background follow the mouse according to the "depth" set on each one. Desktop computers only.', 'kaosslider' ) }),
+			st.parallax ? field(__( 'Parallax intensity', 'kaosslider' ), rangeCtl(st.parallaxStrength, L((v) => { st.parallaxStrength = v; }), { min: 0, max: 100, step: 1 })) : null,
+			field('', toggleCtl(st.scrollParallax, N((v) => { st.scrollParallax = v; }), __( 'Background parallax on scroll', 'kaosslider' )), { help: __( 'The background scrolls more slowly than the page.', 'kaosslider' ) }),
+			field('', toggleCtl(st.autoplay, N((v) => { st.autoplay = v; }), __( 'Autoplay', 'kaosslider' ))),
+			field(isCar ? __( 'Interval', 'kaosslider' ) : __( 'Default slide duration', 'kaosslider' ), numCtl(st.delay, L((v) => { st.delay = v; }), { min: 500, step: 100, unit: 'ms' })),
+			field('', toggleCtl(st.pauseOnHover, N((v) => { st.pauseOnHover = v; }), __( 'Pause on hover', 'kaosslider' ))),
+			field('', toggleCtl(st.loop, N((v) => { st.loop = v; }), __( 'Start over after the last slide', 'kaosslider' )))
 		));
 
-		wrap.append(section('Navigazione',
-			field('', toggleCtl(st.arrows, N((v) => { st.arrows = v; }), 'Frecce')),
-			field('', toggleCtl(st.bullets, N((v) => { st.bullets = v; }), 'Pallini')),
-			!isCar ? field('', toggleCtl(st.progress, N((v) => { st.progress = v; }), 'Barra di avanzamento')) : null,
-			field('', toggleCtl(st.swipe, N((v) => { st.swipe = v; }), 'Swipe / trascinamento')),
-			field('', toggleCtl(st.keyboard, N((v) => { st.keyboard = v; }), 'Frecce della tastiera')),
-			field('Colore navigazione', colorCtl(st.navColor, L((v) => { st.navColor = v; })))
+		wrap.append(section(__( 'Navigation', 'kaosslider' ),
+			field('', toggleCtl(st.arrows, N((v) => { st.arrows = v; }), __( 'Arrows', 'kaosslider' ))),
+			field('', toggleCtl(st.bullets, N((v) => { st.bullets = v; }), __( 'Dots', 'kaosslider' ))),
+			!isCar ? field('', toggleCtl(st.progress, N((v) => { st.progress = v; }), __( 'Progress bar', 'kaosslider' ))) : null,
+			field('', toggleCtl(st.swipe, N((v) => { st.swipe = v; }), __( 'Swipe / drag', 'kaosslider' ))),
+			field('', toggleCtl(st.keyboard, N((v) => { st.keyboard = v; }), __( 'Keyboard arrows', 'kaosslider' ))),
+			field(__( 'Navigation colour', 'kaosslider' ), colorCtl(st.navColor, L((v) => { st.navColor = v; })))
 		));
 		return wrap;
 	}
@@ -2633,7 +2635,7 @@
 		flushHistory();
 		S.saving = true;
 		$.save.disabled = true;
-		$.save.textContent = 'Salvataggio…';
+		$.save.textContent = __( 'Saving…', 'kaosslider' );
 		return api('/sliders/' + S.id, { method: 'POST', body: { title: S.title, alias: S.alias, data: S.data } })
 			.then((res) => {
 				S.title = res.title;
@@ -2645,10 +2647,10 @@
 				undoStack[undoStack.length - 1] = snapshot();
 				const focused = document.activeElement && $.right.contains(document.activeElement);
 				refresh(focused ? { skip: ['props'] } : {});
-				toast('Slider salvato', 'ok');
+				toast(__( 'Slider saved', 'kaosslider' ), 'ok');
 			})
 			.catch((err) => {
-				toast('Errore: ' + err.message, 'error');
+				toast(sprintf( __( 'Error: %s', 'kaosslider' ), err.message ), 'error');
 				throw err;
 			})
 			.finally(() => {
@@ -2686,7 +2688,7 @@
 		}
 		const l = layer();
 		if (!l) { return; }
-		if (mod && key === 'c') { clipboard = clone(l); toast('Livello copiato'); return; }
+		if (mod && key === 'c') { clipboard = clone(l); toast(__( 'Layer copied', 'kaosslider' )); return; }
 		if (mod && key === 'd') { e.preventDefault(); duplicateLayer(l); return; }
 		if (key === 'delete' || key === 'backspace') { e.preventDefault(); deleteLayer(l.id); return; }
 		if (key === 'escape') { select(null); return; }
@@ -2727,6 +2729,6 @@
 		});
 	}).catch((err) => {
 		root.innerHTML = '';
-		root.append(h('div', { class: 'kse-loading' }, 'Impossibile caricare lo slider: ' + err.message + ' ', h('a', { href: C.adminUrl }, 'Torna all\'elenco')));
+		root.append(h('div', { class: 'kse-loading' }, sprintf( __( 'Unable to load the slider: %s', 'kaosslider' ), err.message ) + ' ', h('a', { href: C.adminUrl }, __( 'Back to the list', 'kaosslider' ))));
 	});
 })();

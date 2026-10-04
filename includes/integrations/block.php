@@ -8,8 +8,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Elenco id => titolo, usato dai page builder.
  */
-function kaosslider_options( $placeholder = '— Scegli uno slider —' ) {
-	$options = array( '' => $placeholder );
+function kaosslider_options( $placeholder = null ) {
+	$options = array( '' => null === $placeholder ? __( '— Choose a slider —', 'kaosslider' ) : $placeholder );
 	foreach ( KaosSlider_Store::all() as $s ) {
 		$options[ (string) $s['id'] ] = $s['title'] . ' (#' . $s['id'] . ')';
 	}
@@ -22,10 +22,11 @@ add_action(
 		wp_register_script(
 			'kaosslider-block',
 			KAOSSLIDER_URL . 'assets/js/block.js',
-			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-api-fetch' ),
+			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-api-fetch', 'wp-i18n' ),
 			kaosslider_asset_ver( 'assets/js/block.js' ),
 			true
 		);
+		wp_set_script_translations( 'kaosslider-block', 'kaosslider', KAOSSLIDER_DIR . 'languages' );
 		wp_add_inline_script(
 			'kaosslider-block',
 			'window.KaosSliderBlock = ' . wp_json_encode( array( 'adminUrl' => admin_url( 'admin.php?page=kaosslider' ) ) ) . ';',

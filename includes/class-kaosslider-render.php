@@ -36,11 +36,12 @@ class KaosSlider_Render {
 		$bar->add_node(
 			array(
 				'id'    => 'kaosslider',
-				'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="ab-label">KaosSlider</span>',
+				// Testi per il menu compilato da kaosslider.js (così sul sito non serve caricare il sistema di traduzione JS).
+				'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="ab-label" data-edit="' . esc_attr( /* translators: %s: slider name. */ __( 'Edit: %s', 'kaosslider' ) ) . '" data-untitled="' . esc_attr( /* translators: %d: slider ID. */ __( 'Slider #%d', 'kaosslider' ) ) . '">KaosSlider</span>',
 				'href'  => false,
 				'meta'  => array(
 					'class' => 'kaosslider-ab',
-					'title' => __( 'Modifica gli slider di questa pagina', 'kaosslider' ),
+					'title' => __( 'Edit the sliders on this page', 'kaosslider' ),
 				),
 			)
 		);
@@ -48,7 +49,7 @@ class KaosSlider_Render {
 			array(
 				'parent' => 'kaosslider',
 				'id'     => 'kaosslider-all',
-				'title'  => __( 'Tutti gli slider', 'kaosslider' ),
+				'title'  => __( 'All sliders', 'kaosslider' ),
 				'href'   => admin_url( 'admin.php?page=' . KaosSlider_Admin::SLUG ),
 				'meta'   => array( 'class' => 'kaosslider-ab-all' ),
 			)
@@ -113,7 +114,7 @@ class KaosSlider_Render {
 		$post = $id_or_alias ? KaosSlider_Store::find_post( $id_or_alias ) : null;
 		if ( ! $post ) {
 			return current_user_can( kaosslider_capability() )
-				? '<p style="padding:1em;border:1px dashed #c00;color:#c00">KaosSlider: slider non trovato.</p>'
+				? '<p style="padding:1em;border:1px dashed #c00;color:#c00">' . esc_html__( 'KaosSlider: slider not found.', 'kaosslider' ) . '</p>'
 				: '';
 		}
 
@@ -215,13 +216,13 @@ class KaosSlider_Render {
 				</div>
 			</div>
 			<?php if ( $settings['arrows'] && $total > 1 ) : ?>
-				<button type="button" class="ks-arrow ks-prev" aria-label="<?php esc_attr_e( 'Slide precedente', 'kaosslider' ); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg></button>
-				<button type="button" class="ks-arrow ks-next" aria-label="<?php esc_attr_e( 'Slide successiva', 'kaosslider' ); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg></button>
+				<button type="button" class="ks-arrow ks-prev" aria-label="<?php esc_attr_e( 'Previous slide', 'kaosslider' ); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg></button>
+				<button type="button" class="ks-arrow ks-next" aria-label="<?php esc_attr_e( 'Next slide', 'kaosslider' ); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg></button>
 			<?php endif; ?>
 			<?php if ( $settings['bullets'] && $total > 1 ) : ?>
 				<div class="ks-bullets">
 					<?php for ( $i = 0; $i < $total; $i++ ) : ?>
-						<button type="button" class="ks-bullet<?php echo 0 === $i ? ' is-active' : ''; ?>" aria-label="<?php /* translators: %d: numero della slide. */ echo esc_attr( sprintf( __( 'Vai alla slide %d', 'kaosslider' ), $i + 1 ) ); ?>"></button>
+						<button type="button" class="ks-bullet<?php echo 0 === $i ? ' is-active' : ''; ?>" aria-label="<?php /* translators: %d: slide number. */ echo esc_attr( sprintf( __( 'Go to slide %d', 'kaosslider' ), $i + 1 ) ); ?>"></button>
 					<?php endfor; ?>
 				</div>
 			<?php endif; ?>
@@ -839,7 +840,7 @@ class KaosSlider_Render {
 		if ( ! current_user_can( kaosslider_capability() )
 			|| ! isset( $_GET['_ksnonce'] )
 			|| ! wp_verify_nonce( sanitize_key( $_GET['_ksnonce'] ), 'kaosslider_preview_' . $id ) ) {
-			wp_die( esc_html__( 'Non hai i permessi per vedere questa anteprima.', 'kaosslider' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to view this preview.', 'kaosslider' ), 403 );
 		}
 		show_admin_bar( false );
 		$html = self::render( $id );
@@ -850,13 +851,13 @@ class KaosSlider_Render {
 			<meta charset="<?php bloginfo( 'charset' ); ?>">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<meta name="robots" content="noindex,nofollow">
-			<title>Anteprima KaosSlider</title>
+			<title><?php esc_html_e( 'KaosSlider preview', 'kaosslider' ); ?></title>
 			<?php wp_head(); ?>
 			<style>html,body{margin:0!important;padding:0!important}.ks-preview-after{padding:60px 24px;font:16px/1.6 system-ui,sans-serif;color:#555;text-align:center}</style>
 		</head>
 		<body class="kaosslider-preview">
 			<?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-			<div class="ks-preview-after">Anteprima dello slider con gli stili del tema attivo. Il contenuto sotto serve solo a verificare lo scorrimento.</div>
+			<div class="ks-preview-after"><?php esc_html_e( 'Slider preview with the styles of the active theme. The content below is only here to test scrolling.', 'kaosslider' ); ?></div>
 			<?php wp_footer(); ?>
 		</body>
 		</html>

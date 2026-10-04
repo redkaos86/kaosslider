@@ -115,7 +115,7 @@ class KaosSlider_Sanitizer {
 				'easing'   => self::enum( $tr, 'easing', array_merge( array( 'default' ), self::EASINGS ), 'default' ),
 				'slices'   => self::num( $tr, 'slices', 0, 0, 40 ),
 			),
-			'name'     => self::text( $s, 'name', 'Slide' ),
+			'name'     => self::text( $s, 'name', __( 'Slide', 'kaosslider' ) ),
 			'hidden'   => self::bool( $s, 'hidden', false ),
 			'duration' => self::num( $s, 'duration', 0, 0, 120000 ),
 			'bg'       => array(
@@ -234,13 +234,13 @@ class KaosSlider_Sanitizer {
 				$l,
 				'name',
 				array(
-					'text'   => 'Testo',
-					'button' => 'Bottone',
-					'image'  => 'Immagine',
-					'shape'  => 'Forma',
-					'draw'   => 'Disegno',
-					'film'   => 'Pellicola',
-				)[ $type ] ?? 'Livello'
+					'text'   => _x( 'Text', 'layer type', 'kaosslider' ),
+					'button' => __( 'Button', 'kaosslider' ),
+					'image'  => __( 'Image', 'kaosslider' ),
+					'shape'  => __( 'Shape', 'kaosslider' ),
+					'draw'   => __( 'Drawing', 'kaosslider' ),
+					'film'   => __( 'Filmstrip', 'kaosslider' ),
+				)[ $type ] ?? __( 'Layer', 'kaosslider' )
 			),
 			'hidden'  => self::bool( $l, 'hidden', false ),
 			'locked'  => self::bool( $l, 'locked', false ),

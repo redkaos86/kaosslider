@@ -1,0 +1,1808 @@
+{
+    "translation-revision-date": "2026-10-04 21:05+0000",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/js\/editor.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "it_IT",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Previous slide": [
+                "Slide precedente"
+            ],
+            "Slide": [
+                "Slide"
+            ],
+            "layer type\u0004Text": [
+                "Testo"
+            ],
+            "Button": [
+                "Bottone"
+            ],
+            "Image": [
+                "Immagine"
+            ],
+            "Shape": [
+                "Forma"
+            ],
+            "Drawing": [
+                "Disegno"
+            ],
+            "Filmstrip": [
+                "Pellicola"
+            ],
+            "Slide %d": [
+                "Slide %d"
+            ],
+            "Slider": [
+                "Slider"
+            ],
+            "Error": [
+                "Errore"
+            ],
+            "Close": [
+                "Chiudi"
+            ],
+            "Settings": [
+                "Impostazioni"
+            ],
+            "Carousel": [
+                "Carosello"
+            ],
+            "Duplicate": [
+                "Duplica"
+            ],
+            "Delete": [
+                "Elimina"
+            ],
+            "Fullscreen": [
+                "Schermo intero"
+            ],
+            "Responsive": [
+                "Responsive"
+            ],
+            "Name": [
+                "Nome"
+            ],
+            "Type": [
+                "Tipo"
+            ],
+            "Height": [
+                "Altezza"
+            ],
+            "Save": [
+                "Salva"
+            ],
+            "Desktop": [
+                "Desktop"
+            ],
+            "Tablet": [
+                "Tablet"
+            ],
+            "Mobile": [
+                "Mobile"
+            ],
+            "None (appears)": [
+                "Nessuno (appare)"
+            ],
+            "Fade": [
+                "Dissolvenza"
+            ],
+            "From below": [
+                "Dal basso"
+            ],
+            "From above": [
+                "Dall'alto"
+            ],
+            "From the left": [
+                "Da sinistra"
+            ],
+            "From the right": [
+                "Da destra"
+            ],
+            "Zoom in": [
+                "Zoom avanti"
+            ],
+            "Zoom out": [
+                "Zoom indietro"
+            ],
+            "Rotation": [
+                "Rotazione"
+            ],
+            "Blur": [
+                "Sfocatura"
+            ],
+            "Mask from below": [
+                "Maschera dal basso"
+            ],
+            "Mask from the left": [
+                "Maschera da sinistra"
+            ],
+            "Flip": [
+                "Ribaltamento"
+            ],
+            "Reveal from below": [
+                "Rivela dal basso"
+            ],
+            "Skewed": [
+                "Inclinato"
+            ],
+            "Drop from above": [
+                "Caduta dall'alto"
+            ],
+            "None (stays visible)": [
+                "Nessuna (resta visibile)"
+            ],
+            "Downwards": [
+                "Verso il basso"
+            ],
+            "Upwards": [
+                "Verso l'alto"
+            ],
+            "To the left": [
+                "Verso sinistra"
+            ],
+            "To the right": [
+                "Verso destra"
+            ],
+            "Shrink": [
+                "Rimpicciolisce"
+            ],
+            "Grow": [
+                "Ingrandisce"
+            ],
+            "Mask downwards": [
+                "Maschera verso il basso"
+            ],
+            "Mask to the left": [
+                "Maschera verso sinistra"
+            ],
+            "Sink downwards": [
+                "Scompare verso il basso"
+            ],
+            "Bounce": [
+                "Rimbalzo"
+            ],
+            "Elastic from below": [
+                "Elastico dal basso"
+            ],
+            "Light speed": [
+                "Velocit\u00e0 luce"
+            ],
+            "Roll": [
+                "Rotolamento"
+            ],
+            "3D swing": [
+                "Altalena 3D"
+            ],
+            "Blurred zoom": [
+                "Zoom sfocato"
+            ],
+            "Stretch horizontally": [
+                "Allunga orizzontale"
+            ],
+            "Stretch vertically": [
+                "Allunga verticale"
+            ],
+            "3D rotation": [
+                "Rotazione 3D"
+            ],
+            "Typewriter": [
+                "Macchina da scrivere"
+            ],
+            "Hand drawing": [
+                "Disegno a mano"
+            ],
+            "Custom\u2026": [
+                "Personalizzato\u2026"
+            ],
+            "Elastic downwards": [
+                "Elastico verso il basso"
+            ],
+            "Squeeze horizontally": [
+                "Restringe orizzontale"
+            ],
+            "Squeeze vertically": [
+                "Restringe verticale"
+            ],
+            "Erase the stroke": [
+                "Cancella il tratto"
+            ],
+            "Basic": [
+                "Base"
+            ],
+            "Zoom and rotation": [
+                "Zoom e rotazione"
+            ],
+            "Masks and reveals": [
+                "Maschere e rivelazioni"
+            ],
+            "3D": [
+                "3D"
+            ],
+            "Dynamic": [
+                "Dinamici"
+            ],
+            "Advanced": [
+                "Avanzato"
+            ],
+            "Fades": [
+                "Dissolvenze"
+            ],
+            "Fade through background": [
+                "Dissolvenza attraverso lo sfondo"
+            ],
+            "Zoom": [
+                "Zoom"
+            ],
+            "transition\u0004Slide": [
+                "Scorrimento"
+            ],
+            "Horizontal slide": [
+                "Scorrimento orizzontale"
+            ],
+            "Vertical slide": [
+                "Scorrimento verticale"
+            ],
+            "Cover": [
+                "Copertura"
+            ],
+            "Uncover": [
+                "Scoperta"
+            ],
+            "Parallax slide": [
+                "Scorrimento con parallasse"
+            ],
+            "Wipes and shapes": [
+                "Tendine e forme"
+            ],
+            "Horizontal wipe": [
+                "Tendina orizzontale"
+            ],
+            "Vertical wipe": [
+                "Tendina verticale"
+            ],
+            "Curtain (from the centre)": [
+                "Sipario (dal centro)"
+            ],
+            "Horizontal curtain": [
+                "Sipario orizzontale"
+            ],
+            "Circle": [
+                "Cerchio"
+            ],
+            "Diamond": [
+                "Rombo"
+            ],
+            "3D cube": [
+                "Cubo 3D"
+            ],
+            "Horizontal flip": [
+                "Ribaltamento orizzontale"
+            ],
+            "Vertical flip": [
+                "Ribaltamento verticale"
+            ],
+            "In pieces": [
+                "A pezzi"
+            ],
+            "Vertical strips": [
+                "Strisce verticali"
+            ],
+            "Horizontal strips": [
+                "Strisce orizzontali"
+            ],
+            "Blinds": [
+                "Persiane"
+            ],
+            "Mosaic": [
+                "Mosaico"
+            ],
+            "Other": [
+                "Altro"
+            ],
+            "Random (different every time)": [
+                "Casuale (ogni volta diversa)"
+            ],
+            "Smooth landing": [
+                "Morbido in arrivo"
+            ],
+            "easing\u0004Smooth": [
+                "Morbido"
+            ],
+            "Accelerating": [
+                "Accelerato"
+            ],
+            "Exponential": [
+                "Esponenziale"
+            ],
+            "Slight bounce": [
+                "Rimbalzo leggero"
+            ],
+            "Linear": [
+                "Lineare"
+            ],
+            "Standard": [
+                "Standard"
+            ],
+            "Top left": [
+                "In alto a sinistra"
+            ],
+            "Top centre": [
+                "In alto al centro"
+            ],
+            "Top right": [
+                "In alto a destra"
+            ],
+            "Centre left": [
+                "Al centro a sinistra"
+            ],
+            "Centre": [
+                "Centro"
+            ],
+            "Centre right": [
+                "Al centro a destra"
+            ],
+            "Bottom left": [
+                "In basso a sinistra"
+            ],
+            "Bottom centre": [
+                "In basso al centro"
+            ],
+            "Bottom right": [
+                "In basso a destra"
+            ],
+            "Your headline here": [
+                "Il tuo titolo qui"
+            ],
+            "Learn more": [
+                "Scopri di pi\u00f9"
+            ],
+            "copy": [
+                "copia"
+            ],
+            "glass style\u0004Subtle": [
+                "Leggero"
+            ],
+            "glass style\u0004Light": [
+                "Chiaro"
+            ],
+            "glass style\u0004Dark": [
+                "Scuro"
+            ],
+            "glass style\u0004Frost": [
+                "Ghiaccio"
+            ],
+            "glass style\u0004Liquid": [
+                "Liquido"
+            ],
+            "Slider name": [
+                "Nome slider"
+            ],
+            "Device": [
+                "Dispositivo"
+            ],
+            "Undo (Ctrl+Z)": [
+                "Annulla (Ctrl+Z)"
+            ],
+            "Redo (Ctrl+Shift+Z)": [
+                "Ripeti (Ctrl+Shift+Z)"
+            ],
+            "Fit": [
+                "Adatta"
+            ],
+            "Save and open the preview on the site": [
+                "Salva e apri l'anteprima sul sito"
+            ],
+            "Preview": [
+                "Anteprima"
+            ],
+            "Copy shortcode": [
+                "Copia shortcode"
+            ],
+            "Shortcode copied": [
+                "Shortcode copiato"
+            ],
+            "Back to the list": [
+                "Torna all'elenco"
+            ],
+            "Stop": [
+                "Stop"
+            ],
+            "Play": [
+                "Riproduci"
+            ],
+            "Save \u2022": [
+                "Salva \u2022"
+            ],
+            "Saved": [
+                "Salvato"
+            ],
+            "Drag to reorder": [
+                "Trascina per riordinare"
+            ],
+            "Duplicate slide": [
+                "Duplica slide"
+            ],
+            "Show slide": [
+                "Mostra slide"
+            ],
+            "Hide slide": [
+                "Nascondi slide"
+            ],
+            "Delete slide": [
+                "Elimina slide"
+            ],
+            "Delete the slide \"%s\"?": [
+                "Eliminare la slide \"%s\"?"
+            ],
+            "Add layer": [
+                "Aggiungi livello"
+            ],
+            "Layers": [
+                "Livelli"
+            ],
+            "top = in front": [
+                "in alto = in primo piano"
+            ],
+            "No layers yet. Add a text, a button, an image or a shape.": [
+                "Nessun livello. Aggiungi un testo, un bottone, un'immagine o una forma."
+            ],
+            "Show": [
+                "Mostra"
+            ],
+            "Hide": [
+                "Nascondi"
+            ],
+            "Unlock": [
+                "Sblocca"
+            ],
+            "Lock": [
+                "Blocca"
+            ],
+            "Shortcuts": [
+                "Scorciatoie"
+            ],
+            "Double click: edit text": [
+                "Doppio clic: modifica testo"
+            ],
+            "Ctrl+C \/ Ctrl+V: copy\/paste layer": [
+                "Ctrl+C \/ Ctrl+V: copia\/incolla livello"
+            ],
+            "Ctrl+D: duplicate \u00b7 Del: delete": [
+                "Ctrl+D: duplica \u00b7 Canc: elimina"
+            ],
+            "Shift while dragging: no snapping": [
+                "Shift durante il trascinamento: niente aggancio"
+            ],
+            "Right click: quick menu": [
+                "Tasto destro: menu rapido"
+            ],
+            "Add the images": [
+                "Aggiungi le immagini"
+            ],
+            "What to draw": [
+                "Cosa disegnare"
+            ],
+            "Signature": [
+                "Firma"
+            ],
+            "Text to draw": [
+                "Testo da disegnare"
+            ],
+            "Font and fill colour are chosen in the Style tab. Handwriting fonts (e.g. \"Dancing Script\", \"Caveat\") give the signature effect.": [
+                "Font e colore di riempimento si scelgono nella scheda Stile. I font calligrafici (es. \"Dancing Script\", \"Caveat\") rendono l'effetto firma."
+            ],
+            "Stroke": [
+                "Tratto"
+            ],
+            "Colour": [
+                "Colore"
+            ],
+            "Thickness": [
+                "Spessore"
+            ],
+            "Chalk effect": [
+                "Effetto gesso"
+            ],
+            "Rough edges, like a chalk or marker stroke.": [
+                "Bordi irregolari, come un tratto di gesso o pennarello."
+            ],
+            "Fill the text after the stroke": [
+                "Riempi il testo dopo il tratto"
+            ],
+            "Stroke speed and delay: Animation tab, \"Hand drawing\" effect.": [
+                "Velocit\u00e0 e ritardo del tratto: scheda Animazione, effetto \"Disegno a mano\"."
+            ],
+            "Choose the filmstrip images": [
+                "Scegli le immagini della pellicola"
+            ],
+            "Add to the filmstrip": [
+                "Aggiungi alla pellicola"
+            ],
+            "Move left": [
+                "Sposta a sinistra"
+            ],
+            "Remove": [
+                "Rimuovi"
+            ],
+            "Add images": [
+                "Aggiungi immagini"
+            ],
+            "Speed": [
+                "Velocit\u00e0"
+            ],
+            "Pixels per second.": [
+                "Pixel al secondo."
+            ],
+            "Direction": [
+                "Direzione"
+            ],
+            "\u2190 To the left": [
+                "\u2190 Verso sinistra"
+            ],
+            "To the right \u2192": [
+                "Verso destra \u2192"
+            ],
+            "Space between images": [
+                "Spazio tra le immagini"
+            ],
+            "Film perforations": [
+                "Bordi da pellicola cinematografica"
+            ],
+            "Black and white (colour on hover)": [
+                "Bianco e nero (colore al passaggio del mouse)"
+            ],
+            "Pause on hover": [
+                "Pausa al passaggio del mouse"
+            ],
+            "Height and width in the Position tab (\"Full width\" mode recommended).": [
+                "Altezza e larghezza nella scheda Posizione (consigliata la modalit\u00e0 \"Larghezza piena\")."
+            ],
+            "Coloured ink that moves and mixes following the mouse. With \"Automatic splashes\" it also animates on its own.": [
+                "Inchiostro colorato che si muove e si mescola seguendo il mouse. Con \"Spruzzi automatici\" si anima anche da solo."
+            ],
+            "Light beams that start from a point and sway slowly. They blend with the slide in \"screen\" mode.": [
+                "Fasci di luce che partono da un punto e ondeggiano lentamente. Si fondono con la slide in modalit\u00e0 \"schiarisci\"."
+            ],
+            "Thousands of particles form the words one after another; the mouse scatters them.": [
+                "Migliaia di particelle compongono le parole una dopo l'altra; il mouse le scompone."
+            ],
+            "The background image ripples like a liquid on hover. It uses the slide background image, or one chosen here.": [
+                "L'immagine di sfondo si deforma come un liquido al passaggio del mouse. Usa l'immagine di sfondo della slide, oppure una scelta qui."
+            ],
+            "360\u00b0 spherical photo (2:1 equirectangular format) that turns when dragged. It rotates on its own when nobody touches it.": [
+                "Foto sferica a 360\u00b0 (formato equirettangolare 2:1) che si gira trascinando. Gira da sola quando nessuno la tocca."
+            ],
+            "Words": [
+                "Parole"
+            ],
+            "Separate them with | (e.g. HELLO|WELCOME|\u2665). Symbols like \u2605 \u25cf \u2665 work too.": [
+                "Separale con | (es. CIAO|BENVENUTI|\u2665). Anche simboli come \u2605 \u25cf \u2665."
+            ],
+            "Change every": [
+                "Cambio ogni"
+            ],
+            "Font": [
+                "Font"
+            ],
+            "A system font or one already loaded on the page.": [
+                "Un font del sistema o gi\u00e0 caricato nella pagina."
+            ],
+            "Amount": [
+                "Quantit\u00e0"
+            ],
+            "\u00d7 20 particles.": [
+                "\u00d7 20 particelle."
+            ],
+            "360\u00b0 image": [
+                "Immagine 360\u00b0"
+            ],
+            "Image (optional)": [
+                "Immagine (facoltativa)"
+            ],
+            "Light colour.": [
+                "Colore della luce."
+            ],
+            "Several colours separated by commas; empty = rainbow.": [
+                "Pi\u00f9 colori separati da virgola; vuoto = arcobaleno."
+            ],
+            "Horizontal source": [
+                "Sorgente orizzontale"
+            ],
+            "%: 0 = left, 100 = right.": [
+                "%: 0 = sinistra, 100 = destra."
+            ],
+            "Vertical source": [
+                "Sorgente verticale"
+            ],
+            "%: 0 = top, 100 = bottom.": [
+                "%: 0 = in alto, 100 = in basso."
+            ],
+            "Starting direction": [
+                "Direzione iniziale"
+            ],
+            "Splash and swirl size": [
+                "Dimensione spruzzi e vortici"
+            ],
+            "Number of rays": [
+                "Numero di raggi"
+            ],
+            "Particle size": [
+                "Dimensione particelle"
+            ],
+            "Distortion radius": [
+                "Raggio della distorsione"
+            ],
+            "Zoom (field of view)": [
+                "Zoom (campo visivo)"
+            ],
+            "Ink duration": [
+                "Durata dell'inchiostro"
+            ],
+            "Reassembly speed": [
+                "Velocit\u00e0 di ricomposizione"
+            ],
+            "Rotation speed": [
+                "Velocit\u00e0 di rotazione"
+            ],
+            "Strength": [
+                "Forza"
+            ],
+            "Brightness": [
+                "Luminosit\u00e0"
+            ],
+            "Intensity": [
+                "Intensit\u00e0"
+            ],
+            "Opacity": [
+                "Opacit\u00e0"
+            ],
+            "Automatic splashes": [
+                "Spruzzi automatici"
+            ],
+            "Automatic rotation": [
+                "Rotazione automatica"
+            ],
+            "Reacts to the mouse": [
+                "Reagisce al mouse"
+            ],
+            "In front of the layers": [
+                "Davanti ai livelli"
+            ],
+            "WebGL effect: if the device does not support it, the normal slide background stays visible.": [
+                "Effetto WebGL: se il dispositivo non lo supporta resta visibile lo sfondo normale della slide."
+            ],
+            "Content": [
+                "Contenuto"
+            ],
+            "Style": [
+                "Stile"
+            ],
+            "Animation": [
+                "Animazione"
+            ],
+            "Position and size": [
+                "Posizione e dimensioni"
+            ],
+            "Edit the text on the canvas": [
+                "Modifica il testo sul canvas"
+            ],
+            "Link": [
+                "Link"
+            ],
+            "Copy": [
+                "Copia"
+            ],
+            "Layer copied": [
+                "Livello copiato"
+            ],
+            "Paste": [
+                "Incolla"
+            ],
+            "Bring to front": [
+                "Porta in primo piano"
+            ],
+            "Bring forward": [
+                "Porta avanti"
+            ],
+            "Send backward": [
+                "Porta indietro"
+            ],
+            "Send to back": [
+                "Porta in fondo"
+            ],
+            "Del": [
+                "Canc"
+            ],
+            "Slide: %s": [
+                "Slide: %s"
+            ],
+            "Slide background": [
+                "Sfondo della slide"
+            ],
+            "Background": [
+                "Sfondo"
+            ],
+            "Entrance transition": [
+                "Transizione di entrata"
+            ],
+            "Animated effect": [
+                "Effetto animato"
+            ],
+            "Name and duration": [
+                "Nome e durata"
+            ],
+            "General": [
+                "Generale"
+            ],
+            "Paste layer": [
+                "Incolla livello"
+            ],
+            "Add text": [
+                "Aggiungi testo"
+            ],
+            "Add button": [
+                "Aggiungi bottone"
+            ],
+            "Add image": [
+                "Aggiungi immagine"
+            ],
+            "Add shape": [
+                "Aggiungi forma"
+            ],
+            "Add drawing": [
+                "Aggiungi disegno"
+            ],
+            "Add filmstrip": [
+                "Aggiungi pellicola"
+            ],
+            "Play the slide": [
+                "Riproduci la slide"
+            ],
+            "menu\u0004Slider settings": [
+                "Impostazioni dello slider"
+            ],
+            "Slide end": [
+                "Fine slide"
+            ],
+            "Duration of this slide in milliseconds (empty or 0 = slider default duration)": [
+                "Durata di questa slide in millisecondi (vuoto o 0 = durata predefinita dello slider)"
+            ],
+            "Timeline": [
+                "Timeline"
+            ],
+            "Duration": [
+                "Durata"
+            ],
+            "Drag to change the entrance delay": [
+                "Trascina per cambiare il ritardo di entrata"
+            ],
+            "Entrance duration": [
+                "Durata entrata"
+            ],
+            "Drag to change the exit time": [
+                "Trascina per cambiare il momento di uscita"
+            ],
+            "Add some layers to see their timeline.": [
+                "Aggiungi dei livelli per vedere la loro timeline."
+            ],
+            "Colour opacity": [
+                "Opacit\u00e0 del colore"
+            ],
+            "Opacity is available for hex, rgb and named colours": [
+                "Opacit\u00e0 disponibile per i colori esadecimali, rgb e i nomi dei colori"
+            ],
+            "Invalid CSS: use linear-gradient(\u2026), radial-gradient(\u2026) or conic-gradient(\u2026), without url() or semicolons.": [
+                "CSS non valido: usa linear-gradient(\u2026), radial-gradient(\u2026) o conic-gradient(\u2026), senza url() o punti e virgola."
+            ],
+            "Advanced gradient (several layers, conic or with multiple positions): edit it in the CSS below.": [
+                "Gradiente avanzato (pi\u00f9 livelli, conico o con posizioni multiple): si modifica dal CSS qui sotto."
+            ],
+            "Click the bar to add a colour, drag the points to move them": [
+                "Clicca sulla barra per aggiungere un colore, trascina i punti per spostarli"
+            ],
+            "Opacity not available for this colour": [
+                "Opacit\u00e0 non disponibile per questo colore"
+            ],
+            "Radial": [
+                "Radiale"
+            ],
+            "Reverse the colours": [
+                "Inverti i colori"
+            ],
+            "Angle": [
+                "Angolo"
+            ],
+            "Ellipse": [
+                "Ellisse"
+            ],
+            "Selected colour": [
+                "Colore selezionato"
+            ],
+            "Position": [
+                "Posizione"
+            ],
+            "Gradient CSS": [
+                "CSS del gradiente"
+            ],
+            "You can paste any CSS gradient, even with several colours or several layers separated by commas.": [
+                "Puoi incollare qualsiasi gradiente CSS, anche con pi\u00f9 colori o pi\u00f9 livelli separati da virgola."
+            ],
+            "Sans serif": [
+                "Sans serif"
+            ],
+            "Serif": [
+                "Serif"
+            ],
+            "Display": [
+                "Display"
+            ],
+            "Handwriting": [
+                "Scrittura a mano"
+            ],
+            "Monospace": [
+                "Monospace"
+            ],
+            "font\u0004Custom": [
+                "Personalizzato"
+            ],
+            "Theme font": [
+                "Font del tema"
+            ],
+            "%d weight": [
+                "%d peso",
+                "%d pesi"
+            ],
+            "%d font": [
+                "%d font",
+                "%d font"
+            ],
+            "Search %d fonts\u2026": [
+                "Cerca tra %d font\u2026"
+            ],
+            "All": [
+                "Tutti"
+            ],
+            "e.g. var(--e-global-typography-primary-font-family)": [
+                "es. var(--e-global-typography-primary-font-family)"
+            ],
+            "Use": [
+                "Usa"
+            ],
+            "Choose the font": [
+                "Scegli il font"
+            ],
+            "use the site font": [
+                "usa il font del sito"
+            ],
+            "Custom CSS value": [
+                "Valore CSS personalizzato"
+            ],
+            "For fonts already loaded by the theme or by the Elementor\/Kadence global fonts.": [
+                "Per i font gi\u00e0 caricati dal tema o dai font globali di Elementor\/Kadence."
+            ],
+            "Gradient": [
+                "Gradiente"
+            ],
+            "Choose a video": [
+                "Scegli un video"
+            ],
+            "Choose an image": [
+                "Scegli un'immagine"
+            ],
+            "Use this file": [
+                "Usa questo file"
+            ],
+            "\u26a0 Browsers cannot play .%s files: convert it to MP4 (H.264) or WebM.": [
+                "\u26a0 I browser non riproducono i file .%s: convertilo in MP4 (H.264) o WebM."
+            ],
+            "Note: MOV files shot on iPhone (HEVC) do not play in every browser, add an MP4 or WebM as an alternative.": [
+                "Attenzione: i MOV girati con iPhone (HEVC) non si vedono su tutti i browser, aggiungi un MP4 o WebM come alternativa."
+            ],
+            "Change": [
+                "Cambia"
+            ],
+            "Choose from the library": [
+                "Scegli dalla libreria"
+            ],
+            "or paste a URL": [
+                "oppure incolla un URL"
+            ],
+            "Custom value for %s: click to restore inheritance": [
+                "Valore personalizzato per %s: clicca per ripristinare l'ereditariet\u00e0"
+            ],
+            "Inherited value": [
+                "Valore ereditato"
+            ],
+            "shadow\u0004None": [
+                "Nessuna"
+            ],
+            "shadow\u0004Soft": [
+                "Morbida"
+            ],
+            "shadow\u0004Sharp": [
+                "Netta"
+            ],
+            "shadow\u0004Custom": [
+                "Personalizzata"
+            ],
+            "Size": [
+                "Dimensione"
+            ],
+            "How blurred and wide the shadow is.": [
+                "Quanto \u00e8 sfumata e ampia l'ombra."
+            ],
+            "Density": [
+                "Densit\u00e0"
+            ],
+            "Higher = fuller, darker shadow around the letters.": [
+                "Pi\u00f9 alta = ombra pi\u00f9 piena e scura attorno alle lettere."
+            ],
+            "Higher = fuller shadow that spreads beyond the box.": [
+                "Pi\u00f9 alta = ombra pi\u00f9 piena, che si allarga oltre il riquadro."
+            ],
+            "Distance": [
+                "Distanza"
+            ],
+            "0 = shadow all around (glow effect).": [
+                "0 = ombra tutto intorno (effetto alone)."
+            ],
+            "In degrees: 90 = down, 0 = right, 180 = left, 270 = up.": [
+                "In gradi: 90 = verso il basso, 0 = a destra, 180 = a sinistra, 270 = verso l'alto."
+            ],
+            "Glass effect": [
+                "Effetto vetro"
+            ],
+            "Frosted glass": [
+                "Vetro smerigliato"
+            ],
+            "Blurs and brightens what is behind the box, like the glass surfaces of iOS and macOS. The glass tint is the Background colour above: use it semi-transparent.": [
+                "Sfoca e illumina ci\u00f2 che sta dietro al riquadro, come le superfici di vetro di iOS e macOS. La tinta del vetro \u00e8 il colore di Sfondo qui sopra: usalo semitrasparente."
+            ],
+            "Starting style": [
+                "Stile di partenza"
+            ],
+            "Apply the %s style": [
+                "Applica lo stile %s"
+            ],
+            "Sets the values below, which you can then fine-tune.": [
+                "Imposta i valori qui sotto, che puoi poi ritoccare."
+            ],
+            "Saturation": [
+                "Saturazione"
+            ],
+            "Makes the colours behind the glass more vivid.": [
+                "Rende pi\u00f9 vivi i colori dietro al vetro."
+            ],
+            "Below 100 the glass darkens, above 100 it brightens.": [
+                "Sotto 100 il vetro scurisce, sopra 100 schiarisce."
+            ],
+            "Edge highlight": [
+                "Riflesso sui bordi"
+            ],
+            "Thin line of light on the top edge and along the outline.": [
+                "Filo di luce sul bordo superiore e lungo il contorno."
+            ],
+            "Sheen": [
+                "Lucentezza"
+            ],
+            "Diagonal reflection from the top left corner.": [
+                "Riflesso diagonale dall'angolo in alto a sinistra."
+            ],
+            "Grain": [
+                "Grana"
+            ],
+            "Light matte texture, typical of frosted glass.": [
+                "Leggera texture opaca, tipica del vetro smerigliato."
+            ],
+            "Depth": [
+                "Profondit\u00e0"
+            ],
+            "Soft shadow that lifts the glass off the background.": [
+                "Ombra morbida che stacca il vetro dallo sfondo."
+            ],
+            "Click a layer on the canvas to edit it, or add one from the panel on the left.": [
+                "Clicca un livello sul canvas per modificarlo, oppure aggiungine uno dal pannello a sinistra."
+            ],
+            "Duration (ms)": [
+                "Durata (ms)"
+            ],
+            "0 = default duration (%d ms)": [
+                "0 = durata predefinita (%d ms)"
+            ],
+            "Effect": [
+                "Effetto"
+            ],
+            "Slider default (%s)": [
+                "Predefinita dello slider (%s)"
+            ],
+            "0 = default speed (%d ms).": [
+                "0 = velocit\u00e0 predefinita (%d ms)."
+            ],
+            "Easing": [
+                "Andamento"
+            ],
+            "easing\u0004Default": [
+                "Predefinito"
+            ],
+            "Mosaic columns": [
+                "Colonne del mosaico"
+            ],
+            "Number of strips": [
+                "Numero di strisce"
+            ],
+            "0 = automatic. With video backgrounds these transitions become a fade.": [
+                "0 = automatico. Con sfondi video queste transizioni diventano una dissolvenza."
+            ],
+            "Preview transition": [
+                "Anteprima transizione"
+            ],
+            "Particles and weather": [
+                "Particelle e meteo"
+            ],
+            "Snow": [
+                "Neve"
+            ],
+            "Rain": [
+                "Pioggia"
+            ],
+            "Twinkling stars": [
+                "Stelle scintillanti"
+            ],
+            "Bubbles": [
+                "Bolle"
+            ],
+            "Confetti": [
+                "Coriandoli"
+            ],
+            "Particle network": [
+                "Rete di particelle"
+            ],
+            "Fireflies": [
+                "Lucciole"
+            ],
+            "Fluid \/ ink": [
+                "Fluido \/ inchiostro"
+            ],
+            "Light rays": [
+                "Raggi di luce"
+            ],
+            "Particles that become words": [
+                "Particelle che diventano parole"
+            ],
+            "Liquid background distortion": [
+                "Distorsione liquida dello sfondo"
+            ],
+            "360\u00b0 panorama": [
+                "Panorama 360\u00b0"
+            ],
+            "You can enter several colours separated by commas (e.g. #ff0000,#ffd166). Empty with confetti = multicoloured.": [
+                "Puoi inserire pi\u00f9 colori separati da virgola (es. #ff0000,#ffd166). Vuoto con i coriandoli = multicolore."
+            ],
+            "Based on a 1240\u00d7700 slide: on phones it shrinks proportionally.": [
+                "Riferita a una slide di 1240\u00d7700: sui telefoni diminuisce in proporzione."
+            ],
+            "Wind": [
+                "Vento"
+            ],
+            "Negative = to the left, positive = to the right.": [
+                "Negativo = verso sinistra, positivo = verso destra."
+            ],
+            "Connect the particles to the mouse": [
+                "Collega le particelle al mouse"
+            ],
+            "The particles move away from the mouse": [
+                "Le particelle si scansano dal mouse"
+            ],
+            "Off: the effect sits between the background and the texts.": [
+                "Disattivato: l'effetto sta tra lo sfondo e i testi."
+            ],
+            "Video": [
+                "Video"
+            ],
+            "Colour \/ gradient": [
+                "Colore \/ gradiente"
+            ],
+            "Visible under the image or video while they load.": [
+                "Visibile sotto l'immagine o il video mentre caricano."
+            ],
+            "Cover (fills, may crop)": [
+                "Copri (riempie, pu\u00f2 tagliare)"
+            ],
+            "Contain (whole, may leave edges)": [
+                "Contieni (intera, pu\u00f2 lasciare bordi)"
+            ],
+            "Full width": [
+                "Larghezza piena"
+            ],
+            "Full height": [
+                "Altezza piena"
+            ],
+            "Stretch (distorts)": [
+                "Allunga (deforma)"
+            ],
+            "Original size": [
+                "Dimensione originale"
+            ],
+            "Tiling": [
+                "Ripetizione"
+            ],
+            "Repeat": [
+                "Ripeti"
+            ],
+            "Repeat horizontally": [
+                "Ripeti in orizzontale"
+            ],
+            "Repeat vertically": [
+                "Ripeti in verticale"
+            ],
+            "Ken Burns effect": [
+                "Effetto Ken Burns"
+            ],
+            "effect\u0004None": [
+                "Nessuno"
+            ],
+            "Slow zoom in": [
+                "Zoom avanti lento"
+            ],
+            "Slow zoom out": [
+                "Zoom indietro lento"
+            ],
+            "Pan left": [
+                "Panoramica a sinistra"
+            ],
+            "Pan right": [
+                "Panoramica a destra"
+            ],
+            "Visible in the preview and on the site.": [
+                "Visibile nell'anteprima e sul sito."
+            ],
+            "Source": [
+                "Sorgente"
+            ],
+            "Video file": [
+                "File video"
+            ],
+            "Formats: MP4 (H.264), WebM, OGV or MOV. Recommended: 10\u201330 seconds, under 5 MB.": [
+                "Formati: MP4 (H.264), WebM, OGV o MOV. Consigliato: 10\u201330 secondi, sotto i 5 MB."
+            ],
+            "Alternative format": [
+                "Formato alternativo"
+            ],
+            "Optional: the same video in another format. The browser uses the first one it can play, e.g. WebM (lighter) + MP4 for Safari and iPhone.": [
+                "Facoltativo: lo stesso video in un altro formato. Il browser usa il primo che sa riprodurre, es. WebM (pi\u00f9 leggero) + MP4 per Safari e iPhone."
+            ],
+            "Poster image": [
+                "Immagine poster"
+            ],
+            "Shown while the video loads.": [
+                "Mostrata mentre il video carica."
+            ],
+            "Overlay": [
+                "Overlay"
+            ],
+            "A gradient from transparent to black darkens only part of the slide (e.g. the bottom, where the text is).": [
+                "Un gradiente da trasparente a nero scurisce solo una parte della slide (es. il basso, dove c'\u00e8 il testo)."
+            ],
+            "Overlay opacity": [
+                "Opacit\u00e0 overlay"
+            ],
+            "Darkens the background to make the text readable.": [
+                "Scurisce lo sfondo per rendere leggibile il testo."
+            ],
+            "Background parallax (mouse)": [
+                "Parallasse sfondo (mouse)"
+            ],
+            "0 = still. Usually the background has a low depth (1\u20133) and the foreground layers a higher one.": [
+                "0 = fermo. Di solito lo sfondo ha una profondit\u00e0 bassa (1\u20133) e i livelli in primo piano pi\u00f9 alta."
+            ],
+            "First turn on \"Mouse parallax\" in the slider settings.": [
+                "Attiva prima \"Parallasse col mouse\" nelle Impostazioni dello slider."
+            ],
+            "Checking the video\u2026": [
+                "Verifico il video\u2026"
+            ],
+            "Video available": [
+                "Video disponibile"
+            ],
+            "Replace the poster with the thumbnail": [
+                "Sostituisci poster con la miniatura"
+            ],
+            "Use the thumbnail as poster": [
+                "Usa la miniatura come poster"
+            ],
+            "On the site the poster (or the background colour) will be shown instead of the video.": [
+                "Sul sito rester\u00e0 visibile il poster (o il colore di sfondo) al posto del video."
+            ],
+            "Video link": [
+                "Link del video"
+            ],
+            "The video starts muted and looping, without controls.": [
+                "Il video parte muto e in loop, senza controlli."
+            ],
+            "Close (Esc)": [
+                "Chiudi (Esc)"
+            ],
+            "Layer name": [
+                "Nome livello"
+            ],
+            "HTML tag": [
+                "Tag HTML"
+            ],
+            "Use only one H1 per page (SEO).": [
+                "Usa un solo H1 per pagina (SEO)."
+            ],
+            "You can use simple HTML: <br>, <strong>, <em>, <span style=\"\u2026\">. Or double-click the text on the canvas.": [
+                "Puoi usare HTML semplice: <br>, <strong>, <em>, <span style=\"\u2026\">. Oppure fai doppio clic sul testo nel canvas."
+            ],
+            "File": [
+                "File"
+            ],
+            "Alternative text": [
+                "Testo alternativo"
+            ],
+            "Describes the image (accessibility and SEO).": [
+                "Descrive l'immagine (accessibilit\u00e0 e SEO)."
+            ],
+            "Shapes are for decorative lines, boxes and backgrounds behind text. Colour and corners in \"Style\", size in \"Position\".": [
+                "Le forme servono per linee decorative, riquadri, sfondi dietro al testo. Colore e angoli in \"Stile\", dimensioni in \"Posizione\"."
+            ],
+            "URL": [
+                "URL"
+            ],
+            "Open in": [
+                "Apri in"
+            ],
+            "Same tab": [
+                "Stessa scheda"
+            ],
+            "New tab": [
+                "Nuova scheda"
+            ],
+            "font weight\u0004Thin": [
+                "Thin"
+            ],
+            "font weight\u0004Extra light": [
+                "Extra light"
+            ],
+            "font weight\u0004Light": [
+                "Light"
+            ],
+            "font weight\u0004Regular": [
+                "Normale"
+            ],
+            "font weight\u0004Medium": [
+                "Medium"
+            ],
+            "font weight\u0004Semibold": [
+                "Semibold"
+            ],
+            "font weight\u0004Bold": [
+                "Bold"
+            ],
+            "font weight\u0004Extra bold": [
+                "Extra bold"
+            ],
+            "font weight\u0004Black": [
+                "Black"
+            ],
+            "Text colour": [
+                "Colore testo"
+            ],
+            "With a gradient the text is filled with it (the box background is not shown).": [
+                "Con un gradiente il testo viene riempito dal gradiente (lo sfondo del riquadro non viene mostrato)."
+            ],
+            "Weight": [
+                "Peso"
+            ],
+            "Only the weights available for %s are listed.": [
+                "Sono elencati solo i pesi disponibili per %s."
+            ],
+            "Line height": [
+                "Interlinea"
+            ],
+            "Letter spacing": [
+                "Spaziatura lettere"
+            ],
+            "Italic": [
+                "Corsivo"
+            ],
+            "Uppercase": [
+                "Maiuscolo"
+            ],
+            "Letter outline": [
+                "Contorno delle lettere"
+            ],
+            "0 = no outline.": [
+                "0 = nessun contorno."
+            ],
+            "Previous setting: you can now set the opacity directly in the colour and put this back to 1.": [
+                "Impostazione precedente: ora puoi regolare l\u2019opacit\u00e0 direttamente nel colore e riportare questa a 1."
+            ],
+            "Outline only (hollow letters)": [
+                "Solo contorno (lettere vuote)"
+            ],
+            "The \"outline\" effect, popular for headlines. The outline is always a solid colour, even when the text uses a gradient.": [
+                "Effetto \"outline\" molto usato nei titoli. Il contorno \u00e8 sempre a tinta unita, anche se il testo \u00e8 a gradiente."
+            ],
+            "Letter shadow": [
+                "Ombra delle lettere"
+            ],
+            "Box": [
+                "Riquadro"
+            ],
+            "Shape colour": [
+                "Colore forma"
+            ],
+            "Solid colour (rgba(\u2026) and var(--global-colour) work too) or gradient.": [
+                "Colore pieno (anche rgba(\u2026) e var(--colore-globale)) oppure gradiente."
+            ],
+            "Vertical padding": [
+                "Padding verticale"
+            ],
+            "Horizontal padding": [
+                "Padding orizzontale"
+            ],
+            "Rounded corners": [
+                "Angoli arrotondati"
+            ],
+            "Box border": [
+                "Bordo del riquadro"
+            ],
+            "0 = no border.": [
+                "0 = nessun bordo."
+            ],
+            "border style\u0004Solid": [
+                "Pieno"
+            ],
+            "Dashed": [
+                "Tratteggiato"
+            ],
+            "Dotted": [
+                "Puntinato"
+            ],
+            "Double": [
+                "Doppio"
+            ],
+            "Box shadow": [
+                "Ombra del riquadro"
+            ],
+            "Shadow": [
+                "Ombra"
+            ],
+            "Fit inside the box": [
+                "Adattamento nel riquadro"
+            ],
+            "Cover (crops)": [
+                "Copri (ritaglia)"
+            ],
+            "Contain (whole)": [
+                "Contieni (intera)"
+            ],
+            "Stretch": [
+                "Allunga"
+            ],
+            "When you set both width and height. In \"Cover\/Contain the whole slide\" the mode chosen in Position applies.": [
+                "Quando imposti sia larghezza che altezza. In \"Copri\/Contieni tutta la slide\" vale la modalit\u00e0 scelta in Posizione."
+            ],
+            "Focal point": [
+                "Punto focale"
+            ],
+            "Which part of the image stays visible when it is cropped.": [
+                "Quale parte dell'immagine resta visibile quando viene ritagliata."
+            ],
+            "On hover": [
+                "Al passaggio del mouse"
+            ],
+            "Visible on the site and in the preview.": [
+                "Visibile sul sito e nell'anteprima."
+            ],
+            "Linked corners: click to set them one by one": [
+                "Angoli collegati: clicca per impostarli uno per uno"
+            ],
+            "Separate corners: click to link them": [
+                "Angoli separati: clicca per collegarli"
+            ],
+            "\u2196 Top left": [
+                "\u2196 Alto sx"
+            ],
+            "\u2197 Top right": [
+                "\u2197 Alto dx"
+            ],
+            "\u2199 Bottom left": [
+                "\u2199 Basso sx"
+            ],
+            "\u2198 Bottom right": [
+                "\u2198 Basso dx"
+            ],
+            "Test this layer": [
+                "Prova questo livello"
+            ],
+            "Play slide": [
+                "Riproduci slide"
+            ],
+            "Entrance": [
+                "Entrata"
+            ],
+            "Starting state": [
+                "Stato di partenza"
+            ],
+            "Typing speed": [
+                "Velocit\u00e0 di scrittura"
+            ],
+            "Milliseconds between one letter and the next. When typing ends a blinking cursor appears.": [
+                "Millisecondi tra una lettera e la successiva. A fine scrittura compare un cursore lampeggiante."
+            ],
+            "Delay": [
+                "Ritardo"
+            ],
+            "From the start of the slide. You can also drag the bar in the timeline.": [
+                "Dall'inizio della slide. Puoi anche trascinare la barra nella timeline."
+            ],
+            "The typewriter works on text layers: here the layer will fade in.": [
+                "La macchina da scrivere funziona sui livelli di testo: qui il livello comparir\u00e0 con una dissolvenza."
+            ],
+            "Animate by": [
+                "Anima per"
+            ],
+            "Block": [
+                "Blocco"
+            ],
+            "Lines": [
+                "Righe"
+            ],
+            "Letters": [
+                "Lettere"
+            ],
+            "Interval": [
+                "Intervallo"
+            ],
+            "Delay between one word\/letter\/line and the next.": [
+                "Ritardo tra una parola\/lettera\/riga e la successiva."
+            ],
+            "\"Reveal\" effect with split text: each part rises from under a mask. Great for hero headlines.": [
+                "Effetto \"Rivela\" con testo spezzato: ogni parte sale da sotto una maschera. Ottimo per i titoli hero."
+            ],
+            "Exit": [
+                "Uscita"
+            ],
+            "End state": [
+                "Stato di arrivo"
+            ],
+            "Time": [
+                "Momento"
+            ],
+            "0 = exits at the end of the slide. Otherwise, milliseconds from the start of the slide.": [
+                "0 = esce alla fine della slide. Altrimenti, millisecondi dall'inizio della slide."
+            ],
+            "Continuous animation": [
+                "Animazione continua"
+            ],
+            "After the entrance": [
+                "Dopo l'entrata"
+            ],
+            "Pulse": [
+                "Pulsazione"
+            ],
+            "Float": [
+                "Fluttua"
+            ],
+            "Continuous rotation": [
+                "Rotazione continua"
+            ],
+            "Swing": [
+                "Oscillazione"
+            ],
+            "Blink": [
+                "Lampeggio"
+            ],
+            "Mouse parallax": [
+                "Parallasse col mouse"
+            ],
+            "0 = still. The higher it is, the more the layer moves with the mouse: layers with different depths create the 3D effect.": [
+                "0 = fermo. Pi\u00f9 \u00e8 alto, pi\u00f9 il livello si sposta seguendo il mouse: livelli con profondit\u00e0 diverse creano l'effetto 3D."
+            ],
+            "Move X": [
+                "Sposta X"
+            ],
+            "Move Y": [
+                "Sposta Y"
+            ],
+            "Scale": [
+                "Scala"
+            ],
+            "3D rotation X": [
+                "Rotazione 3D X"
+            ],
+            "3D rotation Y": [
+                "Rotazione 3D Y"
+            ],
+            "Skew": [
+                "Inclinazione"
+            ],
+            "Rotation point": [
+                "Punto di rotazione"
+            ],
+            "You are editing Desktop: tablet and mobile inherit these values.": [
+                "Stai modificando Desktop: tablet e mobile ereditano questi valori."
+            ],
+            "You are editing %s: the values changed here apply only to this device.": [
+                "Stai modificando %s: i valori modificati qui valgono solo per questo dispositivo."
+            ],
+            "Align left": [
+                "Allinea a sinistra"
+            ],
+            "Centre horizontally": [
+                "Centra orizzontalmente"
+            ],
+            "Align right": [
+                "Allinea a destra"
+            ],
+            "Top": [
+                "In alto"
+            ],
+            "Centre vertically": [
+                "Centra verticalmente"
+            ],
+            "Bottom": [
+                "In basso"
+            ],
+            "Anchor point: %s": [
+                "Punto di ancoraggio: %s"
+            ],
+            "Width and height in px, scaled proportionally on small screens.": [
+                "Larghezza e altezza in px, scalate in proporzione sugli schermi piccoli."
+            ],
+            "Takes up the full width of the slide; you can only move it vertically.": [
+                "Occupa tutta la larghezza della slide; puoi spostarlo solo in verticale."
+            ],
+            "Takes up the full height of the slide; you can only move it horizontally.": [
+                "Occupa tutta l'altezza della slide; puoi spostarlo solo in orizzontale."
+            ],
+            "Fills the whole slide, cropping the edges if the proportions do not match.": [
+                "Riempie tutta la slide, ritagliando i bordi se le proporzioni non coincidono."
+            ],
+            "Fits entirely inside the slide without cropping, leaving empty space at the sides if needed.": [
+                "Sta tutta dentro la slide senza tagli, lasciando spazio vuoto ai lati se serve."
+            ],
+            "Sizing": [
+                "Dimensionamento"
+            ],
+            "Mode": [
+                "Modalit\u00e0"
+            ],
+            "Cover the whole slide": [
+                "Copri tutta la slide"
+            ],
+            "Contain in the slide": [
+                "Contieni nella slide"
+            ],
+            "X (horizontal)": [
+                "X (orizzontale)"
+            ],
+            "Y (vertical)": [
+                "Y (verticale)"
+            ],
+            "Anchor": [
+                "Ancoraggio"
+            ],
+            "Which point of the layer sits at the X\/Y coordinates.": [
+                "Quale punto del livello si trova alle coordinate X\/Y."
+            ],
+            "Vertical anchor": [
+                "Ancoraggio verticale"
+            ],
+            "anchor\u0004Top": [
+                "Alto"
+            ],
+            "anchor\u0004Bottom": [
+                "Basso"
+            ],
+            "Horizontal anchor": [
+                "Ancoraggio orizzontale"
+            ],
+            "Left": [
+                "Sinistra"
+            ],
+            "Right": [
+                "Destra"
+            ],
+            "Dimensions": [
+                "Dimensioni"
+            ],
+            "Width": [
+                "Larghezza"
+            ],
+            "0 = automatic (the text does not wrap on its own).": [
+                "0 = automatica (il testo non va a capo da solo)."
+            ],
+            "0 = automatic.": [
+                "0 = automatica."
+            ],
+            "0 = automatic (original proportions).": [
+                "0 = automatica (proporzioni originali)."
+            ],
+            "Automatic size: the layer always follows the slide.": [
+                "Dimensioni automatiche: il livello segue sempre la slide."
+            ],
+            "Text size": [
+                "Dimensione testo"
+            ],
+            "Text alignment": [
+                "Allineamento testo"
+            ],
+            "Visibility": [
+                "Visibilit\u00e0"
+            ],
+            "Hide on %s": [
+                "Nascondi su %s"
+            ],
+            "Sizes in px refer to the %dpx canvas and shrink proportionally on smaller screens.": [
+                "Le misure in px sono riferite alla tela di %dpx e si riducono in proporzione sugli schermi pi\u00f9 piccoli."
+            ],
+            "Slider settings": [
+                "Impostazioni slider"
+            ],
+            "Alias": [
+                "Alias"
+            ],
+            "Also allows [kaosslider alias=\"%s\"].": [
+                "Permette anche [kaosslider alias=\"%s\"]."
+            ],
+            "name": [
+                "nome"
+            ],
+            "Proportional": [
+                "Proporzionale"
+            ],
+            "Takes up the full height of the window.": [
+                "Occupa tutta l'altezza della finestra."
+            ],
+            "Height = canvas height, reduced proportionally on narrow screens.": [
+                "Altezza = altezza della tela, ridotta in proporzione sugli schermi stretti."
+            ],
+            "Subtract from the height": [
+                "Sottrai all'altezza"
+            ],
+            "E.g. the header height, if the slider must fit entirely above the fold.": [
+                "Es. l'altezza dell'header, se lo slider deve stare tutto sopra la piega."
+            ],
+            "Full width (breaks out of the theme container)": [
+                "Larghezza piena (esce dal contenitore del tema)"
+            ],
+            "On screens narrower than the canvas, layers and texts shrink proportionally (the tablet\/mobile versions can still be customised).": [
+                "Sugli schermi pi\u00f9 stretti della tela livelli e testi si riducono in proporzione (le versioni tablet\/mobile restano personalizzabili)."
+            ],
+            "Real px sizes on every screen: on narrower ones, whatever goes beyond the slide is cut off.": [
+                "Misure reali in px su ogni schermo: su quelli pi\u00f9 stretti ci\u00f2 che esce dalla slide viene tagliato."
+            ],
+            "Slider background": [
+                "Sfondo dello slider"
+            ],
+            "Card size (canvas)": [
+                "Dimensioni card (tela)"
+            ],
+            "Canvas size": [
+                "Dimensioni tela"
+            ],
+            "Reference size of each card. Cards adapt to the available width keeping their proportions.": [
+                "Dimensioni di riferimento di ogni card. Le card si adattano alla larghezza disponibile mantenendo le proporzioni."
+            ],
+            "Work area where you position the layers. On screens narrower than the canvas, everything is reduced proportionally.": [
+                "Area di lavoro su cui posizioni i livelli. Sugli schermi pi\u00f9 stretti della tela, tutto viene ridotto in proporzione."
+            ],
+            "width abbreviation\u0004W": [
+                "L"
+            ],
+            "height abbreviation\u0004H": [
+                "A"
+            ],
+            "Visible cards \u00b7 %s": [
+                "Card visibili \u00b7 %s"
+            ],
+            "Space between cards": [
+                "Spazio tra le card"
+            ],
+            "Flat": [
+                "Piatto"
+            ],
+            "Centre zoom": [
+                "Zoom centrale"
+            ],
+            "The active card sits in the centre and the side ones rotate or shrink. It looks best with 3 visible cards.": [
+                "La card attiva sta al centro e quelle laterali ruotano o rimpiccioliscono. Con 3 card visibili l'effetto rende al meglio."
+            ],
+            "Identical cards side by side.": [
+                "Card affiancate tutte uguali."
+            ],
+            "Scroll-driven video": [
+                "Video guidato dallo scroll"
+            ],
+            "Enable": [
+                "Attiva"
+            ],
+            "The background video (file) of the first slide moves forwards and backwards with the scroll, while the slide stays fixed on screen. The other slides are not shown.": [
+                "Il video di sfondo (file) della prima slide avanza e torna indietro seguendo lo scroll, mentre la slide resta ferma sullo schermo. Le altre slide non vengono mostrate."
+            ],
+            "Scroll length": [
+                "Lunghezza dello scroll"
+            ],
+            "In % of the screen height (300 = three screens of scrolling to see the whole video).": [
+                "In % dell'altezza dello schermo (300 = tre schermate di scroll per vedere tutto il video)."
+            ],
+            "For smooth scrubbing use a short MP4 (5\u201315 s) with a keyframe every few frames, e.g. with ffmpeg: -g 5. Visible only on the site and in the preview.": [
+                "Per uno scorrimento fluido usa un MP4 breve (5\u201315 s) con un fotogramma chiave ogni pochi frame, es. con ffmpeg: -g 5. Visibile solo sul sito e nell'anteprima."
+            ],
+            "Playback": [
+                "Riproduzione"
+            ],
+            "Default transition": [
+                "Transizione predefinita"
+            ],
+            "Each slide can use a different one (slide panel).": [
+                "Ogni slide pu\u00f2 usarne una diversa (pannello della slide)."
+            ],
+            "Transition speed": [
+                "Velocit\u00e0 transizione"
+            ],
+            "Layers and background follow the mouse according to the \"depth\" set on each one. Desktop computers only.": [
+                "I livelli e lo sfondo seguono il mouse in base alla \"profondit\u00e0\" impostata su ciascuno. Solo su computer."
+            ],
+            "Parallax intensity": [
+                "Intensit\u00e0 parallasse"
+            ],
+            "Background parallax on scroll": [
+                "Parallasse dello sfondo allo scroll"
+            ],
+            "The background scrolls more slowly than the page.": [
+                "Lo sfondo scorre pi\u00f9 lentamente della pagina."
+            ],
+            "Autoplay": [
+                "Avanzamento automatico"
+            ],
+            "Default slide duration": [
+                "Durata predefinita slide"
+            ],
+            "Start over after the last slide": [
+                "Ricomincia dopo l'ultima slide"
+            ],
+            "Navigation": [
+                "Navigazione"
+            ],
+            "Arrows": [
+                "Frecce"
+            ],
+            "Dots": [
+                "Pallini"
+            ],
+            "Progress bar": [
+                "Barra di avanzamento"
+            ],
+            "Swipe \/ drag": [
+                "Swipe \/ trascinamento"
+            ],
+            "Keyboard arrows": [
+                "Frecce della tastiera"
+            ],
+            "Navigation colour": [
+                "Colore navigazione"
+            ],
+            "Saving\u2026": [
+                "Salvataggio\u2026"
+            ],
+            "Slider saved": [
+                "Slider salvato"
+            ],
+            "Error: %s": [
+                "Errore: %s"
+            ],
+            "Unable to load the slider: %s": [
+                ""
+            ]
+        }
+    }
+}

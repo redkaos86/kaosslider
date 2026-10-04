@@ -30,7 +30,7 @@ class KaosSlider_Admin {
 	}
 
 	public static function action_links( $links ) {
-		array_unshift( $links, '<a href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ) . '">Slider</a>' );
+		array_unshift( $links, '<a href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ) . '">' . esc_html__( 'Sliders', 'kaosslider' ) . '</a>' );
 		return $links;
 	}
 
@@ -62,7 +62,8 @@ class KaosSlider_Admin {
 			wp_enqueue_style( 'kaosslider' );
 			wp_enqueue_script( 'kaosslider' );
 			wp_enqueue_script( 'kaosslider-gl' );
-			wp_enqueue_script( 'kaosslider-editor', KAOSSLIDER_URL . 'assets/js/editor.js', array( 'kaosslider' ), kaosslider_asset_ver( 'assets/js/editor.js' ), true );
+			wp_enqueue_script( 'kaosslider-editor', KAOSSLIDER_URL . 'assets/js/editor.js', array( 'kaosslider', 'wp-i18n' ), kaosslider_asset_ver( 'assets/js/editor.js' ), true );
+			wp_set_script_translations( 'kaosslider-editor', 'kaosslider', KAOSSLIDER_DIR . 'languages' );
 			$config['sliderId']   = isset( $_GET['edit'] ) ? absint( $_GET['edit'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
 			$config['positions']  = KaosSlider_Sanitizer::positions();
 			$config['newSlide']   = KaosSlider_Store::default_slide();
@@ -73,23 +74,24 @@ class KaosSlider_Admin {
 			wp_add_inline_script( 'kaosslider-editor', 'window.KaosSliderConfig = ' . wp_json_encode( $config ) . ';', 'before' );
 		} else {
 			wp_enqueue_style( 'kaosslider' ); // le miniature usano gli stessi stili del sito
-			wp_enqueue_script( 'kaosslider-list', KAOSSLIDER_URL . 'assets/js/admin-list.js', array(), kaosslider_asset_ver( 'assets/js/admin-list.js' ), true );
+			wp_enqueue_script( 'kaosslider-list', KAOSSLIDER_URL . 'assets/js/admin-list.js', array( 'wp-i18n' ), kaosslider_asset_ver( 'assets/js/admin-list.js' ), true );
+			wp_set_script_translations( 'kaosslider-list', 'kaosslider', KAOSSLIDER_DIR . 'languages' );
 			wp_add_inline_script( 'kaosslider-list', 'window.KaosSliderConfig = ' . wp_json_encode( $config ) . ';', 'before' );
 		}
 	}
 
 	public static function page() {
 		if ( ! current_user_can( kaosslider_capability() ) ) {
-			wp_die( esc_html__( 'Permessi insufficienti.', 'kaosslider' ) );
+			wp_die( esc_html__( 'Insufficient permissions.', 'kaosslider' ) );
 		}
 		if ( self::is_editor() ) {
-			echo '<div id="kaosslider-editor" class="kse-root"><div class="kse-loading">Caricamento editor…</div></div>';
+			echo '<div id="kaosslider-editor" class="kse-root"><div class="kse-loading">' . esc_html__( 'Loading the editor…', 'kaosslider' ) . '</div></div>';
 			return;
 		}
 		?>
 		<div class="ksl-wrap">
 			<h1 class="screen-reader-text">KaosSlider</h1>
-			<div id="ksl-app"><div class="ksl-loading">Caricamento…</div></div>
+			<div id="ksl-app"><div class="ksl-loading"><?php esc_html_e( 'Loading…', 'kaosslider' ); ?></div></div>
 			<input type="file" id="ksl-import-file" accept="application/json,.json" hidden>
 		</div>
 		<?php

@@ -28,6 +28,20 @@ composer lint
 
 Lo zip di rilascio si crea con `git archive`, che esclude i file di sviluppo indicati in `.gitattributes`.
 
+## Traduzioni
+
+I testi del codice sono in inglese; la traduzione italiana è in `languages/`. Dopo aver aggiunto o cambiato dei testi:
+
+```bash
+wp i18n make-pot . languages/kaosslider.pot --slug=kaosslider --exclude=vendor,node_modules,tests,bin,dist
+wp i18n update-po languages/kaosslider.pot languages/
+# tradurre le nuove voci in languages/kaosslider-it_IT.po, poi:
+wp i18n make-mo languages
+wp i18n make-json languages --no-purge
+```
+
+Il controllo automatico «Traduzione italiana completa» fallisce se una frase non è tradotta.
+
 ## Licenza
 
 GPL-2.0-or-later

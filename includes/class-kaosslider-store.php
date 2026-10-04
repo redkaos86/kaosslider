@@ -73,7 +73,7 @@ class KaosSlider_Store {
 	public static function default_slide() {
 		return array(
 			'id'       => 's' . wp_generate_password( 6, false, false ),
-			'name'     => 'Slide',
+			'name'     => __( 'Slide', 'kaosslider' ),
 			'hidden'   => false,
 			'duration' => 0,
 			'transition' => array(
@@ -104,7 +104,7 @@ class KaosSlider_Store {
 
 	public static function default_data() {
 		$slide          = self::default_slide();
-		$slide['name']  = 'Slide 1';
+		$slide['name']  = sprintf( /* translators: %d: slide number. */ __( 'Slide %d', 'kaosslider' ), 1 );
 		return array(
 			'version'  => 1,
 			'settings' => self::default_settings(),
@@ -198,7 +198,7 @@ class KaosSlider_Store {
 	public static function save( $id, $title, $alias, $data ) {
 		$title = sanitize_text_field( $title );
 		if ( '' === $title ) {
-			$title = 'Slider senza nome';
+			$title = __( 'Untitled slider', 'kaosslider' );
 		}
 		$postarr = array(
 			'post_type'   => self::POST_TYPE,
@@ -230,9 +230,10 @@ class KaosSlider_Store {
 	public static function duplicate( $id ) {
 		$post = self::find_post( $id );
 		if ( ! $post ) {
-			return new WP_Error( 'kaosslider_not_found', 'Slider non trovato', array( 'status' => 404 ) );
+			return new WP_Error( 'kaosslider_not_found', __( 'Slider not found', 'kaosslider' ), array( 'status' => 404 ) );
 		}
-		return self::save( 0, $post->post_title . ' (copia)', '', self::get_data( $post->ID ) );
+		/* translators: %s: name of the duplicated slider. */
+		return self::save( 0, sprintf( __( '%s (copy)', 'kaosslider' ), $post->post_title ), '', self::get_data( $post->ID ) );
 	}
 
 	public static function delete( $id ) {

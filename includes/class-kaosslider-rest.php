@@ -172,7 +172,7 @@ class KaosSlider_REST {
 	public static function get_slider( WP_REST_Request $req ) {
 		$post = KaosSlider_Store::find_post( (int) $req['id'] );
 		if ( ! $post ) {
-			return new WP_Error( 'kaosslider_not_found', 'Slider non trovato', array( 'status' => 404 ) );
+			return new WP_Error( 'kaosslider_not_found', __( 'Slider not found', 'kaosslider' ), array( 'status' => 404 ) );
 		}
 		$out                = KaosSlider_Store::to_array( $post, true );
 		$out['previewUrl']  = KaosSlider_Render::preview_url( $post->ID );
@@ -182,7 +182,7 @@ class KaosSlider_REST {
 	public static function update_slider( WP_REST_Request $req ) {
 		$post = KaosSlider_Store::find_post( (int) $req['id'] );
 		if ( ! $post ) {
-			return new WP_Error( 'kaosslider_not_found', 'Slider non trovato', array( 'status' => 404 ) );
+			return new WP_Error( 'kaosslider_not_found', __( 'Slider not found', 'kaosslider' ), array( 'status' => 404 ) );
 		}
 		$body  = (array) $req->get_json_params();
 		$title = isset( $body['title'] ) && is_string( $body['title'] ) ? $body['title'] : $post->post_title;
@@ -198,7 +198,7 @@ class KaosSlider_REST {
 
 	public static function delete_slider( WP_REST_Request $req ) {
 		if ( ! KaosSlider_Store::delete( (int) $req['id'] ) ) {
-			return new WP_Error( 'kaosslider_not_found', 'Slider non trovato', array( 'status' => 404 ) );
+			return new WP_Error( 'kaosslider_not_found', __( 'Slider not found', 'kaosslider' ), array( 'status' => 404 ) );
 		}
 		return rest_ensure_response( array( 'deleted' => true ) );
 	}
@@ -230,7 +230,7 @@ class KaosSlider_REST {
 			return rest_ensure_response(
 				array(
 					'ok'      => false,
-					'message' => 'youtube' === $source ? 'Link YouTube non riconosciuto.' : 'Link Vimeo non riconosciuto.',
+					'message' => 'youtube' === $source ? __( 'YouTube link not recognised.', 'kaosslider' ) : __( 'Vimeo link not recognised.', 'kaosslider' ),
 				)
 			);
 		}
@@ -247,7 +247,8 @@ class KaosSlider_REST {
 			return rest_ensure_response(
 				array(
 					'ok'      => null,
-					'message' => 'Impossibile verificare il video adesso (' . $res->get_error_message() . ').',
+					/* translators: %s: network error message. */
+					'message' => sprintf( __( 'Unable to check the video right now (%s).', 'kaosslider' ), $res->get_error_message() ),
 				)
 			);
 		}
@@ -277,13 +278,14 @@ class KaosSlider_REST {
 			);
 		} else {
 			$messages = array(
-				401 => 'Il proprietario del video non permette di incorporarlo in altri siti.',
-				403 => 'Il video può essere incorporato solo su domini autorizzati dal proprietario.',
-				404 => 'Video non trovato: è stato rimosso, è privato o il link è sbagliato.',
+				401 => __( 'The video owner does not allow embedding it on other sites.', 'kaosslider' ),
+				403 => __( 'The video can only be embedded on domains authorised by its owner.', 'kaosslider' ),
+				404 => __( 'Video not found: it was removed, it is private or the link is wrong.', 'kaosslider' ),
 			);
 			$out      = array(
 				'ok'      => false,
-				'message' => isset( $messages[ $code ] ) ? $messages[ $code ] : 'Video non disponibile (errore ' . $code . ').',
+				/* translators: %d: HTTP status code. */
+				'message' => isset( $messages[ $code ] ) ? $messages[ $code ] : sprintf( __( 'Video not available (error %d).', 'kaosslider' ), $code ),
 			);
 		}
 		set_transient( $cache_key, $out, 6 * HOUR_IN_SECONDS );
@@ -296,9 +298,9 @@ class KaosSlider_REST {
 	public static function import_slider( WP_REST_Request $req ) {
 		$body = $req->get_json_params();
 		if ( ! is_array( $body ) || empty( $body['kaosslider'] ) || ! isset( $body['data'] ) || ! is_array( $body['data'] ) ) {
-			return new WP_Error( 'kaosslider_bad_import', 'File non valido: non sembra un export di KaosSlider.', array( 'status' => 400 ) );
+			return new WP_Error( 'kaosslider_bad_import', __( 'Invalid file: it does not look like a KaosSlider export.', 'kaosslider' ), array( 'status' => 400 ) );
 		}
-		$title = isset( $body['title'] ) && is_string( $body['title'] ) ? $body['title'] : 'Slider importato';
+		$title = isset( $body['title'] ) && is_string( $body['title'] ) ? $body['title'] : __( 'Imported slider', 'kaosslider' );
 		$id    = KaosSlider_Store::save( 0, $title, '', $body['data'] );
 		if ( is_wp_error( $id ) ) {
 			return $id;

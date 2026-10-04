@@ -2,6 +2,11 @@
 (function () {
 	'use strict';
 
+	var __ = wp.i18n.__;
+	var _x = wp.i18n._x;
+	var _n = wp.i18n._n;
+	var sprintf = wp.i18n.sprintf;
+
 	var C = window.KaosSliderConfig;
 	var app = document.getElementById('ksl-app');
 	var items = [];
@@ -25,7 +30,7 @@
 			credentials: 'same-origin'
 		}).then(function (r) {
 			return r.json().then(function (json) {
-				if (!r.ok) { throw new Error(json && json.message ? json.message : 'Errore ' + r.status); }
+				if (!r.ok) { throw new Error(json && json.message ? json.message : ( __( 'Error', 'kaosslider' ) + ' ' ) + r.status); }
 				return json;
 			});
 		});
@@ -83,7 +88,7 @@
 			}));
 			var form = h('form', { class: 'ksl-modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': title },
 				h('div', { class: 'ksl-modal-head' }, h('h2', null, title),
-					h('button', { type: 'button', class: 'ksl-icon-btn', 'aria-label': 'Chiudi', onclick: function () { close(null); } }, icon('no-alt'))),
+					h('button', { type: 'button', class: 'ksl-icon-btn', 'aria-label': __( 'Close', 'kaosslider' ), onclick: function () { close(null); } }, icon('no-alt'))),
 				h('div', { class: 'ksl-modal-body' }, body), foot);
 			form.addEventListener('submit', function (e) {
 				e.preventDefault();
@@ -100,8 +105,8 @@
 
 	function confirmModal(title, text, label) {
 		return modal(title, h('p', null, text), [
-			{ label: 'Annulla', value: false },
-			{ label: label || 'Conferma', value: true, primary: true, danger: true, submit: true }
+			{ label: __( 'Cancel', 'kaosslider' ), value: false },
+			{ label: label || __( 'Confirm', 'kaosslider' ), value: true, primary: true, danger: true, submit: true }
 		]);
 	}
 
@@ -119,36 +124,39 @@
 	function render() {
 		app.innerHTML = '';
 		var search = h('input', {
-			type: 'search', class: 'ksl-search', placeholder: 'Cerca slider…', value: query, 'aria-label': 'Cerca slider',
+			type: 'search', class: 'ksl-search', placeholder: __( 'Search sliders…', 'kaosslider' ), value: query, 'aria-label': __( 'Search sliders', 'kaosslider' ),
 			oninput: function (e) { query = e.target.value; renderGrid(grid); }
 		});
 		var head = h('div', { class: 'ksl-head' },
 			h('div', { class: 'ksl-brand' }, h('img', { class: 'ksl-logo', src: C.logoUrl, alt: 'KaosSlider' }), h('small', { class: 'ksl-version' }, 'v' + C.version)),
 			search,
 			h('div', { class: 'ksl-head-actions' },
-				h('button', { type: 'button', class: 'ksl-btn', onclick: openSettings }, icon('admin-generic'), ' Impostazioni'),
-				h('button', { type: 'button', class: 'ksl-btn', onclick: function () { document.getElementById('ksl-import-file').click(); } }, icon('upload'), ' Importa'),
-				h('button', { type: 'button', class: 'ksl-btn is-primary', onclick: createSlider }, icon('plus-alt2'), ' Nuovo slider'))
+				h('button', { type: 'button', class: 'ksl-btn', onclick: openSettings }, icon('admin-generic'), ( ' ' + __( 'Settings', 'kaosslider' ) )),
+				h('button', { type: 'button', class: 'ksl-btn', onclick: function () { document.getElementById('ksl-import-file').click(); } }, icon('upload'), ( ' ' + __( 'Import', 'kaosslider' ) )),
+				h('button', { type: 'button', class: 'ksl-btn is-primary', onclick: createSlider }, icon('plus-alt2'), ( ' ' + __( 'New slider', 'kaosslider' ) )))
 		);
 		var grid = h('div', { class: 'ksl-grid' });
 		app.appendChild(head);
 		app.appendChild(grid);
 		app.appendChild(h('p', { class: 'ksl-help', html:
-			'Inserisci uno slider con lo shortcode <code>[kaosslider id="ID"]</code>, con il blocco <strong>KaosSlider</strong> (Gutenberg/Kadence), ' +
-			'con il widget di Elementor o con il modulo di Divi. Nei file del tema: <code>&lt;?php echo kaosslider( ID ); ?&gt;</code>' }));
+			sprintf(
+				/* translators: 1: shortcode, 2: block name, 3: PHP code for theme files. */
+				__( 'Insert a slider with the %1$s shortcode, the %2$s block (Gutenberg/Kadence), the Elementor widget or the Divi module. In theme files: %3$s', 'kaosslider' ),
+				'<code>[kaosslider id="ID"]</code>', '<strong>KaosSlider</strong>', '<code>&lt;?php echo kaosslider( ID ); ?&gt;</code>'
+			) }));
 		renderGrid(grid);
 	}
 
 	function renderGrid(grid) {
 		grid.innerHTML = '';
 		grid.appendChild(h('button', { type: 'button', class: 'ksl-card ksl-new', onclick: createSlider },
-			h('span', { class: 'ksl-new-plus' }, icon('plus-alt2')), h('strong', null, 'Nuovo slider'), h('small', null, 'Parti da una tela vuota')));
+			h('span', { class: 'ksl-new-plus' }, icon('plus-alt2')), h('strong', null, __( 'New slider', 'kaosslider' )), h('small', null, __( 'Start from a blank canvas', 'kaosslider' ))));
 
 		var q = query.trim().toLowerCase();
 		var list = items.filter(function (s) { return !q || s.title.toLowerCase().indexOf(q) > -1 || String(s.id) === q || (s.alias || '').indexOf(q) > -1; });
 		list.forEach(function (s) { grid.appendChild(card(s)); });
 		if (q && !list.length) {
-			grid.appendChild(h('p', { class: 'ksl-empty' }, 'Nessuno slider corrisponde a "' + query + '".'));
+			grid.appendChild(h('p', { class: 'ksl-empty' }, sprintf( __( 'No slider matches "%s".', 'kaosslider' ), query )));
 		}
 		fitThumbs();
 	}
@@ -162,31 +170,31 @@
 		};
 		var go = function () { window.location.href = editUrl(s.id); };
 		var thumb = h('div', {
-			class: 'ksl-thumb', role: 'link', tabindex: '0', 'aria-label': 'Modifica ' + s.title,
+			class: 'ksl-thumb', role: 'link', tabindex: '0', 'aria-label': sprintf( __( 'Edit %s', 'kaosslider' ), s.title ),
 			onclick: go,
 			onkeydown: function (e) { if (e.key === 'Enter') { go(); } }
 		},
 			thumbInner,
-			h('span', { class: 'ksl-badge' }, s.type === 'carousel' ? 'Carosello' : 'Slider'),
+			h('span', { class: 'ksl-badge' }, s.type === 'carousel' ? __( 'Carousel', 'kaosslider' ) : __( 'Slider', 'kaosslider' )),
 			h('span', { class: 'ksl-hover' },
-				h('span', { class: 'ksl-edit' }, icon('edit'), 'Modifica'),
+				h('span', { class: 'ksl-edit' }, icon('edit'), __( 'Edit', 'kaosslider' )),
 				h('span', { class: 'ksl-actions' },
-					act('visibility', 'Anteprima sul sito', function (x) { window.open(x.previewUrl, '_blank'); }),
-					act('admin-page', 'Duplica', duplicateSlider),
-					act('download', 'Esporta JSON', exportSlider),
-					act('trash', 'Elimina', deleteSlider, 'is-danger'))));
-		var date = new Date(s.modified).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' });
+					act('visibility', __( 'Preview on the site', 'kaosslider' ), function (x) { window.open(x.previewUrl, '_blank'); }),
+					act('admin-page', __( 'Duplicate', 'kaosslider' ), duplicateSlider),
+					act('download', __( 'Export JSON', 'kaosslider' ), exportSlider),
+					act('trash', __( 'Delete', 'kaosslider' ), deleteSlider, 'is-danger'))));
+		var date = new Date(s.modified).toLocaleString(document.documentElement.lang || undefined, { dateStyle: 'short', timeStyle: 'short' });
 		return h('div', { class: 'ksl-card', 'data-id': s.id },
 			thumb,
 			h('div', { class: 'ksl-meta' },
 				h('a', { class: 'ksl-name', href: editUrl(s.id), title: s.title }, s.title),
-				h('div', { class: 'ksl-sub' }, s.slideCount + (s.slideCount === 1 ? ' slide' : ' slide') + ' · ' + date),
+				h('div', { class: 'ksl-sub' }, sprintf( _n( '%d slide', '%d slides', s.slideCount, 'kaosslider' ), s.slideCount ) + ' · ' + date),
 				h('button', {
-					type: 'button', class: 'ksl-code', title: 'Clicca per copiare',
+					type: 'button', class: 'ksl-code', title: __( 'Click to copy', 'kaosslider' ),
 					onclick: function (e) {
 						var b = e.currentTarget;
 						navigator.clipboard.writeText(sc).then(function () {
-							b.textContent = 'Copiato!';
+							b.textContent = __( 'Copied!', 'kaosslider' );
 							setTimeout(function () { b.textContent = sc; }, 1200);
 						});
 					}
@@ -212,17 +220,17 @@
 			render();
 		})['catch'](function (e) {
 			app.innerHTML = '';
-			app.appendChild(h('div', { class: 'ksl-error' }, 'Impossibile caricare gli slider: ' + e.message));
+			app.appendChild(h('div', { class: 'ksl-error' }, sprintf( __( 'Unable to load the sliders: %s', 'kaosslider' ), e.message )));
 		});
 	}
 
 	/* ---------- Azioni ---------- */
 
 	function createSlider() {
-		var name = h('input', { type: 'text', class: 'ksl-input', value: 'Nuovo slider', required: true });
+		var name = h('input', { type: 'text', class: 'ksl-input', value: __( 'New slider', 'kaosslider' ), required: true });
 		var type = 'slider';
 		var seg = h('div', { class: 'ksl-seg' });
-		[['slider', 'Slider / Hero', 'Slide a tutta larghezza, una alla volta'], ['carousel', 'Carosello', 'Più card affiancate che scorrono']].forEach(function (o) {
+		[['slider', __( 'Slider / Hero', 'kaosslider' ), __( 'Full-width slides, one at a time', 'kaosslider' )], ['carousel', __( 'Carousel', 'kaosslider' ), __( 'Several cards side by side that scroll', 'kaosslider' )]].forEach(function (o) {
 			seg.appendChild(h('button', {
 				type: 'button', class: o[0] === type ? 'is-active' : '',
 				onclick: function (e) {
@@ -235,13 +243,13 @@
 		var heightMode = 'fullscreen';
 		var heightSeg = h('div', { class: 'ksl-seg' });
 		var heightInput = h('input', { type: 'number', class: 'ksl-input', min: '100', max: '4000', step: '10', value: '600' });
-		var heightRow = h('label', { class: 'ksl-label ksl-height-row' }, 'Altezza in px (desktop)', heightInput);
+		var heightRow = h('label', { class: 'ksl-label ksl-height-row' }, __( 'Height in px (desktop)', 'kaosslider' ), heightInput);
 		var heightNote = h('p', { class: 'ksl-note' });
 		var renderHeight = function () {
 			heightSeg.innerHTML = '';
 			var opts = type === 'carousel'
-				? [['fixed', 'Altezza card', 'Altezza di ogni card']]
-				: [['fullscreen', 'Schermo intero', 'Occupa tutta l\'altezza della finestra'], ['fixed', 'Personalizzata', 'Scegli tu l\'altezza in px']];
+				? [['fixed', __( 'Card height', 'kaosslider' ), __( 'Height of each card', 'kaosslider' )]]
+				: [['fullscreen', __( 'Fullscreen', 'kaosslider' ), __( 'Takes up the full height of the window', 'kaosslider' )], ['fixed', _x( 'Custom', 'height', 'kaosslider' ), __( 'Choose the height in px yourself', 'kaosslider' )]];
 			if (type === 'carousel') { heightMode = 'fixed'; }
 			opts.forEach(function (o) {
 				heightSeg.appendChild(h('button', {
@@ -256,21 +264,21 @@
 		Array.prototype.forEach.call(seg.children, function (b) { b.addEventListener('click', function () { setTimeout(renderHeight); }); });
 
 		var responsive = h('input', { type: 'checkbox', checked: true });
-		var respNote = h('small', null, 'Sugli schermi più piccoli livelli e testi si riducono in proporzione. Consigliato.');
+		var respNote = h('small', null, __( 'On smaller screens layers and texts shrink proportionally. Recommended.', 'kaosslider' ));
 		responsive.addEventListener('change', function () {
 			respNote.textContent = responsive.checked
-				? 'Sugli schermi più piccoli livelli e testi si riducono in proporzione. Consigliato.'
-				: 'Misure reali in px su ogni schermo: su quelli piccoli ciò che esce dalla slide viene tagliato.';
+				? __( 'On smaller screens layers and texts shrink proportionally. Recommended.', 'kaosslider' )
+				: __( 'Real px sizes on every screen: on small ones, whatever goes beyond the slide is cut off.', 'kaosslider' );
 		});
-		var respRow = h('label', { class: 'ksl-radio' }, responsive, h('span', null, h('strong', null, 'Responsive'), respNote));
+		var respRow = h('label', { class: 'ksl-radio' }, responsive, h('span', null, h('strong', null, __( 'Responsive', 'kaosslider' )), respNote));
 
 		renderHeight();
 		var body = h('div', null,
-			h('label', { class: 'ksl-label' }, 'Nome', name),
-			h('div', { class: 'ksl-label' }, 'Tipo'), seg,
-			h('div', { class: 'ksl-label ksl-mt' }, 'Altezza'), heightSeg, heightRow, heightNote,
-			h('div', { class: 'ksl-label ksl-mt' }, 'Adattamento'), respRow);
-		modal('Nuovo slider', body, [{ label: 'Annulla', value: null }, { label: 'Crea e apri l\'editor', value: true, primary: true, submit: true }]).then(function (ok) {
+			h('label', { class: 'ksl-label' }, __( 'Name', 'kaosslider' ), name),
+			h('div', { class: 'ksl-label' }, __( 'Type', 'kaosslider' )), seg,
+			h('div', { class: 'ksl-label ksl-mt' }, __( 'Height', 'kaosslider' )), heightSeg, heightRow, heightNote,
+			h('div', { class: 'ksl-label ksl-mt' }, __( 'Adaptation', 'kaosslider' )), respRow);
+		modal(__( 'New slider', 'kaosslider' ), body, [{ label: __( 'Cancel', 'kaosslider' ), value: null }, { label: __( 'Create and open the editor', 'kaosslider' ), value: true, primary: true, submit: true }]).then(function (ok) {
 			if (!ok) { return; }
 			var hpx = Math.max(100, Math.min(4000, parseInt(heightInput.value, 10) || 600));
 			api('/sliders', { method: 'POST', body: { title: name.value } }).then(function (s) {
@@ -297,7 +305,7 @@
 
 	function duplicateSlider(s) {
 		api('/sliders/' + s.id + '/duplicate', { method: 'POST' }).then(function () {
-			toast('Slider duplicato', 'ok');
+			toast(__( 'Slider duplicated', 'kaosslider' ), 'ok');
 			load();
 		})['catch'](function (err) { toast(err.message, 'error'); });
 	}
@@ -313,10 +321,10 @@
 	}
 
 	function deleteSlider(s) {
-		confirmModal('Eliminare lo slider?', '"' + s.title + '" verrà eliminato. Le pagine che lo usano non lo mostreranno più.', 'Elimina').then(function (ok) {
+		confirmModal(__( 'Delete the slider?', 'kaosslider' ), sprintf( __( '"%s" will be deleted. Pages that use it will no longer show it.', 'kaosslider' ), s.title ), __( 'Delete', 'kaosslider' )).then(function (ok) {
 			if (!ok) { return; }
 			api('/sliders/' + s.id, { method: 'DELETE' }).then(function () {
-				toast('Slider eliminato', 'ok');
+				toast(__( 'Slider deleted', 'kaosslider' ), 'ok');
 				load();
 			})['catch'](function (err) { toast(err.message, 'error'); });
 		});
@@ -326,21 +334,21 @@
 		api('/settings').then(function (st) {
 			var mode = st.fontMode;
 			var opts = [
-				['local', 'Ospitati sul sito (consigliato)', 'I file dei font vengono scaricati una volta sul tuo server: i visitatori non contattano servizi esterni. Ideale per il GDPR.'],
-				['bunny', 'Bunny Fonts', 'CDN europea senza tracciamento, stesso catalogo. Nessun file sul server.'],
-				['google', 'Google Fonts diretto', 'Sconsigliato in UE: l\'indirizzo IP dei visitatori viene inviato a Google.']
+				['local', __( 'Hosted on the site (recommended)', 'kaosslider' ), __( 'The font files are downloaded once to your server: visitors do not contact any external service. Ideal for GDPR.', 'kaosslider' )],
+				['bunny', 'Bunny Fonts', __( 'European CDN without tracking, same catalogue. No files on the server.', 'kaosslider' )],
+				['google', __( 'Google Fonts direct', 'kaosslider' ), __( 'Not recommended in the EU: the IP address of visitors is sent to Google.', 'kaosslider' )]
 			];
 			var list = h('div', { class: 'ksl-radio-list' }, opts.map(function (o) {
 				return h('label', { class: 'ksl-radio' },
 					h('input', { type: 'radio', name: 'ksl-font-mode', value: o[0], checked: o[0] === mode ? true : null }),
 					h('span', null, h('strong', null, o[1]), h('small', null, o[2])));
 			}));
-			var body = h('div', null, h('div', { class: 'ksl-label' }, 'Caricamento dei web font'), list);
-			return modal('Impostazioni', body, [{ label: 'Annulla', value: null }, { label: 'Salva', value: true, primary: true, submit: true }]).then(function (ok) {
+			var body = h('div', null, h('div', { class: 'ksl-label' }, __( 'Web font loading', 'kaosslider' )), list);
+			return modal(__( 'Settings', 'kaosslider' ), body, [{ label: __( 'Cancel', 'kaosslider' ), value: null }, { label: __( 'Save', 'kaosslider' ), value: true, primary: true, submit: true }]).then(function (ok) {
 				if (!ok) { return; }
 				var sel = body.querySelector('input[name="ksl-font-mode"]:checked');
 				return api('/settings', { method: 'POST', body: { fontMode: sel ? sel.value : 'local' } }).then(function () {
-					toast('Impostazioni salvate', 'ok');
+					toast(__( 'Settings saved', 'kaosslider' ), 'ok');
 					load();
 				});
 			});
@@ -356,11 +364,11 @@
 			try {
 				json = JSON.parse(reader.result);
 			} catch (err) {
-				toast('Il file non è un JSON valido.', 'error');
+				toast(__( 'The file is not valid JSON.', 'kaosslider' ), 'error');
 				return;
 			}
 			api('/import', { method: 'POST', body: json }).then(function () {
-				toast('Slider importato', 'ok');
+				toast(__( 'Imported slider', 'kaosslider' ), 'ok');
 				load();
 			})['catch'](function (err) { toast(err.message, 'error'); });
 		};

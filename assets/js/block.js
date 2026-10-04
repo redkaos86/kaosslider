@@ -2,6 +2,10 @@
 (function (wp) {
 	'use strict';
 
+	var __ = wp.i18n.__;
+	var _n = wp.i18n._n;
+	var sprintf = wp.i18n.sprintf;
+
 	var el = wp.element.createElement;
 	var useState = wp.element.useState;
 	var useEffect = wp.element.useEffect;
@@ -21,7 +25,7 @@
 	wp.blocks.registerBlockType('kaosslider/slider', {
 		apiVersion: 3,
 		title: 'KaosSlider',
-		description: 'Inserisce uno slider o carosello creato con KaosSlider.',
+		description: __( 'Inserts a slider or carousel made with KaosSlider.', 'kaosslider' ),
 		category: 'media',
 		icon: logo,
 		keywords: ['slider', 'carosello', 'hero', 'kaos'],
@@ -44,13 +48,13 @@
 			var id = props.attributes.sliderId;
 			var list = items || [];
 			var current = list.filter(function (s) { return s.id === id; })[0];
-			var options = [{ label: '— Scegli uno slider —', value: 0 }].concat(list.map(function (s) {
+			var options = [{ label: __( '— Choose a slider —', 'kaosslider' ), value: 0 }].concat(list.map(function (s) {
 				return { label: s.title + ' (#' + s.id + ')', value: s.id };
 			}));
 
 			function picker() {
 				return el(C.SelectControl, {
-					label: 'Slider',
+					label: __( 'Slider', 'kaosslider' ),
 					value: id,
 					options: options,
 					onChange: function (v) { props.setAttributes({ sliderId: parseInt(v, 10) || 0 }); },
@@ -62,13 +66,13 @@
 			if (items === null) {
 				body = el(C.Spinner);
 			} else if (!list.length) {
-				body = el('p', null, 'Non hai ancora creato slider. ', el('a', { href: cfg.adminUrl, target: '_blank' }, 'Creane uno ↗'));
+				body = el('p', null, __( 'You have not created any sliders yet.', 'kaosslider' ) + ' ', el('a', { href: cfg.adminUrl, target: '_blank' }, __( 'Create one ↗', 'kaosslider' )));
 			} else {
 				body = el('div', { style: { width: '100%', maxWidth: '420px' } },
 					picker(),
 					current ? el('p', { style: { marginTop: '10px' } },
-						current.slideCount + (current.slideCount === 1 ? ' slide' : ' slide') + ' · ',
-						el('a', { href: cfg.adminUrl + '&edit=' + current.id, target: '_blank' }, 'Modifica slider ↗')) : null
+						sprintf( _n( '%d slide', '%d slides', current.slideCount, 'kaosslider' ), current.slideCount ) + ' · ',
+						el('a', { href: cfg.adminUrl + '&edit=' + current.id, target: '_blank' }, __( 'Edit slider ↗', 'kaosslider' ))) : null
 				);
 			}
 
@@ -77,8 +81,8 @@
 					el(C.PanelBody, { title: 'KaosSlider' }, items === null ? el(C.Spinner) : picker())),
 				el(C.Placeholder, {
 					icon: logo,
-					label: current ? 'KaosSlider: ' + current.title : 'KaosSlider',
-					instructions: current ? 'Lo slider animato è visibile nell\'anteprima della pagina.' : 'Scegli quale slider mostrare.'
+					label: current ? sprintf( __( 'KaosSlider: %s', 'kaosslider' ), current.title ) : 'KaosSlider',
+					instructions: current ? __( 'The animated slider is visible in the page preview.', 'kaosslider' ) : __( 'Choose which slider to show.', 'kaosslider' )
 				}, body)
 			);
 		},

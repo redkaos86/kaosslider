@@ -1595,12 +1595,16 @@
 		var all = document.getElementById('wp-admin-bar-kaosslider-all');
 		Array.prototype.forEach.call(list.querySelectorAll('.kaosslider-ab-item, .kaosslider-ab-sep'), function (li) { li.parentNode.removeChild(li); });
 
+		// Testi tradotti dal PHP (attributi data-* del pulsante nella barra).
+		var label = node.querySelector('.ab-label');
+		var tEdit = (label && label.getAttribute('data-edit')) || 'Edit: %s';
+		var tUntitled = (label && label.getAttribute('data-untitled')) || 'Slider #%d';
 		var seen = {};
 		var items = [];
 		Array.prototype.forEach.call(document.querySelectorAll('.kaosslider[data-ks-edit]'), function (el) {
 			var id = el.getAttribute('data-ks-id');
 			if (seen[id]) { seen[id].els.push(el); return; }
-			seen[id] = { url: el.getAttribute('data-ks-edit'), title: el.getAttribute('aria-label') || ('Slider #' + id), els: [el] };
+			seen[id] = { url: el.getAttribute('data-ks-edit'), title: el.getAttribute('aria-label') || tUntitled.replace('%d', id), els: [el] };
 			items.push(seen[id]);
 		});
 		node.classList.toggle('ks-ab-ready', items.length > 0);
@@ -1612,7 +1616,7 @@
 			var a = document.createElement('a');
 			a.className = 'ab-item';
 			a.href = it.url;
-			a.textContent = 'Modifica: ' + it.title;
+			a.textContent = tEdit.replace('%s', it.title);
 			li.appendChild(a);
 			// Passando sulla voce, lo slider corrispondente viene evidenziato nella pagina.
 			li.addEventListener('mouseenter', function () { it.els.forEach(function (e) { e.classList.add('ks-ab-highlight'); }); });
@@ -1624,7 +1628,6 @@
 		sep.setAttribute('role', 'separator');
 		list.insertBefore(sep, all);
 
-		var label = node.querySelector('.ab-label');
 		if (label) { label.textContent = items.length > 1 ? 'KaosSlider (' + items.length + ')' : 'KaosSlider'; }
 
 		// Clic sinistro sul pulsante: apre/chiude il menu (di base la barra lo apre solo al passaggio del mouse).
