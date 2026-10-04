@@ -36,6 +36,16 @@ The plugin connects to external services only for the features that need them:
 2. Activate the plugin.
 3. Create your first slider from the KaosSlider menu.
 
+== Screenshots ==
+
+1. The visual editor: layers on a responsive canvas, live styling (here the frosted glass settings) and the animation timeline.
+2. Layer animations: entrance, exit and loop effects, split text, delays and easing.
+3. Right-click menu on any layer, with quick access to every panel.
+4. The dashboard: live thumbnails, shortcode copy, duplicate, export and import.
+5. A hero with a frosted glass panel, snow particles and a hand-drawn signature.
+6. A 3D coverflow carousel.
+7. WebGL light rays behind the slide content.
+
 == Changelog ==
 
 = 1.1.0 =
