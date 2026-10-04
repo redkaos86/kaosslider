@@ -12,30 +12,31 @@ WordPress plugin for creating stunning sliders, carousels, and hero sections. Fu
 
 == Description ==
 
-Slider a schermo intero, caroselli e hero con testo animato, creati con un editor visuale a livelli.
+Build fullscreen sliders, carousels and animated hero sections with a visual, layer-based editor.
 
-* Livelli di testo, bottoni, immagini, forme, disegni a mano e pellicola, con animazioni di entrata, uscita e in loop.
-* Sfondi a colore, gradiente, immagine (con effetto Ken Burns) o video (file, YouTube, Vimeo).
-* Transizioni tra le slide, parallasse, effetti animati su canvas e WebGL, video guidato dallo scroll.
-* Effetto vetro, ombre personalizzate, bordi, contorno delle lettere e testo a gradiente.
-* Responsive con valori separati per desktop, tablet e mobile.
-* Integrazione con Gutenberg (anche Kadence Blocks), Elementor e Divi, più lo shortcode `[kaosslider id="…"]`.
+* Text, button, image, shape, hand-drawn and filmstrip layers, with entrance, exit and loop animations.
+* Backgrounds with colors, gradients, images (with Ken Burns effect) or video (file, YouTube, Vimeo).
+* Slide transitions, parallax, animated canvas and WebGL effects, scroll-driven video.
+* Glass effect, custom shadows, borders, text outlines and gradient text.
+* Responsive, with separate values for desktop, tablet and mobile.
+* Works with the block editor (including Kadence Blocks), Elementor and Divi, plus the `[kaosslider id="…"]` shortcode.
 
-== Servizi esterni ==
+== External services ==
 
-Il plugin contatta servizi esterni solo per le funzioni che li usano:
+The plugin connects to external services only for the features that need them:
 
-* **Google Fonts** (fonts.googleapis.com, fonts.gstatic.com): con la modalità font predefinita («locale») i file dei font scelti vengono scaricati una sola volta sul server del sito al salvataggio dello slider; i visitatori non contattano Google. Con la modalità «Google» il foglio di stile viene caricato direttamente da Google. Informativa: https://policies.google.com/privacy
-* **Bunny Fonts** (fonts.bunny.net): solo se scelto nelle impostazioni, e per l'anteprima dei font nell'editor. Informativa: https://bunny.net/privacy
-* **YouTube** (youtube-nocookie.com, youtube.com, i.ytimg.com) e **Vimeo** (player.vimeo.com, vimeo.com, i.vimeocdn.com): solo per le slide con un video di sfondo di queste piattaforme, e per verificare dall'editor che il video sia incorporabile. Informative: https://policies.google.com/privacy e https://vimeo.com/privacy
+* **Google Fonts** (fonts.googleapis.com, fonts.gstatic.com): with the default "local" font mode, the selected font files are downloaded once to the site's server when a slider is saved, and visitors never contact Google. With the "Google" mode the stylesheet is loaded directly from Google. Privacy policy: https://policies.google.com/privacy
+* **Bunny Fonts** (fonts.bunny.net): only when selected in the settings, and for previewing fonts in the editor. Privacy policy: https://bunny.net/privacy
+* **YouTube** (youtube-nocookie.com, youtube.com, i.ytimg.com) and **Vimeo** (player.vimeo.com, vimeo.com, i.vimeocdn.com): only for slides with a background video from these platforms, and to check from the editor that a video can be embedded. Privacy policies: https://policies.google.com/privacy and https://vimeo.com/privacy
+* **GitHub** (api.github.com): only on sites where an update token is configured, to check for and download signed plugin updates. Privacy policy: https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement
 
 == Installation ==
 
-1. Carica la cartella `kaosslider` in `/wp-content/plugins/` oppure installa lo zip da Plugin → Aggiungi nuovo.
-2. Attiva il plugin.
-3. Crea il primo slider dal menu KaosSlider.
+1. Upload the `kaosslider` folder to `/wp-content/plugins/`, or install the zip from Plugins → Add New.
+2. Activate the plugin.
+3. Create your first slider from the KaosSlider menu.
 
 == Changelog ==
 
 = 1.0.0 =
-* Prima versione.
+* First release.

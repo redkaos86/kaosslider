@@ -63,7 +63,7 @@ class KaosSlider_Admin {
 			wp_enqueue_script( 'kaosslider' );
 			wp_enqueue_script( 'kaosslider-gl' );
 			wp_enqueue_script( 'kaosslider-editor', KAOSSLIDER_URL . 'assets/js/editor.js', array( 'kaosslider' ), kaosslider_asset_ver( 'assets/js/editor.js' ), true );
-			$config['sliderId']   = absint( $_GET['edit'] ); // phpcs:ignore WordPress.Security.NonceVerification
+			$config['sliderId']   = isset( $_GET['edit'] ) ? absint( $_GET['edit'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
 			$config['positions']  = KaosSlider_Sanitizer::positions();
 			$config['newSlide']   = KaosSlider_Store::default_slide();
 			$config['bp']         = array(

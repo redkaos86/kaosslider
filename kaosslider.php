@@ -9,6 +9,7 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       kaosslider
+ * Update URI:        https://github.com/redkaos86/kaosslider
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -27,6 +28,12 @@ require_once KAOSSLIDER_DIR . 'includes/class-kaosslider-admin.php';
 require_once KAOSSLIDER_DIR . 'includes/integrations/block.php';
 require_once KAOSSLIDER_DIR . 'includes/integrations/elementor.php';
 require_once KAOSSLIDER_DIR . 'includes/integrations/divi.php';
+
+// Aggiornamenti firmati da GitHub (file facoltativo: assente nelle build senza aggiornamenti propri).
+if ( file_exists( KAOSSLIDER_DIR . 'includes/class-kaosslider-updater.php' ) ) {
+	require_once KAOSSLIDER_DIR . 'includes/class-kaosslider-updater.php';
+	KaosSlider_Updater::init();
+}
 
 /**
  * Capability necessaria per gestire gli slider.

@@ -11,3 +11,9 @@ parameters:
 	bootstrapFiles:
 		- tests/phpstan-bootstrap.php
 	treatPhpDocTypesAsCertain: false
+	ignoreErrors:
+		-
+			identifier: class.notFound
+			paths:
+				- includes/integrations/elementor.php
+				- includes/integrations/divi.php

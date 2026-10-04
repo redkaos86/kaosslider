@@ -28,6 +28,8 @@
 		<exclude name="Generic.Formatting.MultipleStatementAlignment"/>
 		<!-- Sintassi breve degli array non usata, ma non è un problema da segnalare. -->
 		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<!-- Elenchi brevi (effetti, transizioni, posizioni) scritti su una riga: è solo formattazione. -->
+		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing"/>
 	</rule>
 
 	<rule ref="WordPress.WP.I18n">
@@ -45,6 +47,14 @@
 				<element value="KaosSlider"/>
 			</property>
 		</properties>
+	</rule>
+
+	<!-- La prova automatica gira con wp eval-file: le sue variabili non finiscono nello spazio globale del sito. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WP.GlobalVariablesOverride.Prohibited">
+		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
 	<rule ref="PHPCompatibilityWP"/>

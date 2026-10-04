@@ -32,6 +32,7 @@ add_action(
 			'before'
 		);
 
+		// @phpstan-ignore argument.type (api_version è un intero in block.json; gli stub lo dichiarano stringa)
 		register_block_type(
 			'kaosslider/slider',
 			array(

@@ -195,12 +195,14 @@ class KaosSlider_Render {
 
 		ob_start();
 		?>
-		<section id="<?php echo esc_attr( $dom_id ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" aria-roledescription="carousel" aria-label="<?php echo esc_attr( $post->post_title ); ?>" data-ks="<?php echo esc_attr( wp_json_encode( $js_settings ) ); ?>"<?php echo current_user_can( kaosslider_capability() ) ? ' data-ks-edit="' . esc_url( admin_url( 'admin.php?page=' . KaosSlider_Admin::SLUG . '&edit=' . $post->ID ) ) . '" data-ks-id="' . esc_attr( $post->ID ) . '"' : ''; ?>>
+		<section id="<?php echo esc_attr( $dom_id ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" aria-roledescription="carousel" aria-label="<?php echo esc_attr( $post->post_title ); ?>" data-ks="<?php echo esc_attr( wp_json_encode( $js_settings ) ); ?>"<?php echo current_user_can( kaosslider_capability() ) ? ' data-ks-edit="' . esc_url( admin_url( 'admin.php?page=' . KaosSlider_Admin::SLUG . '&edit=' . $post->ID ) ) . '" data-ks-id="' . esc_attr( (string) $post->ID ) . '"' : ''; ?>>
 			<?php
 			$font_css = KaosSlider_Fonts::stylesheet_url( $data );
 			if ( $font_css && ! isset( self::$printed_fonts[ $font_css ] ) ) {
 				self::$printed_fonts[ $font_css ] = true;
-				echo '<link rel="stylesheet" href="' . esc_url( $font_css ) . '" media="all">';
+				// Stampato accanto allo slider e non con wp_enqueue_style(): gli shortcode vengono eseguiti dopo l'head
+				// e un foglio accodato finirebbe nel footer, con il testo che cambia carattere a pagina già visibile.
+				echo '<link rel="stylesheet" href="' . esc_url( $font_css ) . '" media="all">'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
 			}
 			?>
 			<style><?php echo self::css( $dom_id, $data ); // phpcs:ignore WordPress.Security.EscapeOutput -- CSS generato da valori validati. ?></style>
@@ -219,7 +221,7 @@ class KaosSlider_Render {
 			<?php if ( $settings['bullets'] && $total > 1 ) : ?>
 				<div class="ks-bullets">
 					<?php for ( $i = 0; $i < $total; $i++ ) : ?>
-						<button type="button" class="ks-bullet<?php echo 0 === $i ? ' is-active' : ''; ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Vai alla slide %d', 'kaosslider' ), $i + 1 ) ); ?>"></button>
+						<button type="button" class="ks-bullet<?php echo 0 === $i ? ' is-active' : ''; ?>" aria-label="<?php /* translators: %d: numero della slide. */ echo esc_attr( sprintf( __( 'Vai alla slide %d', 'kaosslider' ), $i + 1 ) ); ?>"></button>
 					<?php endfor; ?>
 				</div>
 			<?php endif; ?>
@@ -236,7 +238,7 @@ class KaosSlider_Render {
 		$duration = $slide['duration'] ? (int) $slide['duration'] : 0;
 		$lazy     = $index > 0;
 		?>
-		<div class="ks-slide<?php echo 0 === $index ? ' is-active' : ''; ?>" role="group" aria-roledescription="slide" aria-label="<?php echo esc_attr( ( $index + 1 ) . ' / ' . $total ); ?>" data-duration="<?php echo esc_attr( $duration ); ?>" data-tr="<?php echo esc_attr( wp_json_encode( $slide['transition'] ) ); ?>"<?php echo $bg['parallax'] ? ' data-bgpar="' . esc_attr( $bg['parallax'] ) . '"' : ''; ?> style="background:<?php echo esc_attr( $bg['color'] ? $bg['color'] : 'transparent' ); ?>">
+		<div class="ks-slide<?php echo 0 === $index ? ' is-active' : ''; ?>" role="group" aria-roledescription="slide" aria-label="<?php echo esc_attr( ( $index + 1 ) . ' / ' . $total ); ?>" data-duration="<?php echo esc_attr( (string) $duration ); ?>" data-tr="<?php echo esc_attr( wp_json_encode( $slide['transition'] ) ); ?>"<?php echo $bg['parallax'] ? ' data-bgpar="' . esc_attr( $bg['parallax'] ) . '"' : ''; ?> style="background:<?php echo esc_attr( $bg['color'] ? $bg['color'] : 'transparent' ); ?>">
 			<div class="ks-bg">
 				<?php
 				if ( 'image' === $bg['type'] && $bg['image'] ) {
