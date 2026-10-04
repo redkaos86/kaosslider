@@ -17,3 +17,7 @@ parameters:
 			paths:
 				- includes/integrations/elementor.php
 				- includes/integrations/divi.php
+		# api_version è un intero in block.json; gli stub di WordPress lo dichiarano stringa.
+		-
+			identifier: argument.type
+			path: includes/integrations/block.php

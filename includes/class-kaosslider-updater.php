@@ -23,7 +23,7 @@ class KaosSlider_Updater {
 	const API        = 'https://api.github.com/repos/';
 
 	public static function init() {
-		if ( ! self::token() ) {
+		if ( ! self::token() || self::is_dev_copy() ) {
 			return;
 		}
 		// Header "Update URI: https://github.com/…" del plugin: WordPress chiede a questo filtro e non a WordPress.org.
@@ -33,6 +33,14 @@ class KaosSlider_Updater {
 		add_action( 'upgrader_process_complete', array( __CLASS__, 'flush' ) );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'row_meta' ), 10, 2 );
 		add_action( 'admin_init', array( __CLASS__, 'manual_check' ) );
+	}
+
+	/**
+	 * Copia di sviluppo (cartella collegata o con il repository git): un aggiornamento cancellerebbe i sorgenti originali.
+	 */
+	public static function is_dev_copy() {
+		$dir = untrailingslashit( KAOSSLIDER_DIR );
+		return is_link( $dir ) || file_exists( $dir . '/.git' );
 	}
 
 	private static function token() {

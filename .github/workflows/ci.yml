@@ -121,7 +121,7 @@ jobs:
         run: wp eval-file wp-content/plugins/kaosslider/tests/smoke.php
 
   plugin-check:
-    name: Plugin Check (informativo)
+    name: Plugin Check per WordPress.org (informativo)
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -130,6 +130,10 @@ jobs:
         run: |
           mkdir -p dist
           git archive --format=tar --prefix=kaosslider/ HEAD | tar -x -C dist
+      - name: Simula la build per WordPress.org (senza aggiornamenti da GitHub)
+        run: |
+          rm dist/kaosslider/includes/class-kaosslider-updater.php
+          sed -i '/Update URI:/d' dist/kaosslider/kaosslider.php
       - uses: wordpress/plugin-check-action@v1
         with:
           build-dir: dist/kaosslider
