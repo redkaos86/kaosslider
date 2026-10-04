@@ -1,0 +1,17 @@
+/vendor/
+/node_modules/
+/dist/
+/build/
+composer.lock
+*.zip
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# Chiavi di firma degli aggiornamenti: non vanno MAI nel repository.
+*.key
+*.pem
+/keys/

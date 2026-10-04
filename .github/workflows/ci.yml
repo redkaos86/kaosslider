@@ -1,0 +1,135 @@
+name: Controlli
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Ogni lunedì alle 6:00 UTC: intercetta nuove versioni di PHP/WordPress e regole aggiornate.
+    - cron: '0 6 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sintassi:
+    name: Sintassi PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: none
+      - name: Controllo sintassi
+        run: find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 -P4 php -l
+
+  javascript:
+    name: Sintassi JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - name: Controllo sintassi
+        run: for f in assets/js/*.js; do node --check "$f"; done
+
+  standard:
+    name: Standard e sicurezza (PHPCS)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer
+      - run: composer install --no-progress --prefer-dist
+      - name: PHPCS
+        run: vendor/bin/phpcs --report-full --report-summary
+
+  analisi:
+    name: Analisi statica (PHPStan)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer
+      - run: composer install --no-progress --prefer-dist
+      - name: PHPStan
+        run: vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+
+  wordpress:
+    name: WordPress ${{ matrix.wp }} / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { wp: '6.2', php: '7.4' }
+          - { wp: 'latest', php: '7.4' }
+          - { wp: 'latest', php: '8.3' }
+          - { wp: 'latest', php: '8.5' }
+          - { wp: 'nightly', php: '8.5' }
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+        ports: ['3306:3306']
+        options: --health-cmd="mysqladmin ping -proot" --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: kaosslider
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          extensions: mysqli, curl, gd, mbstring, zip
+          tools: wp-cli
+      - name: Installa WordPress ${{ matrix.wp }}
+        run: |
+          mkdir wp && cd wp
+          wp core download --version=${{ matrix.wp }} --locale=it_IT --skip-content || wp core download --version=${{ matrix.wp }} --skip-content
+          wp config create --dbname=wordpress --dbuser=root --dbpass=root --dbhost=127.0.0.1 --skip-check
+          wp config set WP_DEBUG true --raw
+          wp core install --url=http://localhost --title=Prova --admin_user=admin --admin_password=admin --admin_email=admin@example.com --skip-email
+          mkdir -p wp-content/plugins
+          cp -r ../kaosslider wp-content/plugins/kaosslider
+          wp core version
+      - name: Attiva il plugin
+        working-directory: wp
+        run: wp plugin activate kaosslider
+      - name: Prova del plugin
+        working-directory: wp
+        run: wp eval-file wp-content/plugins/kaosslider/tests/smoke.php
+
+  plugin-check:
+    name: Plugin Check (informativo)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepara lo zip di rilascio
+        run: |
+          mkdir -p dist
+          git archive --format=tar --prefix=kaosslider/ HEAD | tar -x -C dist
+      - uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: dist/kaosslider

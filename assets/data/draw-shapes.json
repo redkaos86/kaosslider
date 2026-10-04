@@ -1,0 +1,20 @@
+{
+	"underline": { "label": "Sottolineatura", "d": "M6 70 C 52 61, 118 79, 194 65" },
+	"underline2": { "label": "Doppia sottolineatura", "d": "M6 60 C 60 53, 130 69, 194 58 M16 80 C 72 73, 140 88, 188 77" },
+	"strike": { "label": "Barrato", "d": "M6 52 C 70 45, 132 57, 194 47" },
+	"highlight": { "label": "Evidenziatore", "d": "M6 56 C 60 50, 140 58, 194 52" },
+	"circle": { "label": "Cerchio a mano", "d": "M104 9 C 160 7, 196 30, 194 52 C 192 80, 140 94, 96 92 C 46 90, 6 74, 8 48 C 10 22, 52 7, 118 13" },
+	"box": { "label": "Riquadro a mano", "d": "M10 12 C 70 7, 140 10, 191 9 C 193 40, 191 70, 192 91 C 130 93, 70 91, 9 92 C 7 65, 9 35, 13 7" },
+	"arrow": { "label": "Freccia", "d": "M10 82 C 62 72, 122 44, 182 22 M182 22 L158 19 M182 22 L171 43" },
+	"curvedArrow": { "label": "Freccia curva", "d": "M14 30 C 40 92, 140 96, 178 40 M178 40 L156 45 M178 40 L182 62" },
+	"wave": { "label": "Onda", "d": "M6 50 Q 30 20 54 50 T 102 50 T 150 50 T 196 50" },
+	"zigzag": { "label": "Zig-zag", "d": "M6 60 L26 40 L46 60 L66 40 L86 60 L106 40 L126 60 L146 40 L166 60 L186 40 L196 50" },
+	"scribble": { "label": "Scarabocchio", "d": "M10 62 C 30 20, 52 92, 72 50 S 112 18, 132 60 S 172 92, 190 40" },
+	"check": { "label": "Spunta", "d": "M32 54 L80 86 L170 14" },
+	"cross": { "label": "Croce", "d": "M40 14 L160 86 M160 14 L40 86" },
+	"line": { "label": "Linea dritta", "d": "M6 50 L194 50" },
+	"brackets": { "label": "Parentesi", "d": "M30 8 C 10 8, 8 30, 8 50 C 8 70, 10 92, 30 92 M170 8 C 190 8, 192 30, 192 50 C 192 70, 190 92, 170 92" },
+	"heart": { "label": "Cuore", "d": "M100 90 C 40 60, 10 32, 40 13 C 60 2, 86 12, 100 32 C 114 12, 140 2, 160 13 C 190 32, 160 60, 100 90 Z" },
+	"star": { "label": "Stella", "d": "M100 6 L123 38 L194 40 L138 62 L158 94 L100 75 L42 94 L62 62 L6 40 L77 38 Z" },
+	"burst": { "label": "Raggi", "d": "M100 30 L100 6 M120 36 L138 16 M128 52 L156 50 M80 36 L62 16 M72 52 L44 50 M115 68 L132 86 M85 68 L68 86" }
+}

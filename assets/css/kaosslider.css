@@ -1,0 +1,336 @@
+/* KaosSlider – stili frontend (condivisi con l'editor) */
+
+.kaosslider {
+	--s: 1;
+	--ks-nav: #fff;
+	--ks-gap: 24px;
+	--ks-pv: 1;
+	--ks-speed: 900ms;
+	position: relative;
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	box-sizing: border-box;
+	isolation: isolate;
+	-webkit-tap-highlight-color: transparent;
+}
+.kaosslider *,
+.kaosslider *::before,
+.kaosslider *::after { box-sizing: border-box; }
+
+.kaosslider.ks-fullwidth {
+	width: calc(100vw - var(--ks-sbw, 0px));
+	max-width: none;
+	margin-left: calc(50% - 50vw + var(--ks-sbw, 0px) / 2);
+	margin-right: 0;
+}
+
+.kaosslider .ks-viewport { position: relative; width: 100%; overflow: hidden; }
+.kaosslider .ks-track { position: relative; width: 100%; height: 100%; }
+
+/* ---------- Slider: slide sovrapposte ---------- */
+.kaosslider.ks-type-slider .ks-slide {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	visibility: hidden;
+	z-index: 1;
+}
+.kaosslider.ks-type-slider .ks-slide.is-active { visibility: visible; z-index: 3; }
+.kaosslider.ks-type-slider .ks-slide.is-leaving { visibility: visible; z-index: 2; }
+
+/* ---------- Carosello: slide affiancate ---------- */
+.kaosslider.ks-type-carousel .ks-track {
+	display: flex;
+	gap: var(--ks-gap);
+	transition: transform var(--ks-speed) cubic-bezier(.22, 1, .36, 1);
+	will-change: transform;
+}
+.kaosslider.ks-type-carousel .ks-slide {
+	position: relative;
+	flex: 0 0 calc((100% - (var(--ks-pv) - 1) * var(--ks-gap)) / var(--ks-pv));
+	overflow: hidden;
+}
+.kaosslider.ks-type-carousel.is-dragging .ks-track { transition: none; }
+
+/* ---------- Sfondo ---------- */
+.kaosslider .ks-bg,
+.kaosslider .ks-overlay,
+.kaosslider .ks-layers { position: absolute; inset: 0; }
+.kaosslider .ks-bg { overflow: hidden; z-index: 0; }
+.kaosslider .ks-overlay { z-index: 1; pointer-events: none; }
+.kaosslider .ks-layers { z-index: 2; pointer-events: none; }
+.kaosslider:not(.ks-ready) .ks-layers { visibility: hidden; }
+
+.kaosslider .ks-bg-img {
+	position: absolute;
+	inset: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	transform-origin: center;
+}
+.kaosslider .ks-bg-video,
+.kaosslider .ks-bg-embed iframe {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 0;
+	pointer-events: none;
+}
+.kaosslider .ks-bg-video { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s; }
+.kaosslider .ks-bg-video.is-playing { opacity: 1; }
+.kaosslider .ks-bg-embed { position: absolute; inset: 0; opacity: 0; transition: opacity .8s; }
+.kaosslider .ks-bg-embed.is-playing { opacity: 1; }
+
+/* Ken Burns (attivo solo sulla slide corrente) */
+.kaosslider .is-active .ks-kb-in,
+.kaosslider .is-visible .ks-kb-in { animation: ks-kb-in 14s ease-out forwards; }
+.kaosslider .is-active .ks-kb-out,
+.kaosslider .is-visible .ks-kb-out { animation: ks-kb-out 14s ease-out forwards; }
+.kaosslider .is-active .ks-kb-left,
+.kaosslider .is-visible .ks-kb-left { animation: ks-kb-left 14s ease-out forwards; }
+.kaosslider .is-active .ks-kb-right,
+.kaosslider .is-visible .ks-kb-right { animation: ks-kb-right 14s ease-out forwards; }
+.kaosslider .ks-kb-out { transform: scale(1.2); }
+.kaosslider .ks-kb-left,
+.kaosslider .ks-kb-right { transform: scale(1.15); }
+@keyframes ks-kb-in { from { transform: scale(1); } to { transform: scale(1.2); } }
+@keyframes ks-kb-out { from { transform: scale(1.2); } to { transform: scale(1); } }
+@keyframes ks-kb-left { from { transform: scale(1.15) translateX(4%); } to { transform: scale(1.15) translateX(-4%); } }
+@keyframes ks-kb-right { from { transform: scale(1.15) translateX(-4%); } to { transform: scale(1.15) translateX(4%); } }
+
+/* ---------- Livelli ---------- */
+.kaosslider .ks-layer {
+	position: absolute;
+	display: block;
+	pointer-events: none;
+}
+.kaosslider .ks-anim { display: block; width: 100%; height: 100%; }
+.kaosslider .ks-layer a,
+.kaosslider .ks-layer .ks-btn { pointer-events: auto; }
+.kaosslider .ks-layer .ks-inner {
+	display: block;
+	margin: 0;
+	max-width: none;
+	font-size: inherit;
+	font-family: inherit;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: inherit; /* i temi a blocchi impostano text-wrap sui titoli e annullerebbero il nowrap */
+	text-decoration: none;
+	box-shadow: none;
+	border: 0;
+}
+.kaosslider .ks-layer h1.ks-inner,
+.kaosslider .ks-layer h2.ks-inner,
+.kaosslider .ks-layer h3.ks-inner,
+.kaosslider .ks-layer h4.ks-inner,
+.kaosslider .ks-layer h5.ks-inner,
+.kaosslider .ks-layer h6.ks-inner,
+.kaosslider .ks-layer p.ks-inner { padding: 0; text-transform: none; }
+.kaosslider .ks-layer-link { display: block; color: inherit; text-decoration: none; }
+.kaosslider .ks-ltype-image .ks-inner { width: 100%; height: auto; }
+.kaosslider .ks-ltype-image .ks-layer-link,
+.kaosslider .ks-ltype-shape .ks-inner { height: 100%; }
+.kaosslider .ks-ltype-shape .ks-inner { width: 100%; min-height: 1px; }
+.kaosslider .ks-ltype-button .ks-inner {
+	cursor: pointer;
+	transition: color .25s, background-color .25s, background .25s, border-color .25s, transform .25s;
+}
+.kaosslider .ks-ltype-button .ks-inner:hover { transform: translateY(-1px); }
+.kaosslider .ks-ltype-button .ks-inner:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+/* Testo spezzato in parole/lettere */
+.kaosslider .ks-split { display: inline-block; white-space: pre; }
+.kaosslider .ks-split-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.kaosslider .ks-split-line { display: block; }
+
+/* Testo a gradiente spezzato: ogni parte riceve lo stesso gradiente, allineato via JS */
+.kaosslider .ks-gradtext.ks-is-split { background: none !important; }
+.kaosslider .ks-gradtext .ks-split {
+	background: var(--ks-tg);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+}
+
+/* Animazioni continue (dopo l'entrata) */
+.kaosslider .ks-looping.ks-loop-pulse { animation: ks-loop-pulse 2s ease-in-out infinite; }
+.kaosslider .ks-looping.ks-loop-float { animation: ks-loop-float 3s ease-in-out infinite; }
+.kaosslider .ks-looping.ks-loop-rotate { animation: ks-loop-rotate 8s linear infinite; }
+.kaosslider .ks-looping.ks-loop-swing { animation: ks-loop-swing 2.5s ease-in-out infinite; transform-origin: top center; }
+.kaosslider .ks-looping.ks-loop-blink { animation: ks-loop-blink 1.6s ease-in-out infinite; }
+@keyframes ks-loop-pulse { 50% { transform: scale(1.06); } }
+@keyframes ks-loop-float { 50% { transform: translateY(-10px); } }
+@keyframes ks-loop-rotate { to { transform: rotate(360deg); } }
+@keyframes ks-loop-swing { 25% { transform: rotate(4deg); } 75% { transform: rotate(-4deg); } }
+@keyframes ks-loop-blink { 50% { opacity: .35; } }
+
+/* Transizioni a pezzi (strisce, persiane, mosaico) */
+.kaosslider .ks-slices { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.kaosslider .ks-slice-paint { position: absolute; inset: 0; }
+.kaosslider .ks-slice-paint .ks-bg,
+.kaosslider .ks-slice-paint .ks-overlay { position: absolute; inset: 0; visibility: visible !important; }
+
+/* Parallasse: lo sfondo è leggermente più grande della slide, così muovendolo non si vedono i bordi */
+.kaosslider.ks-par-mouse .ks-bg { inset: -40px; }
+.kaosslider.ks-par-scroll .ks-bg { top: -14%; bottom: -14%; }
+.kaosslider.ks-par-mouse.ks-par-scroll .ks-bg { inset: -14% -40px; }
+.kaosslider .ks-layer { will-change: auto; }
+
+/* Macchina da scrivere: cursore lampeggiante a fine scrittura */
+.kaosslider .ks-caret::after { content: ""; display: inline-block; width: .07em; height: .95em; margin-left: .06em; vertical-align: -.1em; background: currentColor; animation: ks-caret 1s steps(1) infinite; }
+.kaosslider .ks-gradtext.ks-caret::after { background: #fff; }
+@keyframes ks-caret { 50% { opacity: 0; } }
+
+/* Effetti animati (particelle e meteo): sopra lo sfondo, sotto o sopra i livelli */
+.kaosslider .ks-fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.kaosslider .ks-fx.ks-fx-front { z-index: 3; }
+.kaosslider .ks-fx.ks-fx-screen { mix-blend-mode: screen; }
+.kaosslider .ks-fx.ks-fx-drag { pointer-events: auto; cursor: grab; touch-action: pan-y; }
+.kaosslider .ks-fx.ks-fx-drag.is-grabbing { cursor: grabbing; }
+
+/* Disegno a mano */
+.kaosslider .ks-ltype-draw .ks-inner,
+.kaosslider .ks-ltype-film .ks-inner { width: 100%; height: 100%; }
+.kaosslider .ks-draw { display: block; overflow: visible; }
+.kaosslider .ks-draw path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.kaosslider .ks-draw-text text { stroke-linecap: round; stroke-linejoin: round; paint-order: stroke; }
+.kaosslider .ks-draw-text:not(.ks-draw-fill) text { fill: none !important; }
+
+/* Pellicola: striscia di immagini che scorre senza fine */
+.kaosslider .ks-film { overflow: hidden; pointer-events: auto; }
+.kaosslider .ks-film-track { display: flex; width: max-content; height: 100%; animation: ks-film var(--ks-film-dur, 40s) linear infinite; will-change: transform; }
+.kaosslider .ks-film-item { flex: none; height: 100%; padding-right: var(--ks-film-gap, 12px); }
+.kaosslider .ks-film-item img { display: block; height: 100%; width: auto; max-width: none; border-radius: inherit; object-fit: cover; transition: filter .4s; }
+.kaosslider .ks-film-hover:hover .ks-film-track { animation-play-state: paused; }
+.kaosslider .ks-film-gray img { filter: grayscale(1); }
+.kaosslider .ks-film-gray .ks-film-item:hover img { filter: none; }
+.kaosslider .ks-film-perf .ks-film-item {
+	padding: calc(18px * var(--s, 1)) calc(6px * var(--s, 1));
+	background-color: #0d0d0d;
+	background-image:
+		repeating-linear-gradient(90deg, rgba(245, 241, 232, .9) 0 calc(10px * var(--s, 1)), transparent calc(10px * var(--s, 1)) calc(22px * var(--s, 1))),
+		repeating-linear-gradient(90deg, rgba(245, 241, 232, .9) 0 calc(10px * var(--s, 1)), transparent calc(10px * var(--s, 1)) calc(22px * var(--s, 1)));
+	background-size: 100% calc(7px * var(--s, 1));
+	background-position: 0 calc(5px * var(--s, 1)), 0 calc(100% - 5px * var(--s, 1));
+	background-repeat: no-repeat;
+}
+.kaosslider .ks-film-perf .ks-film-item img { border-radius: calc(3px * var(--s, 1)); }
+@keyframes ks-film { to { transform: translate3d(-50%, 0, 0); } }
+
+/* Carosello 3D (coverflow) e zoom centrale */
+.kaosslider.ks-cs-coverflow .ks-slide,
+.kaosslider.ks-cs-zoom .ks-slide { transition: transform var(--ks-speed) cubic-bezier(.22, 1, .36, 1), opacity var(--ks-speed); }
+.kaosslider.ks-cs-coverflow.is-dragging .ks-slide,
+.kaosslider.ks-cs-zoom.is-dragging .ks-slide { transition: none; }
+.kaosslider.ks-cs-coverflow .ks-viewport { padding: 20px 0; }
+
+/* Video guidato dallo scroll: la slide resta ferma mentre la pagina scorre */
+.kaosslider.ks-scrollvideo { overflow: clip; }
+.kaosslider.ks-scrollvideo .ks-viewport { position: sticky; top: var(--wp-admin--admin-bar--height, 0px); }
+.kaosslider.ks-scrollvideo .ks-bg-video { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	.kaosslider .ks-film-track { animation-duration: 0s; animation-iteration-count: 1; }
+}
+
+/* Pulsante nella barra di amministrazione: visibile solo se nella pagina c'è almeno uno slider */
+#wpadminbar #wp-admin-bar-kaosslider { display: none; }
+#wpadminbar #wp-admin-bar-kaosslider.ks-ab-ready { display: block; }
+#wpadminbar #wp-admin-bar-kaosslider > .ab-item { cursor: pointer; }
+#wpadminbar #wp-admin-bar-kaosslider .ab-icon::before {
+	content: "";
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	top: 4px;
+	background-color: currentColor;
+	-webkit-mask: url(../img/mark-mono.svg) center / contain no-repeat;
+	mask: url(../img/mark-mono.svg) center / contain no-repeat;
+}
+#wpadminbar #wp-admin-bar-kaosslider .kaosslider-ab-sep { margin: 5px 10px; border-top: 1px solid rgba(240, 246, 252, .15); }
+#wpadminbar #wp-admin-bar-kaosslider .kaosslider-ab-item > .ab-item { font-weight: 600; }
+.kaosslider.ks-ab-highlight { outline: 3px solid #7c5cff; outline-offset: -3px; }
+@media screen and (max-width: 782px) {
+	#wpadminbar #wp-admin-bar-kaosslider.ks-ab-ready { display: block; }
+	#wpadminbar #wp-admin-bar-kaosslider .ab-label { display: none; }
+	#wpadminbar #wp-admin-bar-kaosslider .ab-icon::before { font-size: 30px; top: 3px; }
+}
+
+/* ---------- Navigazione ---------- */
+.kaosslider .ks-arrow {
+	position: absolute;
+	top: 50%;
+	z-index: 10;
+	width: 48px;
+	height: 48px;
+	margin: -24px 0 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, .25);
+	color: var(--ks-nav);
+	cursor: pointer;
+	backdrop-filter: blur(4px);
+	transition: background .25s, opacity .25s, transform .25s;
+}
+.kaosslider .ks-arrow:hover { background: rgba(0, 0, 0, .5); }
+.kaosslider .ks-arrow:focus-visible { outline: 2px solid var(--ks-nav); outline-offset: 2px; }
+.kaosslider .ks-arrow svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.kaosslider .ks-prev { left: 20px; }
+.kaosslider .ks-next { right: 20px; }
+.kaosslider .ks-arrow[disabled] { opacity: .3; cursor: default; }
+
+.kaosslider .ks-bullets {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 22px;
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	pointer-events: none;
+}
+.kaosslider .ks-bullet {
+	width: 10px;
+	height: 10px;
+	padding: 0;
+	border: 2px solid var(--ks-nav);
+	border-radius: 10px;
+	background: transparent;
+	cursor: pointer;
+	pointer-events: auto;
+	opacity: .7;
+	transition: width .35s, background .35s, opacity .35s;
+}
+.kaosslider .ks-bullet.is-active { width: 28px; background: var(--ks-nav); opacity: 1; }
+.kaosslider .ks-bullet:focus-visible { outline: 2px solid var(--ks-nav); outline-offset: 2px; }
+
+.kaosslider .ks-progress { position: absolute; left: 0; right: 0; bottom: 0; z-index: 10; height: 3px; background: rgba(255, 255, 255, .15); }
+.kaosslider .ks-progress span { display: block; height: 100%; width: 0; background: var(--ks-nav); }
+
+/* Carosello: frecce e pallini sotto, non sopra le card */
+.kaosslider.ks-type-carousel { overflow: visible; }
+.kaosslider.ks-type-carousel .ks-bullets { position: static; margin-top: 18px; }
+.kaosslider.ks-type-carousel .ks-bullet { border-color: currentColor; color: var(--ks-nav); }
+.kaosslider.ks-type-carousel .ks-bullet.is-active { background: currentColor; }
+
+@media (max-width: 767px) {
+	.kaosslider .ks-arrow { width: 38px; height: 38px; margin-top: -19px; }
+	.kaosslider .ks-prev { left: 10px; }
+	.kaosslider .ks-next { right: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.kaosslider .ks-bg-img { animation: none !important; transform: none !important; }
+	.kaosslider .ks-looping { animation: none !important; }
+	.kaosslider.ks-type-carousel .ks-track { transition: none; }
+}

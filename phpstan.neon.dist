@@ -1,0 +1,13 @@
+parameters:
+	level: 5
+	paths:
+		- kaosslider.php
+		- uninstall.php
+		- includes
+	excludePaths:
+		# Estendono classi di Elementor e Divi, che non sono presenti durante l'analisi.
+		- includes/integrations/class-kaosslider-elementor-widget.php
+		- includes/integrations/class-kaosslider-divi-module.php
+	bootstrapFiles:
+		- tests/phpstan-bootstrap.php
+	treatPhpDocTypesAsCertain: false
