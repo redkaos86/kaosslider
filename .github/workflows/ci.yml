@@ -120,6 +120,48 @@ jobs:
         working-directory: wp
         run: wp eval-file wp-content/plugins/kaosslider/tests/smoke.php
 
+  aggiornamento:
+    name: Aggiornamento dalla release pubblicata
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+        ports: ['3306:3306']
+        options: --health-cmd="mysqladmin ping -proot" --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          extensions: mysqli, curl, zip, sodium
+          tools: wp-cli
+      - name: Installa WordPress e l'ultima release del plugin
+        run: |
+          mkdir wp && cd wp
+          wp core download --skip-content
+          wp config create --dbname=wordpress --dbuser=root --dbpass=root --dbhost=127.0.0.1 --skip-check
+          wp config set WP_DEBUG true --raw
+          # Token del workflow solo per non incappare nel limite di richieste di GitHub: il repository è pubblico.
+          wp config set KAOSSLIDER_GITHUB_TOKEN "$GH_TOKEN"
+          wp core install --url=http://localhost --title=Prova --admin_user=admin --admin_password=admin --admin_email=admin@example.com --skip-email
+          mkdir -p wp-content/plugins wp-content/upgrade
+          gh release download --repo "${{ github.repository }}" --pattern 'kaosslider-*.zip' --dir /tmp/release
+          wp plugin install /tmp/release/kaosslider-*.zip --activate
+          wp plugin get kaosslider --field=version > /tmp/latest
+      - name: Simula una versione vecchia e aggiorna da WordPress
+        working-directory: wp
+        run: |
+          sed -i 's/^ \* Version: .*/ * Version:           0.0.1/' wp-content/plugins/kaosslider/kaosslider.php
+          wp plugin list --name=kaosslider --fields=name,version,update,update_version
+          wp plugin update kaosslider
+          test "$(wp plugin get kaosslider --field=version)" = "$(cat /tmp/latest)"
+          echo "Aggiornato alla versione $(cat /tmp/latest) con firma verificata."
+
   plugin-check:
     name: Plugin Check per WordPress.org (informativo)
     runs-on: ubuntu-latest
