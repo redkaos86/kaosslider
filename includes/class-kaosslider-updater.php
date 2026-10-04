@@ -1,10 +1,10 @@
 <?php
 /**
- * Aggiornamenti dal repository GitHub privato, con pacchetti firmati (Ed25519).
+ * Aggiornamenti dalle release del repository GitHub, con pacchetti firmati (Ed25519).
  *
- * Si attiva solo se nel wp-config.php del sito c'è il token di lettura:
+ * Il repository è pubblico: non serve nessuna configurazione. Se un giorno tornasse privato, basta
+ * aggiungere nel wp-config.php un token di sola lettura (fine-grained, Contents: Read-only):
  *     define( 'KAOSSLIDER_GITHUB_TOKEN', 'github_pat_…' );
- * (token "fine-grained" con accesso al solo repository e permesso Contents: Read-only).
  *
  * Ogni pacchetto viene installato solo se la sua firma corrisponde a PUBLIC_KEY: anche chi riuscisse
  * a pubblicare una release falsa non potrebbe farla installare senza la chiave privata, che resta sul
@@ -23,7 +23,7 @@ class KaosSlider_Updater {
 	const API        = 'https://api.github.com/repos/';
 
 	public static function init() {
-		if ( ! self::token() || self::is_dev_copy() ) {
+		if ( self::is_dev_copy() ) {
 			return;
 		}
 		// Header "Update URI: https://github.com/…" del plugin: WordPress chiede a questo filtro e non a WordPress.org.
@@ -48,17 +48,20 @@ class KaosSlider_Updater {
 	}
 
 	private static function request( $url, $accept, $args = array() ) {
+		$headers = array(
+			'Accept'               => $accept,
+			'X-GitHub-Api-Version' => '2022-11-28',
+			'User-Agent'           => 'KaosSlider/' . KAOSSLIDER_VERSION,
+		);
+		if ( self::token() ) {
+			$headers['Authorization'] = 'Bearer ' . self::token();
+		}
 		return wp_safe_remote_get(
 			$url,
 			array_merge(
 				array(
 					'timeout' => 15,
-					'headers' => array(
-						'Authorization'        => 'Bearer ' . self::token(),
-						'Accept'               => $accept,
-						'X-GitHub-Api-Version' => '2022-11-28',
-						'User-Agent'           => 'KaosSlider/' . KAOSSLIDER_VERSION,
-					),
+					'headers' => $headers,
 				),
 				$args
 			)
@@ -103,9 +106,11 @@ class KaosSlider_Updater {
 				$error = 'l\'ultima release su GitHub non contiene lo zip firmato.';
 			}
 		} elseif ( 401 === $code ) {
-			$error = 'il token GitHub non è valido o è scaduto.';
-		} elseif ( 403 === $code || 404 === $code ) {
-			$error = 'il token GitHub non ha accesso al repository (o non c\'è ancora nessuna release).';
+			$error = 'il token GitHub nel wp-config.php non è valido o è scaduto.';
+		} elseif ( 403 === $code || 429 === $code ) {
+			$error = 'GitHub ha limitato temporaneamente le richieste da questo server: si riproverà più tardi.';
+		} elseif ( 404 === $code ) {
+			$error = 'nessuna release trovata su GitHub (se il repository è privato serve il token nel wp-config.php).';
 		} else {
 			$error = is_wp_error( $res ) ? $res->get_error_message() : 'risposta inattesa da GitHub (' . $code . ').';
 		}

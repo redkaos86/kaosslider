@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       KaosSlider
  * Description:       Slider, caroselli e hero animati con editor visuale a livelli. Integrazione con Gutenberg/Kadence, Elementor e Divi.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            DrKaos
@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'KAOSSLIDER_VERSION', '1.0.0' );
+define( 'KAOSSLIDER_VERSION', '1.0.1' );
 define( 'KAOSSLIDER_FILE', __FILE__ );
 define( 'KAOSSLIDER_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KAOSSLIDER_URL', plugin_dir_url( __FILE__ ) );

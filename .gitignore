@@ -2,6 +2,8 @@
 /node_modules/
 /dist/
 /build/
+# Sorgenti del logo e proposte: restano solo in locale.
+/branding/
 composer.lock
 *.zip
 *.log

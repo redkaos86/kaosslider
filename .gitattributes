@@ -5,7 +5,6 @@
 
 # Esclusi dallo zip di rilascio (git archive): servono solo allo sviluppo.
 /.github export-ignore
-/branding export-ignore
 /tests export-ignore
 /bin export-ignore
 /.gitattributes export-ignore
