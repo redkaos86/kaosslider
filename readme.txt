@@ -1,5 +1,5 @@
 === KaosSlider ===
-Contributors: drkaos
+Contributors: drkaos86
 Tags: slider, carousel, hero, animation, video background
 Requires at least: 6.2
 Tested up to: 7.1
