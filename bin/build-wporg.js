@@ -26,6 +26,11 @@ if (!version) {
 	throw new Error('Versione non trovata in kaosslider.php');
 }
 
+// Lo zip nasce dall'ultimo commit: con modifiche non salvate non corrisponderebbe ai file.
+if (run('git', ['status', '--porcelain']).trim()) {
+	throw new Error('Ci sono modifiche non committate: fai prima il commit.');
+}
+
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'kaosslider-wporg-'));
 const tar = path.join(tmp, 'src.tar');
 run('git', ['archive', '--format=tar', '--prefix=kaosslider/', '-o', tar, 'HEAD']);
