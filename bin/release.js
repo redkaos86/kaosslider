@@ -28,7 +28,8 @@ function fail(msg) {
 }
 
 function run(cmd, args, opts = {}) {
-	return execFileSync(cmd, args, Object.assign({ cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }, opts)).trim();
+	const out = execFileSync(cmd, args, Object.assign({ cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }, opts));
+	return out ? String(out).trim() : ''; // con stdio "inherit" l'output va a schermo e qui arriva null
 }
 
 function rawPublicKey(keyObject) {
