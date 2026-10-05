@@ -463,7 +463,7 @@ class KaosSlider_Sanitizer {
 
 	/**
 	 * Gradienti CSS (anche più livelli separati da virgola). Ammessi solo caratteri e funzioni sicuri:
-	 * niente url(), punto e virgola, graffe o virgolette, così il valore può finire in <style> e style="".
+	 * niente url(), punto e virgola, graffe o virgolette, così il valore può finire nel CSS dello slider e negli attributi style.
 	 */
 	public static function gradient( $v ) {
 		$v = trim( preg_replace( '/\s+/', ' ', (string) $v ) );
