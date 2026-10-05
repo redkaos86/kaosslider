@@ -4,7 +4,7 @@ Tags: slider, carousel, hero, animation, video background
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,9 @@ The plugin connects to external services only for the features that need them:
 7. WebGL light rays behind the slide content.
 
 == Changelog ==
+
+= 1.1.1 =
+* Slider styles and fonts are now loaded through the WordPress style queue: sliders placed in the page content get their CSS in the page head. Nothing changes in how sliders look.
 
 = 1.1.0 =
 * The interface is now in English with a complete Italian translation, and it can be translated into other languages.
