@@ -61,6 +61,7 @@
 .kaosslider .ks-overlay { z-index: 1; pointer-events: none; }
 .kaosslider .ks-layers { z-index: 2; pointer-events: none; }
 .kaosslider:not(.ks-ready) .ks-layers { visibility: hidden; }
+@media (scripting: none) { .kaosslider:not(.ks-ready) .ks-layers { visibility: visible; } }
 
 .kaosslider .ks-bg-img {
 	position: absolute;

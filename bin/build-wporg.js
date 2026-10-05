@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Zip per WordPress.org: come quello di rilascio, ma senza gli aggiornamenti da GitHub
- * (WordPress.org non permette sistemi di aggiornamento propri).
+ * (WordPress.org non permette sistemi di aggiornamento propri) e senza le traduzioni incluse.
  *
  *   node bin/build-wporg.js
  *
@@ -17,7 +17,9 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 // Su Windows serve il tar di sistema (bsdtar): quello di Git non gestisce i percorsi C:\ né crea zip.
-const TAR = process.platform === 'win32' ? path.join(process.env.SystemRoot || 'C:\\Windows', 'System32', 'tar.exe') : 'bsdtar';
+// Su Linux (CI) bastano tar e zip.
+const WIN = process.platform === 'win32';
+const TAR = WIN ? path.join(process.env.SystemRoot || 'C:\\Windows', 'System32', 'tar.exe') : 'tar';
 const run = (cmd, args, cwd = ROOT) => execFileSync(cmd, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 
 const main = fs.readFileSync(path.join(ROOT, 'kaosslider.php'), 'utf8');
@@ -47,7 +49,15 @@ fs.writeFileSync(php, fs.readFileSync(php, 'utf8').replace(/^ \* Update URI:.*\r
 const readme = path.join(dir, 'readme.txt');
 fs.writeFileSync(readme, fs.readFileSync(readme, 'utf8').replace(/^\* \*\*GitHub\*\*.*\r?\n/m, ''));
 
-for (const [file, re] of [['kaosslider.php', /Update URI/], ['readme.txt', /\*\*GitHub\*\*/]]) {
+// 3. Niente traduzioni incluse: su WordPress.org arrivano da translate.wordpress.org e WordPress le carica da solo.
+fs.rmSync(path.join(dir, 'languages'), { recursive: true, force: true });
+fs.writeFileSync(php, fs.readFileSync(php, 'utf8').replace(/^add_action\(\s*'init',\s*function \(\) \{\s*load_plugin_textdomain\([^;]*\);\s*\},\s*0\s*\);\r?\n/m, ''));
+for (const file of ['includes/class-kaosslider-admin.php', 'includes/integrations/block.php']) {
+	const f = path.join(dir, file);
+	fs.writeFileSync(f, fs.readFileSync(f, 'utf8').replace(/(wp_set_script_translations\( '[\w-]+', 'kaosslider'), KAOSSLIDER_DIR \. 'languages' \)/g, '$1 )'));
+}
+
+for (const [file, re] of [['kaosslider.php', /Update URI|load_plugin_textdomain/], ['readme.txt', /\*\*GitHub\*\*/], ['includes/class-kaosslider-admin.php', /'languages'/], ['includes/integrations/block.php', /'languages'/]]) {
 	if (re.test(fs.readFileSync(path.join(dir, file), 'utf8'))) {
 		throw new Error('Pulizia non riuscita in ' + file);
 	}
@@ -58,6 +68,10 @@ fs.mkdirSync(path.dirname(out), { recursive: true });
 if (fs.existsSync(out)) {
 	fs.unlinkSync(out);
 }
-run(TAR, ['-a', '-c', '-f', out, 'kaosslider'], tmp);
+if (WIN) {
+	run(TAR, ['-a', '-c', '-f', out, 'kaosslider'], tmp);
+} else {
+	run('zip', ['-qr', out, 'kaosslider'], tmp);
+}
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log('Creato ' + path.relative(ROOT, out) + ' (' + Math.round(fs.statSync(out).size / 1024) + ' KB)');

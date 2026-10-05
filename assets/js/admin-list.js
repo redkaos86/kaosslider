@@ -164,7 +164,7 @@
 	function card(s) {
 		var sc = '[kaosslider id="' + s.id + '"]';
 		loadCss(s.fontCss);
-		var thumbInner = h('div', { class: 'ksl-thumb-inner', html: s.preview || '' });
+		var thumbInner = h('div', { class: 'ksl-thumb-inner', html: s.preview || '' }, s.previewCss ? h('style', null, s.previewCss) : null);
 		var act = function (name, label, fn, cls) {
 			return h('button', { type: 'button', class: 'ksl-icon-btn' + (cls ? ' ' + cls : ''), title: label, 'aria-label': label, onclick: function (e) { e.preventDefault(); e.stopPropagation(); fn(s, e.currentTarget); } }, icon(name));
 		};

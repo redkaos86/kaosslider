@@ -12,8 +12,8 @@ class KaosSlider_Render {
 
 	const GL_FX = array( 'fluid', 'rays', 'morph', 'panorama', 'liquid' );
 
-	private static $instance_count = 0;
-	private static $printed_fonts  = array();
+	private static $instances = array();
+	private static $styled    = array();
 
 	public static function init() {
 		add_shortcode( 'kaosslider', array( __CLASS__, 'shortcode' ) );
@@ -84,13 +84,91 @@ class KaosSlider_Render {
 	}
 
 	/**
-	 * Il CSS è piccolo e viene caricato nell'head per evitare il "flash" dello slider non stilizzato
-	 * (i page builder non mettono gli shortcode nel post_content, quindi non si può rilevarli in anticipo).
+	 * Il CSS generale è piccolo e viene caricato nell'head per evitare il "flash" dello slider non stilizzato.
+	 * Anche il CSS e i font degli slider già presenti nel contenuto della pagina vanno nell'head: gli shortcode
+	 * vengono eseguiti dopo, e gli stili accodati a quel punto finirebbero nel footer.
 	 */
 	public static function enqueue_css() {
 		if ( apply_filters( 'kaosslider_always_load_css', true ) ) {
 			wp_enqueue_style( 'kaosslider' );
 		}
+		if ( ! is_singular() ) {
+			return;
+		}
+		foreach ( self::find_in_post( get_queried_object() ) as $key ) {
+			$post = KaosSlider_Store::find_post( $key );
+			if ( $post ) {
+				self::enqueue_slider_css( 'kaosslider-' . $post->ID, KaosSlider_Store::get_data( $post->ID ) );
+			}
+		}
+	}
+
+	/**
+	 * Slider inseriti in un contenuto: shortcode, blocco, modulo Divi, widget Elementor.
+	 *
+	 * @param WP_Post|null $post
+	 * @return array ID o alias.
+	 */
+	private static function find_in_post( $post ) {
+		if ( ! $post instanceof WP_Post ) {
+			return array();
+		}
+		$keys    = array();
+		$content = (string) $post->post_content;
+		if ( preg_match_all( '/\[(kaosslider|kaosslider_divi)\s([^\]]*)\]/', $content, $m, PREG_SET_ORDER ) ) {
+			foreach ( $m as $sc ) {
+				$atts = shortcode_parse_atts( $sc[2] );
+				$atts = is_array( $atts ) ? $atts : array();
+				foreach ( array( 'id', 'alias', 'slider_id' ) as $att ) {
+					if ( ! empty( $atts[ $att ] ) ) {
+						$keys[] = $atts[ $att ];
+						break;
+					}
+				}
+			}
+		}
+		if ( preg_match_all( '/<!-- wp:kaosslider\/slider (\{.*?\}) \/?-->/', $content, $m ) ) {
+			foreach ( $m[1] as $json ) {
+				$attrs = json_decode( $json, true );
+				if ( ! empty( $attrs['sliderId'] ) ) {
+					$keys[] = (int) $attrs['sliderId'];
+				}
+			}
+		}
+		$elementor = get_post_meta( $post->ID, '_elementor_data', true );
+		if ( is_string( $elementor ) && false !== strpos( $elementor, '"kaosslider"' ) ) {
+			$walk = function ( $elements ) use ( &$walk, &$keys ) {
+				foreach ( (array) $elements as $el ) {
+					if ( isset( $el['widgetType'] ) && 'kaosslider' === $el['widgetType'] && ! empty( $el['settings']['slider_id'] ) ) {
+						$keys[] = (int) $el['settings']['slider_id'];
+					}
+					if ( ! empty( $el['elements'] ) ) {
+						$walk( $el['elements'] );
+					}
+				}
+			};
+			$walk( json_decode( $elementor, true ) );
+		}
+		return array_unique( $keys );
+	}
+
+	/**
+	 * Accoda il CSS di uno slider e il foglio dei suoi font (una volta sola per pagina).
+	 */
+	private static function enqueue_slider_css( $dom_id, $data ) {
+		if ( isset( self::$styled[ $dom_id ] ) ) {
+			return;
+		}
+		self::$styled[ $dom_id ] = true;
+		self::register_assets();
+		$font_css = KaosSlider_Fonts::stylesheet_url( $data );
+		if ( $font_css ) {
+			// Niente ?ver=: l'indirizzo cambia già con i font scelti, e il parametro guasterebbe i "family" multipli di Google Fonts.
+			wp_enqueue_style( 'kaosslider-font-' . md5( $font_css ), $font_css, array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		}
+		wp_register_style( $dom_id, false, array( 'kaosslider' ), KAOSSLIDER_VERSION );
+		wp_add_inline_style( $dom_id, self::css( $dom_id, $data ) );
+		wp_enqueue_style( $dom_id );
 	}
 
 	public static function shortcode( $atts ) {
@@ -144,9 +222,17 @@ class KaosSlider_Render {
 			}
 		}
 
-		++self::$instance_count;
-		$dom_id = 'kaosslider-' . $post->ID . '-' . self::$instance_count;
+		// Il primo slider con questo ID ha un id fisso, così il suo CSS può essere già nell'head (vedi enqueue_css).
+		self::$instances[ $post->ID ] = isset( self::$instances[ $post->ID ] ) ? self::$instances[ $post->ID ] + 1 : 1;
+		$dom_id = 'kaosslider-' . $post->ID . ( self::$instances[ $post->ID ] > 1 ? '-' . self::$instances[ $post->ID ] : '' );
 		$total  = count( $slides );
+
+		// Page builder che caricano lo slider via AJAX (Elementor, Divi): head e footer sono già stati stampati,
+		// quindi CSS e font viaggiano negli attributi e li applica kaosslider.js.
+		$late = wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST );
+		if ( ! $late ) {
+			self::enqueue_slider_css( $dom_id, $data );
+		}
 
 		$js_settings = array(
 			'type'         => $settings['type'],
@@ -196,18 +282,7 @@ class KaosSlider_Render {
 
 		ob_start();
 		?>
-		<section id="<?php echo esc_attr( $dom_id ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" aria-roledescription="carousel" aria-label="<?php echo esc_attr( $post->post_title ); ?>" data-ks="<?php echo esc_attr( wp_json_encode( $js_settings ) ); ?>"<?php echo current_user_can( kaosslider_capability() ) ? ' data-ks-edit="' . esc_url( admin_url( 'admin.php?page=' . KaosSlider_Admin::SLUG . '&edit=' . $post->ID ) ) . '" data-ks-id="' . esc_attr( (string) $post->ID ) . '"' : ''; ?>>
-			<?php
-			$font_css = KaosSlider_Fonts::stylesheet_url( $data );
-			if ( $font_css && ! isset( self::$printed_fonts[ $font_css ] ) ) {
-				self::$printed_fonts[ $font_css ] = true;
-				// Stampato accanto allo slider e non con wp_enqueue_style(): gli shortcode vengono eseguiti dopo l'head
-				// e un foglio accodato finirebbe nel footer, con il testo che cambia carattere a pagina già visibile.
-				echo '<link rel="stylesheet" href="' . esc_url( $font_css ) . '" media="all">'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
-			}
-			?>
-			<style><?php echo self::css( $dom_id, $data ); // phpcs:ignore WordPress.Security.EscapeOutput -- CSS generato da valori validati. ?></style>
-			<noscript><style>#<?php echo esc_attr( $dom_id ); ?> .ks-layers{visibility:visible}</style></noscript>
+		<section id="<?php echo esc_attr( $dom_id ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" aria-roledescription="carousel" aria-label="<?php echo esc_attr( $post->post_title ); ?>" data-ks="<?php echo esc_attr( wp_json_encode( $js_settings ) ); ?>"<?php echo current_user_can( kaosslider_capability() ) ? ' data-ks-edit="' . esc_url( admin_url( 'admin.php?page=' . KaosSlider_Admin::SLUG . '&edit=' . $post->ID ) ) . '" data-ks-id="' . esc_attr( (string) $post->ID ) . '"' : ''; ?><?php echo $late ? ' data-ks-css="' . esc_attr( self::css( $dom_id, $data ) ) . '" data-ks-font="' . esc_url( KaosSlider_Fonts::stylesheet_url( $data ) ) . '"' : ''; ?>>
 			<div class="ks-viewport">
 				<div class="ks-track">
 					<?php foreach ( $slides as $index => $slide ) : ?>
@@ -727,8 +802,11 @@ class KaosSlider_Render {
 
 	/**
 	 * Anteprima statica della prima slide visibile (per le miniature della bacheca): niente JS, livelli nello stato finale.
+	 * Restituisce il markup e il CSS separati: il CSS lo applica admin-list.js.
+	 *
+	 * @return array { html: string, css: string }
 	 */
-	public static function preview_html( $post_id, $data ) {
+	public static function preview( $post_id, $data ) {
 		$slides = array_values(
 			array_filter(
 				$data['slides'],
@@ -755,14 +833,16 @@ class KaosSlider_Render {
 		self::render_slide( $slide, 0, 1 );
 		$slide_html = ob_get_clean();
 
-		return sprintf(
-			'<div id="%1$s" class="kaosslider ks-type-slider ks-ready ks-thumb" data-w="%2$d" data-h="%3$d" style="width:%2$dpx;height:%3$dpx;background:%4$s"><style>%5$s</style>%6$s</div>',
-			esc_attr( $dom_id ),
-			(int) $g['w'],
-			(int) $g['h'],
-			esc_attr( $data['settings']['bgColor'] ? $data['settings']['bgColor'] : '#111' ),
-			self::css( $dom_id, $pdata, true ), // phpcs:ignore WordPress.Security.EscapeOutput
-			$slide_html
+		return array(
+			'html' => sprintf(
+				'<div id="%1$s" class="kaosslider ks-type-slider ks-ready ks-thumb" data-w="%2$d" data-h="%3$d" style="width:%2$dpx;height:%3$dpx;background:%4$s">%5$s</div>',
+				esc_attr( $dom_id ),
+				(int) $g['w'],
+				(int) $g['h'],
+				esc_attr( $data['settings']['bgColor'] ? $data['settings']['bgColor'] : '#111' ),
+				$slide_html
+			),
+			'css'  => self::css( $dom_id, $pdata, true ),
 		);
 	}
 
@@ -844,6 +924,9 @@ class KaosSlider_Render {
 		}
 		show_admin_bar( false );
 		$html = self::render( $id );
+		wp_register_style( 'kaosslider-preview', false, array(), KAOSSLIDER_VERSION );
+		wp_add_inline_style( 'kaosslider-preview', 'html,body{margin:0!important;padding:0!important}.ks-preview-after{padding:60px 24px;font:16px/1.6 system-ui,sans-serif;color:#555;text-align:center}' );
+		wp_enqueue_style( 'kaosslider-preview' );
 		?>
 		<!doctype html>
 		<html <?php language_attributes(); ?>>
@@ -853,7 +936,6 @@ class KaosSlider_Render {
 			<meta name="robots" content="noindex,nofollow">
 			<title><?php esc_html_e( 'KaosSlider preview', 'kaosslider' ); ?></title>
 			<?php wp_head(); ?>
-			<style>html,body{margin:0!important;padding:0!important}.ks-preview-after{padding:60px 24px;font:16px/1.6 system-ui,sans-serif;color:#555;text-align:center}</style>
 		</head>
 		<body class="kaosslider-preview">
 			<?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput ?>

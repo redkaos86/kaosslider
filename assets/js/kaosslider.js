@@ -1567,8 +1567,30 @@
 
 	/* ---------- Avvio ---------- */
 
+	// Slider caricati dai page builder via AJAX: CSS e font arrivano negli attributi, perché l'head è già stampato.
+	function applyInlineCss(root) {
+		var css = root.getAttribute('data-ks-css');
+		if (css) {
+			var st = document.getElementById(root.id + '-css');
+			if (!st) {
+				st = document.createElement('style');
+				st.id = root.id + '-css';
+				root.parentNode.insertBefore(st, root);
+			}
+			st.textContent = css;
+		}
+		var font = root.getAttribute('data-ks-font');
+		if (font && !Array.prototype.some.call(document.querySelectorAll('link[rel="stylesheet"]'), function (l) { return l.href === font; })) {
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = font;
+			document.head.appendChild(link);
+		}
+	}
+
 	function init(root) {
 		if (!root || root.classList.contains('ks-init') || !root.hasAttribute('data-ks')) { return null; }
+		applyInlineCss(root);
 		if (!('animate' in Element.prototype)) {
 			root.classList.add('ks-ready'); // browser molto vecchi: contenuto statico
 			return null;

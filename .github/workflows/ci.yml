@@ -186,14 +186,13 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v5
-      - name: Prepara lo zip di rilascio
+      - name: Crea lo zip per WordPress.org (lo stesso che si carica)
         run: |
-          mkdir -p dist
-          git archive --format=tar --prefix=kaosslider/ HEAD | tar -x -C dist
-      - name: Simula la build per WordPress.org (senza aggiornamenti da GitHub)
-        run: |
-          rm dist/kaosslider/includes/class-kaosslider-updater.php
-          sed -i '/Update URI:/d' dist/kaosslider/kaosslider.php
+          node bin/build-wporg.js
+          mkdir -p dist/wporg
+          unzip -q dist/kaosslider-wporg-*.zip -d dist/wporg
+          test ! -e dist/wporg/kaosslider/languages
+          ! grep -rn "load_plugin_textdomain\|<style\|<noscript\|rel=\"stylesheet\"" dist/wporg/kaosslider --include=*.php
       - uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: dist/kaosslider
+          build-dir: dist/wporg/kaosslider

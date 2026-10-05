@@ -171,7 +171,9 @@ class KaosSlider_Store {
 	public static function to_card( WP_Post $post ) {
 		$out               = self::to_array( $post );
 		$data              = self::get_data( $post->ID );
-		$out['preview']    = KaosSlider_Render::preview_html( $post->ID, $data );
+		$preview           = KaosSlider_Render::preview( $post->ID, $data );
+		$out['preview']    = $preview['html'];
+		$out['previewCss'] = $preview['css'];
 		$out['previewUrl'] = KaosSlider_Render::preview_url( $post->ID );
 		$out['fontCss']    = KaosSlider_Fonts::stylesheet_url( $data, true );
 		return $out;

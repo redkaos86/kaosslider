@@ -119,9 +119,12 @@ $html = KaosSlider_Render::render( $id );
 $kaosslider_check( false !== strpos( $html, 'class="kaosslider' ), 'rendering dello slider' );
 $kaosslider_check( false !== strpos( $html, 'data-src-alt="https://example.com/video.mp4"' ), 'video con formato alternativo' );
 $kaosslider_check( false === strpos( $html, '<script' ), 'nessuno script nel markup' );
+$kaosslider_check( false === strpos( $html, '<style' ) && false === strpos( $html, '<link' ), 'CSS e font non stampati nel markup' );
+$kaosslider_check( false !== strpos( implode( '', (array) wp_styles()->get_data( 'kaosslider-' . $id, 'after' ) ), '#kaosslider-' . $id . ' ' ), 'CSS dello slider accodato' );
 $kaosslider_check( wp_script_is( 'kaosslider-gl', 'enqueued' ), 'script WebGL caricato quando serve' );
 $kaosslider_check( false !== strpos( do_shortcode( '[kaosslider alias="prova-automatica"]' ), 'kaosslider-' . $id ), 'shortcode con alias' );
-$kaosslider_check( '' !== KaosSlider_Render::preview_html( $id, $saved ), 'anteprima della bacheca' );
+$preview = KaosSlider_Render::preview( $id, $saved );
+$kaosslider_check( '' !== $preview['html'] && false === strpos( $preview['html'], '<style' ) && '' !== $preview['css'], 'anteprima della bacheca' );
 
 $copy = KaosSlider_Store::duplicate( $id );
 $kaosslider_check( is_int( $copy ) && wp_json_encode( KaosSlider_Store::get_data( $copy )['slides'][0]['layers'][0]['resp'] ) === wp_json_encode( $saved['slides'][0]['layers'][0]['resp'] ), 'duplica mantiene le posizioni' );
