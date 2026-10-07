@@ -4,7 +4,7 @@ Tags: slider, carousel, hero, animation, video background
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,11 @@ The plugin connects to external services only for the features that need them:
 7. WebGL light rays behind the slide content.
 
 == Changelog ==
+
+= 1.1.2 =
+* Faster pages: the slider stylesheet is loaded only on pages that show a slider, and the background of the first slide starts loading right away.
+* Images in the first slide are no longer lazy-loaded, so they appear sooner.
+* Animations stop completely while the slider is off screen or the browser tab is hidden, saving battery on phones.
 
 = 1.1.1 =
 * Slider styles and fonts are now loaded through the WordPress style queue: sliders placed in the page content get their CSS in the page head. Nothing changes in how sliders look.
