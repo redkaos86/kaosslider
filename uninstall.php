@@ -11,6 +11,7 @@ function kaosslider_uninstall_site() {
 	global $wpdb;
 
 	delete_option( 'kaosslider_settings' );
+	delete_option( 'kaosslider_css_everywhere' );
 
 	// Cache delle verifiche dei video YouTube/Vimeo.
 	$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery

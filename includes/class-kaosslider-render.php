@@ -12,14 +12,19 @@ class KaosSlider_Render {
 
 	const GL_FX = array( 'fluid', 'rays', 'morph', 'panorama', 'liquid' );
 
+	const CSS_EVERYWHERE = 'kaosslider_css_everywhere';
+
 	private static $instances = array();
 	private static $styled    = array();
+	private static $preload   = array();
+	private static $eager     = false;
 
 	public static function init() {
 		add_shortcode( 'kaosslider', array( __CLASS__, 'shortcode' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 5 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 5 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_css' ) );
+		add_filter( 'wp_preload_resources', array( __CLASS__, 'preload_resources' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'maybe_preview' ) );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar' ), 90 );
 	}
@@ -84,12 +89,15 @@ class KaosSlider_Render {
 	}
 
 	/**
-	 * Il CSS generale è piccolo e viene caricato nell'head per evitare il "flash" dello slider non stilizzato.
-	 * Anche il CSS e i font degli slider già presenti nel contenuto della pagina vanno nell'head: gli shortcode
-	 * vengono eseguiti dopo, e gli stili accodati a quel punto finirebbero nel footer.
+	 * CSS e font degli slider presenti nel contenuto della pagina vanno nell'head: gli shortcode vengono eseguiti
+	 * dopo, e gli stili accodati a quel punto finirebbero nel footer, con lo slider che cambia aspetto a pagina visibile.
+	 *
+	 * Il CSS generale si carica solo dove serve. Se il sito mostra slider anche fuori dal contenuto (template del tema,
+	 * widget, modelli dei page builder), dove non si possono riconoscere in anticipo, render() se ne accorge e da lì
+	 * in poi il CSS generale viene caricato su tutte le pagine.
 	 */
 	public static function enqueue_css() {
-		if ( apply_filters( 'kaosslider_always_load_css', true ) ) {
+		if ( apply_filters( 'kaosslider_always_load_css', (bool) get_option( self::CSS_EVERYWHERE ) ) ) {
 			wp_enqueue_style( 'kaosslider' );
 		}
 		if ( ! is_singular() ) {
@@ -97,10 +105,49 @@ class KaosSlider_Render {
 		}
 		foreach ( self::find_in_post( get_queried_object() ) as $key ) {
 			$post = KaosSlider_Store::find_post( $key );
-			if ( $post ) {
-				self::enqueue_slider_css( 'kaosslider-' . $post->ID, KaosSlider_Store::get_data( $post->ID ) );
+			if ( ! $post ) {
+				continue;
+			}
+			$data = KaosSlider_Store::get_data( $post->ID );
+			self::enqueue_slider_css( 'kaosslider-' . $post->ID, $data );
+			// Lo sfondo della prima slide è un'immagine CSS, che il browser scoprirebbe tardi: la si precarica.
+			$first = self::first_background( $data );
+			if ( $first ) {
+				self::$preload[ $first ] = true;
 			}
 		}
+	}
+
+	/**
+	 * Immagine di sfondo (o copertina del video) della prima slide visibile.
+	 */
+	private static function first_background( $data ) {
+		foreach ( $data['slides'] as $slide ) {
+			if ( ! empty( $slide['hidden'] ) ) {
+				continue;
+			}
+			$bg = $slide['bg'];
+			if ( 'image' === $bg['type'] ) {
+				return $bg['image'];
+			}
+			return 'video' === $bg['type'] ? $bg['poster'] : '';
+		}
+		return '';
+	}
+
+	/**
+	 * @param array $resources Risorse da precaricare (filtro wp_preload_resources).
+	 * @return array
+	 */
+	public static function preload_resources( $resources ) {
+		foreach ( array_keys( self::$preload ) as $url ) {
+			$resources[] = array(
+				'href'          => $url,
+				'as'            => 'image',
+				'fetchpriority' => 'high',
+			);
+		}
+		return $resources;
 	}
 
 	/**
@@ -231,6 +278,11 @@ class KaosSlider_Render {
 		// quindi CSS e font viaggiano negli attributi e li applica kaosslider.js.
 		$late = wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST );
 		if ( ! $late ) {
+			// Slider stampato dopo l'head senza che il CSS generale fosse già caricato: è fuori dal contenuto
+			// (template, widget, modelli dei page builder), quindi d'ora in poi il CSS va caricato ovunque.
+			if ( did_action( 'wp_head' ) && ! wp_style_is( 'kaosslider', 'done' ) && ! get_option( self::CSS_EVERYWHERE ) ) {
+				update_option( self::CSS_EVERYWHERE, 1 );
+			}
 			self::enqueue_slider_css( $dom_id, $data );
 		}
 
@@ -313,6 +365,8 @@ class KaosSlider_Render {
 		$bg       = $slide['bg'];
 		$duration = $slide['duration'] ? (int) $slide['duration'] : 0;
 		$lazy     = $index > 0;
+		// Le immagini dei livelli della prima slide si vedono subito: niente caricamento differito.
+		self::$eager = ! $lazy;
 		?>
 		<div class="ks-slide<?php echo 0 === $index ? ' is-active' : ''; ?>" role="group" aria-roledescription="slide" aria-label="<?php echo esc_attr( ( $index + 1 ) . ' / ' . $total ); ?>" data-duration="<?php echo esc_attr( (string) $duration ); ?>" data-tr="<?php echo esc_attr( wp_json_encode( $slide['transition'] ) ); ?>"<?php echo $bg['parallax'] ? ' data-bgpar="' . esc_attr( $bg['parallax'] ) . '"' : ''; ?> style="background:<?php echo esc_attr( $bg['color'] ? $bg['color'] : 'transparent' ); ?>">
 			<div class="ks-bg">
@@ -431,7 +485,7 @@ class KaosSlider_Render {
 
 			case 'image':
 				if ( $layer['image'] ) {
-					$img = sprintf( '<img class="ks-inner" src="%s" alt="%s" loading="lazy" decoding="async">', esc_url( $layer['image'] ), esc_attr( $layer['alt'] ) );
+					$img = sprintf( '<img class="ks-inner" src="%s" alt="%s"%s decoding="async">', esc_url( $layer['image'] ), esc_attr( $layer['alt'] ), self::$eager ? '' : ' loading="lazy"' );
 					if ( $layer['link'] ) {
 						$img = sprintf( '<a class="ks-layer-link" href="%s"%s>%s</a>', esc_url( $layer['link'] ), self::target_attr( $layer['target'] ), $img );
 					}

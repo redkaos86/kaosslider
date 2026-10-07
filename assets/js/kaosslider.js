@@ -948,6 +948,11 @@
 	Slider.prototype.setPause = function (reason, on) {
 		var was = this.animPaused();
 		if (on) { this.pauseReasons[reason] = true; } else { delete this.pauseReasons[reason]; }
+		if (this.sleeping && !this.pauseReasons.view && !this.pauseReasons.tab) {
+			this.sleeping = false;
+			this.last = performance.now();
+			requestAnimationFrame(this.tick);
+		}
 		var now = this.animPaused();
 		if (was !== now) {
 			setPaused(this.currentLayers(), now);
@@ -992,6 +997,12 @@
 
 	Slider.prototype.tick = function (ts) {
 		if (!this.root.isConnected) { return; } // rimosso dal DOM (es. ri-render del page builder)
+		// Fuori dallo schermo o con la scheda nascosta non c'è niente da aggiornare: il ciclo si ferma
+		// (niente lavoro del browser a ogni fotogramma) e riparte da setPause.
+		if (this.pauseReasons.view || this.pauseReasons.tab) {
+			this.sleeping = true;
+			return;
+		}
 		var dt = Math.min(100, ts - this.last);
 		this.last = ts;
 		if ((this.parMouse || this.parScroll) && !this.pauseReasons.view && !this.pauseReasons.tab) {

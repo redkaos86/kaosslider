@@ -122,6 +122,7 @@ $kaosslider_check( false === strpos( $html, '<script' ), 'nessuno script nel mar
 $kaosslider_check( false === strpos( $html, '<style' ) && false === strpos( $html, '<link' ), 'CSS e font non stampati nel markup' );
 $kaosslider_check( false !== strpos( implode( '', (array) wp_styles()->get_data( 'kaosslider-' . $id, 'after' ) ), '#kaosslider-' . $id . ' ' ), 'CSS dello slider accodato' );
 $kaosslider_check( wp_script_is( 'kaosslider-gl', 'enqueued' ), 'script WebGL caricato quando serve' );
+$kaosslider_check( false === get_option( KaosSlider_Render::CSS_EVERYWHERE ), 'CSS generale non forzato su tutte le pagine' );
 $kaosslider_check( false !== strpos( do_shortcode( '[kaosslider alias="prova-automatica"]' ), 'kaosslider-' . $id ), 'shortcode con alias' );
 $preview = KaosSlider_Render::preview( $id, $saved );
 $kaosslider_check( '' !== $preview['html'] && false === strpos( $preview['html'], '<style' ) && '' !== $preview['css'], 'anteprima della bacheca' );
