@@ -3048,5 +3048,4 @@ msgstr "Errore: %s"
 #: assets/js/editor.js:2732
 #, js-format
 msgid "Unable to load the slider: %s"
-
 msgstr "Impossibile caricare lo slider: %s"
