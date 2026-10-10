@@ -25,8 +25,9 @@
 		zoomOut: { opacity: 0, transform: 'scale(1.5)' },
 		rotateIn: { opacity: 0, transform: 'rotate(-20deg) scale(.7)' },
 		blurIn: { opacity: 0, filter: 'blur(20px)' },
-		maskUp: { clipPath: 'inset(100% 0% 0% 0%)', transform: 'translate3d(0,30px,0)' },
-		maskLeft: { clipPath: 'inset(0% 100% 0% 0%)' },
+		// Le maschere sbordano di 0.3em: il corsivo e le lettere con le code (g, p, q) escono dal riquadro della parola.
+		maskUp: { clipPath: 'inset(calc(100% + 0.3em) -0.3em -0.3em -0.3em)', transform: 'translate3d(0,30px,0)' },
+		maskLeft: { clipPath: 'inset(-0.3em calc(100% + 0.3em) -0.3em -0.3em)' },
 		flipUp: { opacity: 0, transform: 'perspective(600px) rotateX(90deg)' },
 		revealUp: { transform: 'translate3d(0,110%,0)' },
 		skewIn: { opacity: 0, transform: 'translate3d(-60px,0,0) skewX(30deg)' },
@@ -109,7 +110,7 @@
 		Object.keys(from).forEach(function (k) {
 			if (k === 'opacity') { to[k] = 1; }
 			else if (k === 'filter') { to[k] = 'blur(0px)'; }
-			else if (k === 'clipPath') { to[k] = 'inset(0% 0% 0% 0%)'; }
+			else if (k === 'clipPath') { to[k] = 'inset(-0.3em -0.3em -0.3em -0.3em)'; }
 			else { to[k] = 'none'; }
 		});
 		return to;
@@ -344,7 +345,8 @@
 		if (paths.length) {
 			var each = duration / paths.length;
 			(erase ? paths.slice().reverse() : paths).forEach(function (p, i) {
-				var f = [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }];
+				// Tratto invisibile finché non parte: altrimenti l'estremità arrotondata lascia un puntino.
+				var f = [{ strokeDashoffset: 1, strokeOpacity: 0 }, { strokeDashoffset: 0.98, strokeOpacity: 1, offset: 0.02 }, { strokeDashoffset: 0, strokeOpacity: 1 }];
 				out.push(p.animate(erase ? f.reverse() : f, { duration: each, delay: delay + i * each, easing: easing, fill: 'both' }));
 			});
 		}
@@ -352,7 +354,7 @@
 			var fs = parseFloat(text.getAttribute('font-size')) || 40;
 			var L = Math.max(400, Math.round(text.textContent.length * fs * 3.2));
 			text.style.strokeDasharray = L;
-			var tf = [{ strokeDashoffset: L }, { strokeDashoffset: 0 }];
+			var tf = [{ strokeDashoffset: L, strokeOpacity: 0 }, { strokeDashoffset: L * 0.98, strokeOpacity: 1, offset: 0.02 }, { strokeDashoffset: 0, strokeOpacity: 1 }];
 			out.push(text.animate(erase ? tf.reverse() : tf, { duration: duration, delay: delay, easing: easing, fill: 'both' }));
 			if (text.closest('.ks-draw-fill')) {
 				var ff = [{ fillOpacity: 0 }, { fillOpacity: 1 }];
