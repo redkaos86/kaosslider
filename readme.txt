@@ -4,7 +4,7 @@ Tags: slider, carousel, hero, animation, video background
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,10 @@ The plugin connects to external services only for the features that need them:
 7. WebGL light rays behind the slide content.
 
 == Changelog ==
+
+= 1.1.3 =
+* Mask animations (from below, from the left) no longer cut off italic letters, letters with descenders (g, p, q) and the text shadow once the animation ends.
+* Hand-drawn lines no longer show a small dot before they start drawing.
 
 = 1.1.2 =
 * Faster pages: the slider stylesheet is loaded only on pages that show a slider, and the background of the first slide starts loading right away.
