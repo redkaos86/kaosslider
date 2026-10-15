@@ -37,7 +37,7 @@ msgstr "Slider"
 
 #: includes/class-kaosslider-admin.php:85
 msgid "Insufficient permissions."
-msgstr "Permessi insufficienti."
+msgstr "Autorizzazioni insufficienti."
 
 #: includes/class-kaosslider-admin.php:88
 msgid "Loading the editor…"
@@ -88,7 +88,7 @@ msgstr "Vai alla slide %d"
 
 #: includes/class-kaosslider-render.php:843
 msgid "You do not have permission to view this preview."
-msgstr "Non hai i permessi per vedere questa anteprima."
+msgstr "Non hai l'autorizzazione per visualizzare questa anteprima."
 
 #: includes/class-kaosslider-render.php:854
 msgid "KaosSlider preview"
@@ -169,7 +169,7 @@ msgstr "Testo"
 #: assets/js/editor.js:14
 #: assets/js/editor.js:2275
 msgid "Button"
-msgstr "Bottone"
+msgstr "Pulsante"
 
 #: includes/class-kaosslider-sanitizer.php:239
 #: assets/js/editor.js:14
@@ -295,13 +295,13 @@ msgstr "Slider"
 
 #: includes/integrations/class-kaosslider-divi-module.php:50
 msgid "Choose the slider to show. For a full-width hero use a full-width section without padding."
-msgstr "Scegli lo slider da mostrare. Per un hero a tutta larghezza usa una sezione a larghezza piena senza padding."
+msgstr "Scegli lo slider da mostrare. Per un hero a larghezza piena usa una sezione a larghezza piena senza spaziatura interna."
 
 #. translators: %s: link to the KaosSlider page.
 #: includes/integrations/class-kaosslider-elementor-widget.php:60
 #, php-format
 msgid "Create and edit sliders from %s. For a full-width hero, put the widget in a \"Full width\" container without padding."
-msgstr "Crea e modifica gli slider da %s. Per un hero a tutta larghezza, metti il widget in un contenitore \"Larghezza piena\" senza padding."
+msgstr "Crea e modifica gli slider da %s. Per un hero a larghezza piena, metti il widget in un contenitore \"Larghezza piena\" senza spaziatura interna."
 
 #: includes/integrations/class-kaosslider-elementor-widget.php:74
 msgid "KaosSlider: choose a slider in the left panel."
@@ -415,7 +415,7 @@ msgstr[1] "%d slide"
 
 #: assets/js/admin-list.js:193
 msgid "Click to copy"
-msgstr "Clicca per copiare"
+msgstr "Fai clic per copiare"
 
 #: assets/js/admin-list.js:197
 msgid "Copied!"
@@ -432,7 +432,7 @@ msgstr "Slider / Hero"
 
 #: assets/js/admin-list.js:233
 msgid "Full-width slides, one at a time"
-msgstr "Slide a tutta larghezza, una alla volta"
+msgstr "Slide a larghezza piena, una alla volta"
 
 #: assets/js/admin-list.js:233
 msgid "Several cards side by side that scroll"
@@ -1001,7 +1001,7 @@ msgstr "Il tuo titolo qui"
 
 #: assets/js/editor.js:200
 msgid "Learn more"
-msgstr "Scopri di più"
+msgstr "Approfondisci"
 
 #: assets/js/editor.js:230
 #: assets/js/editor.js:237
@@ -1129,7 +1129,7 @@ msgstr "in alto = in primo piano"
 
 #: assets/js/editor.js:640
 msgid "No layers yet. Add a text, a button, an image or a shape."
-msgstr "Nessun livello. Aggiungi un testo, un bottone, un'immagine o una forma."
+msgstr "Nessun livello. Aggiungi un testo, un pulsante, un'immagine o una forma."
 
 #: assets/js/editor.js:664
 msgid "Show"
@@ -1172,7 +1172,7 @@ msgstr "Shift durante il trascinamento: niente aggancio"
 
 #: assets/js/editor.js:677
 msgid "Right click: quick menu"
-msgstr "Tasto destro: menu rapido"
+msgstr "Clic destro: menu rapido"
 
 #: assets/js/editor.js:731
 msgid "Add the images"
@@ -1484,7 +1484,7 @@ msgstr "Posizione e dimensioni"
 
 #: assets/js/editor.js:1221
 msgid "Edit the text on the canvas"
-msgstr "Modifica il testo sul canvas"
+msgstr "Modifica il testo sulla tela"
 
 #: assets/js/editor.js:1222
 #: assets/js/editor.js:2294
@@ -1570,7 +1570,7 @@ msgstr "Aggiungi testo"
 
 #: assets/js/editor.js:1249
 msgid "Add button"
-msgstr "Aggiungi bottone"
+msgstr "Aggiungi pulsante"
 
 #: assets/js/editor.js:1250
 msgid "Add image"
@@ -1652,7 +1652,7 @@ msgstr "Gradiente avanzato (più livelli, conico o con posizioni multiple): si m
 
 #: assets/js/editor.js:1705
 msgid "Click the bar to add a colour, drag the points to move them"
-msgstr "Clicca sulla barra per aggiungere un colore, trascina i punti per spostarli"
+msgstr "Fai clic sulla barra per aggiungere un colore, trascina i punti per spostarli"
 
 #: assets/js/editor.js:1771
 msgid "Opacity not available for this colour"
@@ -1810,7 +1810,7 @@ msgstr "oppure incolla un URL"
 #: assets/js/editor.js:2024
 #, js-format
 msgid "Custom value for %s: click to restore inheritance"
-msgstr "Valore personalizzato per %s: clicca per ripristinare l'ereditarietà"
+msgstr "Valore personalizzato per %s: fai clic per ripristinare l'ereditarietà"
 
 #: assets/js/editor.js:2027
 msgid "Inherited value"
@@ -1945,7 +1945,7 @@ msgstr "Ombra morbida che stacca il vetro dallo sfondo."
 
 #: assets/js/editor.js:2102
 msgid "Click a layer on the canvas to edit it, or add one from the panel on the left."
-msgstr "Clicca un livello sul canvas per modificarlo, oppure aggiungine uno dal pannello a sinistra."
+msgstr "Fai clic su un livello nella tela per modificarlo, oppure aggiungine uno dal pannello a sinistra."
 
 #: assets/js/editor.js:2106
 msgid "Duration (ms)"
@@ -2186,7 +2186,7 @@ msgstr "Facoltativo: lo stesso video in un altro formato. Il browser usa il prim
 
 #: assets/js/editor.js:2177
 msgid "Poster image"
-msgstr "Immagine poster"
+msgstr "Immagine di copertina"
 
 #: assets/js/editor.js:2177
 msgid "Shown while the video loads."
@@ -2267,7 +2267,7 @@ msgstr "Usa un solo H1 per pagina (SEO)."
 
 #: assets/js/editor.js:2271
 msgid "You can use simple HTML: <br>, <strong>, <em>, <span style=\"…\">. Or double-click the text on the canvas."
-msgstr "Puoi usare HTML semplice: <br>, <strong>, <em>, <span style=\"…\">. Oppure fai doppio clic sul testo nel canvas."
+msgstr "Puoi usare HTML semplice: <br>, <strong>, <em>, <span style=\"…\">. Oppure fai doppio clic sul testo nella tela."
 
 #: assets/js/editor.js:2281
 msgid "File"
@@ -2304,17 +2304,17 @@ msgstr "Nuova scheda"
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Thin"
-msgstr "Thin"
+msgstr "Sottile"
 
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Extra light"
-msgstr "Extra light"
+msgstr "Chiarissimo"
 
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Light"
-msgstr "Light"
+msgstr "Chiaro"
 
 #: assets/js/editor.js:2307
 msgctxt "font weight"
@@ -2324,27 +2324,27 @@ msgstr "Normale"
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Medium"
-msgstr "Medium"
+msgstr "Medio"
 
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Semibold"
-msgstr "Semibold"
+msgstr "Semigrassetto"
 
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Bold"
-msgstr "Bold"
+msgstr "Grassetto"
 
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Extra bold"
-msgstr "Extra bold"
+msgstr "Grassetto accentuato"
 
 #: assets/js/editor.js:2307
 msgctxt "font weight"
 msgid "Black"
-msgstr "Black"
+msgstr "Nero"
 
 #: assets/js/editor.js:2311
 #: assets/js/editor.js:2351
@@ -2370,7 +2370,7 @@ msgstr "Interlinea"
 
 #: assets/js/editor.js:2316
 msgid "Letter spacing"
-msgstr "Spaziatura lettere"
+msgstr "Spaziatura tra caratteri"
 
 #: assets/js/editor.js:2318
 msgid "Italic"
@@ -2419,11 +2419,11 @@ msgstr "Colore pieno (anche rgba(…) e var(--colore-globale)) oppure gradiente.
 
 #: assets/js/editor.js:2332
 msgid "Vertical padding"
-msgstr "Padding verticale"
+msgstr "Spaziatura interna verticale"
 
 #: assets/js/editor.js:2333
 msgid "Horizontal padding"
-msgstr "Padding orizzontale"
+msgstr "Spaziatura interna orizzontale"
 
 #: assets/js/editor.js:2334
 msgid "Rounded corners"
@@ -2500,19 +2500,19 @@ msgstr "Visibile sul sito e nell'anteprima."
 
 #: assets/js/editor.js:2362
 msgid "Linked corners: click to set them one by one"
-msgstr "Angoli collegati: clicca per impostarli uno per uno"
+msgstr "Angoli collegati: fai clic per impostarli uno per uno"
 
 #: assets/js/editor.js:2362
 msgid "Separate corners: click to link them"
-msgstr "Angoli separati: clicca per collegarli"
+msgstr "Angoli separati: fai clic per collegarli"
 
 #: assets/js/editor.js:2379
 msgid "↖ Top left"
-msgstr "↖ Alto sx"
+msgstr "↖ In alto a sx"
 
 #: assets/js/editor.js:2379
 msgid "↗ Top right"
-msgstr "↗ Alto dx"
+msgstr "↗ In alto a dx"
 
 #: assets/js/editor.js:2380
 msgid "↙ Bottom left"
@@ -2765,7 +2765,7 @@ msgstr "Ancoraggio verticale"
 #: assets/js/editor.js:2524
 msgctxt "anchor"
 msgid "Top"
-msgstr "Alto"
+msgstr "In alto"
 
 #: assets/js/editor.js:2524
 msgctxt "anchor"
@@ -2942,7 +2942,7 @@ msgstr "Video guidato dallo scroll"
 
 #: assets/js/editor.js:2603
 msgid "Enable"
-msgstr "Attiva"
+msgstr "Abilita"
 
 #: assets/js/editor.js:2604
 msgid "The background video (file) of the first slide moves forwards and backwards with the scroll, while the slide stays fixed on screen. The other slides are not shown."
