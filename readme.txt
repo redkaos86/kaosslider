@@ -4,7 +4,7 @@ Tags: slider, carousel, hero, animation, video background
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,7 @@ Build fullscreen sliders, carousels and animated hero sections with a visual, la
 * Text, button, image, shape, hand-drawn and filmstrip layers, with entrance, exit and loop animations.
 * Backgrounds with colors, gradients, images (with Ken Burns effect) or video (file, YouTube, Vimeo).
 * Slide transitions, parallax, animated canvas and WebGL effects, scroll-driven video.
+* Customisable scroll-down button that takes visitors to the content below the slider.
 * Glass effect, custom shadows, borders, text outlines and gradient text.
 * Responsive, with separate values for desktop, tablet and mobile.
 * Works with the block editor (including Kadence Blocks), Elementor and Divi, plus the `[kaosslider id="…"]` shortcode.
@@ -47,6 +48,9 @@ The plugin connects to external services only for the features that need them:
 7. WebGL light rays behind the slide content.
 
 == Changelog ==
+
+= 1.1.5 =
+* New: scroll-down button. Turn it on in Slider settings to show a button at the bottom of the slider that takes visitors to the content right below it, with a smooth scroll. Choose an icon (chevron, double chevron, arrow, long arrow, mouse, triangle) or your own GIF, PNG or SVG, a shape (circle, rounded, square or none), colours, border, glass effect, size, up-and-down or pulse animation, position and an optional text. Twelve ready-made styles to start from. It leaves room for a fixed header and can be hidden on phones.
 
 = 1.1.4 =
 * Fixed "Unable to load the sliders: No route was found matching the URL and request method" on sites with "Plain" permalinks (or where /wp-json/ is not available): the dashboard and the editor now build the REST API address correctly.
