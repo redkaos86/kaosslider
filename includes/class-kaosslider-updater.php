@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 class KaosSlider_Updater {
 
 	const REPO       = 'redkaos86/kaosslider';
-	const PUBLIC_KEY = 'f5z3e2IbWTEdqqPB2vWR40lH4vtwU15svW6i2dBiEIY=';
+	const PUBLIC_KEY = 'E4TTbbtFY+jktEXPbDAojhnHlLkEbdTMj1gzeAXMtAQ=';
 	const CACHE      = 'kaosslider_release';
 	const ERROR      = 'kaosslider_update_error';
 	const API        = 'https://api.github.com/repos/';
