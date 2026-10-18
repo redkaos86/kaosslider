@@ -23,7 +23,7 @@
 			headers['X-HTTP-Method-Override'] = method;
 			method = 'POST';
 		}
-		return fetch(C.restUrl + path, {
+		return fetch(restUrl(path), {
 			method: method,
 			headers: headers,
 			body: opts.body ? JSON.stringify(opts.body) : undefined,
@@ -34,6 +34,14 @@
 				return json;
 			});
 		});
+	}
+
+	/* Indirizzo completo dell'API. Con i permalink "Semplice" restUrl è già del tipo ...?rest_route=/kaosslider/v1:
+	   i parametri del percorso vanno quindi aggiunti con "&", non con un secondo "?". */
+	function restUrl(path) {
+		var i = path.indexOf('?');
+		if (i < 0) { return C.restUrl + path; }
+		return C.restUrl + path.slice(0, i) + (C.restUrl.indexOf('?') < 0 ? '?' : '&') + path.slice(i + 1);
 	}
 
 	function h(tag, attrs) {

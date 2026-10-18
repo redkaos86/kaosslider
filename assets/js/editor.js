@@ -113,8 +113,16 @@
 	const round = (n, d = 2) => Math.round(n * 10 ** d) / 10 ** d;
 	const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
+	/* Indirizzo completo dell'API. Con i permalink "Semplice" restUrl è già del tipo ...?rest_route=/kaosslider/v1:
+	   i parametri del percorso vanno quindi aggiunti con "&", non con un secondo "?". */
+	function restUrl(path) {
+		const i = path.indexOf('?');
+		if (i < 0) { return C.restUrl + path; }
+		return C.restUrl + path.slice(0, i) + (C.restUrl.includes('?') ? '&' : '?') + path.slice(i + 1);
+	}
+
 	function api(path, opts = {}) {
-		return fetch(C.restUrl + path, {
+		return fetch(restUrl(path), {
 			method: opts.method || 'GET',
 			headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': C.nonce },
 			body: opts.body ? JSON.stringify(opts.body) : undefined,
