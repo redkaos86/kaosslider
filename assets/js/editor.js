@@ -1184,6 +1184,7 @@
 		updateSelbox();
 		const t = [...$.right.querySelectorAll('.kse-section-title')].find((x) => x.textContent === name);
 		if (t) {
+			if (t.parentNode.dataset.key) { setFold(t.parentNode, false); saveFolded(); }
 			$.right.scrollTop = t.parentNode.offsetTop - 60;
 			t.parentNode.classList.add('kse-flash');
 			setTimeout(() => t.parentNode.classList.remove('kse-flash'), 900);
@@ -2011,8 +2012,56 @@
 		return box;
 	}
 
+	/* Sezioni apribili: il titolo è un pulsante con la freccetta; partono chiuse e lo stato aperto/chiuso viene ricordato. */
+	const FOLD_KEY = 'kse_folded';
+	const folded = (() => { try { return JSON.parse(localStorage.getItem(FOLD_KEY) || '{}') || {}; } catch (e) { return {}; } })();
+	let foldCtx = '';
+	const saveFolded = () => { try { localStorage.setItem(FOLD_KEY, JSON.stringify(folded)); } catch (e) { /* storage non disponibile */ } };
+	function setFold(sec, close) {
+		sec.classList.toggle('is-collapsed', close);
+		const b = sec.querySelector(':scope > .kse-fold');
+		if (b) { b.setAttribute('aria-expanded', close ? 'false' : 'true'); }
+		folded[sec.dataset.key] = close;
+	}
+
 	function section(title, ...kids) {
-		return h('div', { class: 'kse-section' }, title ? h('div', { class: 'kse-section-title' }, title) : null, kids);
+		let sec;
+		let body;
+		if (!title) {
+			sec = body = h('div', { class: 'kse-section' }, kids);
+		} else {
+			const key = foldCtx + ':' + title;
+			const close = folded[key] !== false;
+			sec = h('div', { class: 'kse-section' + (close ? ' is-collapsed' : ''), 'data-key': key });
+			body = h('div', { class: 'kse-section-body' }, kids);
+			sec.append(
+				h('button', { type: 'button', class: 'kse-section-title kse-fold', 'aria-expanded': close ? 'false' : 'true', onclick: () => { setFold(sec, !sec.classList.contains('is-collapsed')); saveFolded(); } },
+					h('span', null, title), icon('arrow-down-alt2')),
+				body
+			);
+		}
+		// I campi aggiunti dopo (sec.append(...)) finiscono nel corpo apribile; i valori vuoti (campi condizionali) vengono saltati.
+		const add = Element.prototype.append;
+		sec.append = (...nodes) => add.apply(body, nodes.flat().filter((n) => n !== null && n !== undefined && n !== false));
+		return sec;
+	}
+
+	/* Sottogruppo apribile dentro una sezione (es. Bordo del riquadro, Effetto vetro, Ombra). */
+	function subgroup(title, ...kids) {
+		const key = foldCtx + ':' + title;
+		const close = folded[key] !== false;
+		const grp = h('div', { class: 'kse-subgroup' + (close ? ' is-collapsed' : ''), 'data-key': key });
+		grp.append(
+			h('button', { type: 'button', class: 'kse-subgroup-title kse-fold', 'aria-expanded': close ? 'false' : 'true', onclick: () => { setFold(grp, !grp.classList.contains('is-collapsed')); saveFolded(); } },
+				h('span', null, title), icon('arrow-down-alt2')),
+			h('div', { class: 'kse-section-body' }, kids)
+		);
+		return grp;
+	}
+
+	function foldAll(close) {
+		$.right.querySelectorAll('[data-key]').forEach((sec) => setFold(sec, close));
+		saveFolded();
 	}
 
 	/* Campi responsive: scrivono nel device attivo; tablet/mobile ereditano finché non vengono personalizzati. */
@@ -2056,8 +2105,7 @@
 	function glassGroup(s) {
 		const val = (k) => (s[k] != null ? s[k] : GLASS_DEFAULTS[k]);
 		const slider = (label, k, min, max, step, help) => field(label, rangeCtl(val(k), live((v) => { s[k] = v; }), { min, max, step }), help ? { help } : undefined);
-		return h('div', { class: 'kse-subgroup' },
-			h('div', { class: 'kse-subgroup-title' }, __( 'Glass effect', 'kaosslider' )),
+		return subgroup(__( 'Glass effect', 'kaosslider' ),
 			field('', toggleCtl(s.glass, liveNow((v) => {
 				s.glass = v;
 				if (v) {
@@ -2085,11 +2133,15 @@
 		const p = $.right;
 		const scroll = p.scrollTop;
 		p.innerHTML = '';
-		if (S.panel === 'settings') {
-			p.append(settingsPanel());
-		} else {
-			const l = layer();
-			p.append(l ? layerPanel(l) : slidePanel());
+		const l = S.panel === 'settings' ? null : layer();
+		foldCtx = S.panel === 'settings' ? 'settings' : (l ? 'layer-' + S.tab : 'slide');
+		p.append(S.panel === 'settings' ? settingsPanel() : (l ? layerPanel(l) : slidePanel()));
+		const head = p.querySelector('.kse-props-head');
+		if (head && p.querySelector('[data-key]')) {
+			head.insertBefore(h('div', { class: 'kse-fold-all' },
+				h('button', { type: 'button', class: 'kse-btn kse-icon', title: __( 'Collapse all', 'kaosslider' ), 'aria-label': __( 'Collapse all', 'kaosslider' ), onclick: () => foldAll(true) }, icon('arrow-up-alt2')),
+				h('button', { type: 'button', class: 'kse-btn kse-icon', title: __( 'Expand all', 'kaosslider' ), 'aria-label': __( 'Expand all', 'kaosslider' ), onclick: () => foldAll(false) }, icon('arrow-down-alt2'))
+			), head.querySelector(':scope > .kse-btn'));
 		}
 		p.scrollTop = scroll;
 	}
@@ -2332,16 +2384,14 @@
 			isText ? field(__( 'Vertical padding', 'kaosslider' ), numCtl(s.padV, live((v) => { s.padV = v; }), { min: 0, unit: 'px' })) : null,
 			isText ? field(__( 'Horizontal padding', 'kaosslider' ), numCtl(s.padH, live((v) => { s.padH = v; }), { min: 0, unit: 'px' })) : null,
 			field(__( 'Rounded corners', 'kaosslider' ), radiusCtl(s), { wide: true }),
-			h('div', { class: 'kse-subgroup' },
-				h('div', { class: 'kse-subgroup-title' }, __( 'Box border', 'kaosslider' )),
+			subgroup(__( 'Box border', 'kaosslider' ),
 				field(__( 'Thickness', 'kaosslider' ), numCtl(s.borderWidth, live((v) => { s.borderWidth = v; }), { min: 0, max: 50, unit: 'px' }), { help: __( '0 = no border.', 'kaosslider' ) }),
 				field(__( 'Style', 'kaosslider' ), segCtl(s.borderStyle || 'solid', [['solid', _x( 'Solid', 'border style', 'kaosslider' )], ['dashed', __( 'Dashed', 'kaosslider' )], ['dotted', __( 'Dotted', 'kaosslider' )], ['double', __( 'Double', 'kaosslider' )]], liveNow((v) => { s.borderStyle = v; }))),
 				field(__( 'Colour', 'kaosslider' ), colorCtl(s.borderColor, live((v) => { s.borderColor = v; }))),
 				s.borderOpacity != null && s.borderOpacity < 1 ? field(__( 'Opacity', 'kaosslider' ), rangeCtl(s.borderOpacity, live((v) => { s.borderOpacity = v; }), { min: 0, max: 1, step: 0.05 }), { help: __( 'Previous setting: you can now set the opacity directly in the colour and put this back to 1.', 'kaosslider' ) }) : null),
 			field(__( 'Opacity', 'kaosslider' ), rangeCtl(s.opacity, live((v) => { s.opacity = v; }), { min: 0, max: 1, step: 0.05 })),
 			l.type !== 'draw' && l.type !== 'film' && l.type !== 'image' ? glassGroup(s) : null,
-			h('div', { class: 'kse-subgroup' },
-				h('div', { class: 'kse-subgroup-title' }, isText ? __( 'Box shadow', 'kaosslider' ) : __( 'Shadow', 'kaosslider' )),
+			subgroup(isText ? __( 'Box shadow', 'kaosslider' ) : __( 'Shadow', 'kaosslider' ),
 				shadowCtl(s, isText ? 'boxShadow' : 'shadow', false)),
 			l.type === 'image' ? field(__( 'Fit inside the box', 'kaosslider' ), selectCtl(s.objectFit, [['cover', __( 'Cover (crops)', 'kaosslider' )], ['contain', __( 'Contain (whole)', 'kaosslider' )], ['fill', __( 'Stretch', 'kaosslider' )]], liveNow((v) => { s.objectFit = v; })), { help: __( 'When you set both width and height. In "Cover/Contain the whole slide" the mode chosen in Position applies.', 'kaosslider' ) }) : null,
 			l.type === 'image' ? field(__( 'Focal point', 'kaosslider' ), selectCtl(s.objectPosition || 'center center', C.positions.map((x) => [x, POSITIONS_LABEL[x] || x]), liveNow((v) => { s.objectPosition = v; })), { help: __( 'Which part of the image stays visible when it is cropped.', 'kaosslider' ) }) : null

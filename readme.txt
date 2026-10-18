@@ -51,6 +51,8 @@ The plugin connects to external services only for the features that need them:
 = 1.1.3 =
 * Mask animations (from below, from the left) no longer cut off italic letters, letters with descenders (g, p, q) and the text shadow once the animation ends.
 * Hand-drawn lines no longer show a small dot before they start drawing.
+* Editor: every panel section (and sub-group such as Glass effect or Shadow) can now be folded with the arrow next to its title, so the panels are much shorter. The editor remembers which sections you open, and two new buttons collapse or expand them all.
+* Editor: removed a stray "null" label in the animated effect settings.
 
 = 1.1.2 =
 * Faster pages: the slider stylesheet is loaded only on pages that show a slider, and the background of the first slide starts loading right away.

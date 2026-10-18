@@ -254,6 +254,16 @@ body.kaosslider-dark #wpfooter a { color: #ff8a5c; }
 .kse-help { margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .kse-hint { margin: 10px 14px; color: var(--muted); font-size: 12px; line-height: 1.5; }
 .kse-section .kse-hint { margin: 0 0 10px; }
+/* Sezioni apribili */
+.kse-fold { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; padding: 0; background: none; border: 0; cursor: pointer; text-align: left; font-family: inherit; }
+.kse-fold:hover { color: var(--text); }
+.kse-fold .dashicons { flex: none; width: 16px; height: 16px; font-size: 16px; transition: transform .2s ease; }
+.kse-section-body { margin-top: 12px; }
+.kse-section.is-collapsed > .kse-section-body, .kse-subgroup.is-collapsed > .kse-section-body { display: none; }
+.kse-section.is-collapsed > .kse-fold .dashicons, .kse-subgroup.is-collapsed > .kse-fold .dashicons { transform: rotate(-90deg); }
+.kse-subgroup > .kse-section-body { margin-top: 10px; }
+.kse-fold-all { margin-left: auto; display: flex; gap: 4px; }
+.kse-props-head .kse-fold-all .kse-btn, .kse-props-head .kse-fold-all + .kse-btn { margin-left: 0; }
 .kse-root input[type=text], .kse-root input[type=number], .kse-root textarea, .kse-root .kse-ctl select {
 	width: 100%; min-height: 32px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font-size: 13px; box-shadow: none;
 }
@@ -466,3 +476,4 @@ body.kaosslider-dark #wpfooter a { color: #ff8a5c; }
 	.kse-root { top: 46px; }
 }
 .ksl-modal-body { max-height: 70vh; overflow-y: auto; }
+.kse-subgroup > .kse-fold { margin-bottom: 0; }
