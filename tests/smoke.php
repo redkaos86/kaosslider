@@ -127,6 +127,24 @@ $kaosslider_check( false !== strpos( do_shortcode( '[kaosslider alias="prova-aut
 $preview = KaosSlider_Render::preview( $id, $saved );
 $kaosslider_check( '' !== $preview['html'] && false === strpos( $preview['html'], '<style' ) && '' !== $preview['css'], 'anteprima della bacheca' );
 
+// Pulsante "scorri giù": valori non validi ripuliti, markup e CSS presenti solo se attivo.
+$kaosslider_check( false === $saved['settings']['scrollBtn']['enabled'] && false === strpos( $html, 'ks-scrolldown' ), 'pulsante scorri giù spento di default' );
+$with_btn                          = $saved;
+$with_btn['settings']['scrollBtn'] = array(
+	'enabled' => true,
+	'icon'    => 'inesistente',
+	'image'   => 'javascript:alert(1)',
+	'label'   => '<b>Giù</b>',
+	'bg'      => 'url(x)',
+	'offset'  => 80,
+);
+$btn_data = KaosSlider_Sanitizer::slider( $with_btn );
+$btn      = $btn_data['settings']['scrollBtn'];
+$kaosslider_check( 'chevron' === $btn['icon'] && '' === $btn['image'] && 'Giù' === $btn['label'] && 'rgba(255,255,255,0.12)' === $btn['bg'], 'pulsante scorri giù: valori non validi ripuliti' );
+$btn_html = KaosSlider_Render::render( $id, $btn_data );
+$kaosslider_check( false !== strpos( $btn_html, 'class="ks-scrolldown' ) && false !== strpos( $btn_html, 'data-ks-offset="80"' ) && false !== strpos( $btn_html, 'aria-label="Giù"' ), 'pulsante scorri giù nel markup' );
+$kaosslider_check( false !== strpos( KaosSlider_Render::css( 'prova', $btn_data ), '--ks-sd-size:56px' ), 'CSS del pulsante scorri giù' );
+
 $copy = KaosSlider_Store::duplicate( $id );
 $kaosslider_check( is_int( $copy ) && wp_json_encode( KaosSlider_Store::get_data( $copy )['slides'][0]['layers'][0]['resp'] ) === wp_json_encode( $saved['slides'][0]['layers'][0]['resp'] ), 'duplica mantiene le posizioni' );
 

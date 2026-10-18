@@ -67,6 +67,31 @@ class KaosSlider_Store {
 			'scrollVideo'    => false,
 			'scrollLength'   => 300,
 			'bgColor'        => '#111111',
+			'scrollBtn'      => self::default_scroll_btn(),
+		);
+	}
+
+	/**
+	 * Pulsante "scorri giù": porta la pagina subito sotto lo slider.
+	 */
+	public static function default_scroll_btn() {
+		return array(
+			'enabled'     => false,
+			'icon'        => 'chevron',  // vedi KaosSlider_Render::SCROLL_ICONS, oppure "custom" con l'immagine
+			'image'       => '',         // GIF, PNG o SVG personale
+			'shape'       => 'circle',   // circle | rounded | square | none
+			'size'        => 56,
+			'color'       => '#ffffff',
+			'bg'          => 'rgba(255,255,255,0.12)',
+			'border'      => 'rgba(255,255,255,0.6)',
+			'borderWidth' => 2,
+			'glass'       => true,
+			'anim'        => 'bounce',   // bounce | pulse | none
+			'position'    => 'center',   // left | center | right
+			'bottom'      => 28,
+			'offset'      => 0,          // px da lasciare sopra (es. header fisso)
+			'label'       => '',
+			'hideMobile'  => false,
 		);
 	}
 

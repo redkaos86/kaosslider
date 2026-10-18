@@ -14,6 +14,16 @@ class KaosSlider_Render {
 
 	const CSS_EVERYWHERE = 'kaosslider_css_everywhere';
 
+	/** Icone del pulsante "scorri giù" (SVG 24×24, tratto nel colore del pulsante). */
+	const SCROLL_ICONS = array(
+		'chevron'  => '<path d="M6 9l6 6 6-6"/>',
+		'chevrons' => '<path d="M6 5l6 6 6-6M6 12l6 6 6-6"/>',
+		'arrow'    => '<path d="M12 4v15M6 13l6 6 6-6"/>',
+		'long'     => '<path d="M12 2v19M8 17l4 4 4-4"/>',
+		'mouse'    => '<rect x="5.5" y="2" width="13" height="20" rx="6.5"/><path class="ks-sd-wheel" d="M12 6.5v3.5"/>',
+		'caret'    => '<path d="M5 9h14l-7 8z" fill="currentColor" stroke="none"/>',
+	);
+
 	private static $instances = array();
 	private static $styled    = array();
 	private static $preload   = array();
@@ -323,6 +333,9 @@ class KaosSlider_Render {
 		if ( $settings['fullWidth'] ) {
 			$classes[] = 'ks-fullwidth';
 		}
+		if ( $settings['bullets'] && $total > 1 ) {
+			$classes[] = 'ks-has-bullets';
+		}
 		if ( 'carousel' === $settings['type'] && 'flat' !== $settings['carouselStyle'] ) {
 			$classes[] = 'ks-cs-' . $settings['carouselStyle'];
 		}
@@ -356,6 +369,11 @@ class KaosSlider_Render {
 			<?php if ( $settings['progress'] && $settings['autoplay'] ) : ?>
 				<div class="ks-progress"><span></span></div>
 			<?php endif; ?>
+			<?php
+			if ( ! empty( $settings['scrollBtn']['enabled'] ) ) {
+				echo self::scroll_button( $settings['scrollBtn'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- costruito ed escapato in scroll_button().
+			}
+			?>
 		</section>
 		<?php
 		return trim( ob_get_clean() );
@@ -584,6 +602,33 @@ class KaosSlider_Render {
 			$out = array_merge( $out, (array) $layer['resp']['mobile'] );
 		}
 		return $out;
+	}
+
+	/**
+	 * Markup del pulsante "scorri giù". Lo scorrimento lo gestisce kaosslider.js.
+	 *
+	 * @param array $b Impostazioni già validate (KaosSlider_Sanitizer::scroll_btn).
+	 * @return string
+	 */
+	public static function scroll_button( $b ) {
+		$classes = array( 'ks-scrolldown', 'ks-sd-' . $b['shape'], 'ks-sd-' . $b['position'], 'ks-sd-anim-' . $b['anim'] );
+		if ( $b['glass'] && 'none' !== $b['shape'] ) {
+			$classes[] = 'ks-sd-glass';
+		}
+		if ( $b['hideMobile'] ) {
+			$classes[] = 'ks-sd-hide-mobile';
+		}
+		if ( 'custom' === $b['icon'] && $b['image'] ) {
+			$icon = '<img class="ks-sd-img" src="' . esc_url( $b['image'] ) . '" alt="" decoding="async">';
+		} else {
+			$paths = isset( self::SCROLL_ICONS[ $b['icon'] ] ) ? self::SCROLL_ICONS[ $b['icon'] ] : self::SCROLL_ICONS['chevron'];
+			$icon  = '<svg class="ks-sd-icon" viewBox="0 0 24 24" aria-hidden="true">' . $paths . '</svg>';
+		}
+		$label = '' !== $b['label'] ? $b['label'] : __( 'Scroll down', 'kaosslider' );
+		return '<button type="button" class="' . esc_attr( implode( ' ', $classes ) ) . '" data-ks-offset="' . esc_attr( (string) (int) $b['offset'] ) . '" aria-label="' . esc_attr( $label ) . '">'
+			. '<span class="ks-sd-shape">' . $icon . '</span>'
+			. ( '' !== $b['label'] ? '<span class="ks-sd-label">' . esc_html( $b['label'] ) . '</span>' : '' )
+			. '</button>';
 	}
 
 	private static function px( $n ) {
@@ -910,6 +955,10 @@ class KaosSlider_Render {
 		);
 
 		$base = $root . '{--ks-nav:' . $st['navColor'] . ';--ks-gap:' . $st['gap'] . 'px;--ks-speed:' . $st['speed'] . 'ms;background:' . ( $st['bgColor'] ? $st['bgColor'] : 'transparent' ) . '}';
+		if ( ! empty( $st['scrollBtn']['enabled'] ) ) {
+			$sb    = $st['scrollBtn'];
+			$base .= $root . ' .ks-scrolldown{--ks-sd-size:' . (int) $sb['size'] . 'px;--ks-sd-color:' . ( $sb['color'] ? $sb['color'] : '#fff' ) . ';--ks-sd-bg:' . ( $sb['bg'] ? $sb['bg'] : 'transparent' ) . ';--ks-sd-border:' . ( $sb['border'] ? $sb['border'] : 'transparent' ) . ';--ks-sd-bw:' . (int) $sb['borderWidth'] . 'px;--ks-sd-bottom:' . (int) $sb['bottom'] . 'px}';
+		}
 		if ( 'fullscreen' === $st['height'] && 'slider' === $st['type'] ) {
 			$off   = (int) $st['offset'];
 			$base .= $root . ' .ks-viewport{height:calc(100vh - ' . $off . 'px);height:calc(100svh - ' . $off . 'px)}';

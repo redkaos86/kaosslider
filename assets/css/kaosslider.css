@@ -318,6 +318,59 @@
 .kaosslider .ks-progress { position: absolute; left: 0; right: 0; bottom: 0; z-index: 10; height: 3px; background: rgba(255, 255, 255, .15); }
 .kaosslider .ks-progress span { display: block; height: 100%; width: 0; background: var(--ks-nav); }
 
+/* ---------- Pulsante "scorri giù" ---------- */
+.kaosslider .ks-scrolldown {
+	--ks-sd-size: 56px;
+	position: absolute;
+	bottom: var(--ks-sd-bottom, 28px);
+	z-index: 11;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--ks-sd-color, #fff);
+	font: inherit;
+	cursor: pointer;
+}
+.kaosslider .ks-sd-center { left: 50%; transform: translateX(-50%); }
+.kaosslider .ks-sd-left { left: 24px; }
+.kaosslider .ks-sd-right { right: 24px; }
+.kaosslider.ks-has-bullets .ks-sd-center { bottom: calc(var(--ks-sd-bottom, 28px) + 34px); }
+.kaosslider .ks-sd-shape {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--ks-sd-size);
+	height: var(--ks-sd-size);
+	box-sizing: border-box;
+	border: var(--ks-sd-bw, 2px) solid var(--ks-sd-border, transparent);
+	background: var(--ks-sd-bg, transparent);
+	transition: transform .25s, background .25s;
+}
+.kaosslider .ks-sd-circle .ks-sd-shape { border-radius: 50%; }
+.kaosslider .ks-sd-rounded .ks-sd-shape { border-radius: 30%; }
+.kaosslider .ks-sd-square .ks-sd-shape { border-radius: 0; }
+.kaosslider .ks-sd-none .ks-sd-shape { border: 0; background: none; }
+.kaosslider .ks-sd-glass .ks-sd-shape { -webkit-backdrop-filter: blur(8px) saturate(150%); backdrop-filter: blur(8px) saturate(150%); }
+.kaosslider .ks-scrolldown:hover .ks-sd-shape { transform: scale(1.08); }
+.kaosslider .ks-scrolldown:focus-visible { outline: none; }
+.kaosslider .ks-scrolldown:focus-visible .ks-sd-shape { outline: 2px solid var(--ks-sd-color, #fff); outline-offset: 3px; }
+.kaosslider .ks-sd-icon { width: 46%; height: 46%; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.kaosslider .ks-sd-none .ks-sd-icon { width: 70%; height: 70%; }
+.kaosslider .ks-sd-img { display: block; width: 62%; height: 62%; object-fit: contain; }
+.kaosslider .ks-sd-none .ks-sd-img { width: 100%; height: 100%; }
+.kaosslider .ks-sd-label { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 1px 6px rgba(0, 0, 0, .35); }
+.kaosslider .ks-sd-anim-bounce .ks-sd-shape { animation: ks-sd-bounce 1.8s ease-in-out infinite; }
+.kaosslider .ks-sd-anim-pulse .ks-sd-shape { animation: ks-sd-pulse 2s ease-in-out infinite; }
+.kaosslider .ks-sd-wheel { animation: ks-sd-wheel 1.6s ease-in-out infinite; }
+@keyframes ks-sd-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+@keyframes ks-sd-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: .75; } }
+@keyframes ks-sd-wheel { 0%, 20% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(5px); opacity: 0; } 71% { transform: translateY(0); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
 /* Carosello: frecce e pallini sotto, non sopra le card */
 .kaosslider.ks-type-carousel { overflow: visible; }
 .kaosslider.ks-type-carousel .ks-bullets { position: static; margin-top: 18px; }
@@ -328,10 +381,14 @@
 	.kaosslider .ks-arrow { width: 38px; height: 38px; margin-top: -19px; }
 	.kaosslider .ks-prev { left: 10px; }
 	.kaosslider .ks-next { right: 10px; }
+	.kaosslider .ks-sd-hide-mobile { display: none; }
+	.kaosslider .ks-sd-left { left: 12px; }
+	.kaosslider .ks-sd-right { right: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.kaosslider .ks-bg-img { animation: none !important; transform: none !important; }
 	.kaosslider .ks-looping { animation: none !important; }
+	.kaosslider .ks-scrolldown .ks-sd-shape, .kaosslider .ks-sd-wheel { animation: none !important; }
 	.kaosslider.ks-type-carousel .ks-track { transition: none; }
 }

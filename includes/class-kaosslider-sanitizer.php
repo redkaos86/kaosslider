@@ -78,6 +78,7 @@ class KaosSlider_Sanitizer {
 			'scrollVideo'  => self::bool( $s, 'scrollVideo', false ),
 			'scrollLength' => self::num( $s, 'scrollLength', 300, 150, 1000 ),
 			'bgColor'      => self::paint( $s, 'bgColor', $d['bgColor'] ),
+			'scrollBtn'    => self::scroll_btn( isset( $s['scrollBtn'] ) && is_array( $s['scrollBtn'] ) ? $s['scrollBtn'] : array() ),
 		);
 		$grid = isset( $s['grid'] ) && is_array( $s['grid'] ) ? $s['grid'] : array();
 		$pv   = isset( $s['perView'] ) && is_array( $s['perView'] ) ? $s['perView'] : array();
@@ -90,6 +91,31 @@ class KaosSlider_Sanitizer {
 			$out['perView'][ $dev ] = self::num( $pv, $dev, $d['perView'][ $dev ], 1, 8 );
 		}
 		return $out;
+	}
+
+	/**
+	 * Pulsante "scorri giù" (vedi KaosSlider_Store::default_scroll_btn).
+	 */
+	public static function scroll_btn( $b ) {
+		$d = KaosSlider_Store::default_scroll_btn();
+		return array(
+			'enabled'     => self::bool( $b, 'enabled', $d['enabled'] ),
+			'icon'        => self::enum( $b, 'icon', array_merge( array_keys( KaosSlider_Render::SCROLL_ICONS ), array( 'custom' ) ), $d['icon'] ),
+			'image'       => self::url( $b, 'image' ),
+			'shape'       => self::enum( $b, 'shape', array( 'circle', 'rounded', 'square', 'none' ), $d['shape'] ),
+			'size'        => self::num( $b, 'size', $d['size'], 24, 160 ),
+			'color'       => self::color( $b, 'color', $d['color'] ),
+			'bg'          => self::paint( $b, 'bg', $d['bg'] ),
+			'border'      => self::color( $b, 'border', $d['border'] ),
+			'borderWidth' => self::num( $b, 'borderWidth', $d['borderWidth'], 0, 12 ),
+			'glass'       => self::bool( $b, 'glass', $d['glass'] ),
+			'anim'        => self::enum( $b, 'anim', array( 'bounce', 'pulse', 'none' ), $d['anim'] ),
+			'position'    => self::enum( $b, 'position', array( 'left', 'center', 'right' ), $d['position'] ),
+			'bottom'      => self::num( $b, 'bottom', $d['bottom'], 0, 400 ),
+			'offset'      => self::num( $b, 'offset', $d['offset'], 0, 600 ),
+			'label'       => mb_substr( self::text( $b, 'label', $d['label'] ), 0, 40 ),
+			'hideMobile'  => self::bool( $b, 'hideMobile', $d['hideMobile'] ),
+		);
 	}
 
 	public static function slide( $s ) {

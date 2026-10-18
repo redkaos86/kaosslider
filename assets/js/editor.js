@@ -14,6 +14,31 @@
 	const TYPE_LABEL = { text: _x( 'Text', 'layer type', 'kaosslider' ), button: __( 'Button', 'kaosslider' ), image: __( 'Image', 'kaosslider' ), shape: __( 'Shape', 'kaosslider' ), draw: __( 'Drawing', 'kaosslider' ), film: __( 'Filmstrip', 'kaosslider' ) };
 	const TYPE_ICON = { text: 'editor-textcolor', button: 'button', image: 'format-image', shape: 'marker', draw: 'art', film: 'images-alt2' };
 	let DRAW_SHAPES = {};
+	// Pulsante "scorri giù": stesse icone di KaosSlider_Render::SCROLL_ICONS.
+	const SCROLL_ICONS = {
+		chevron: '<path d="M6 9l6 6 6-6"/>',
+		chevrons: '<path d="M6 5l6 6 6-6M6 12l6 6 6-6"/>',
+		arrow: '<path d="M12 4v15M6 13l6 6 6-6"/>',
+		long: '<path d="M12 2v19M8 17l4 4 4-4"/>',
+		mouse: '<rect x="5.5" y="2" width="13" height="20" rx="6.5"/><path class="ks-sd-wheel" d="M12 6.5v3.5"/>',
+		caret: '<path d="M5 9h14l-7 8z" fill="currentColor" stroke="none"/>'
+	};
+	// Stili pronti: valori che sostituiscono quelli di partenza (SCROLL_DEFAULTS). L'etichetta va tradotta.
+	const SCROLL_PRESETS = () => [
+		{ name: __( 'Glass circle', 'kaosslider' ), o: {} },
+		{ name: __( 'Double arrow', 'kaosslider' ), o: { icon: 'chevrons' } },
+		{ name: __( 'Solid colour', 'kaosslider' ), o: { icon: 'arrow', bg: '#ff4d1f', border: '', borderWidth: 0, glass: false, anim: 'pulse', size: 60 } },
+		{ name: __( 'White circle', 'kaosslider' ), o: { bg: '#ffffff', color: '#111111', border: '', borderWidth: 0, glass: false, size: 54 } },
+		{ name: __( 'Mouse', 'kaosslider' ), o: { icon: 'mouse', shape: 'none', size: 64, anim: 'none', label: __( 'Scroll', 'kaosslider' ) } },
+		{ name: __( 'Long arrow', 'kaosslider' ), o: { icon: 'long', shape: 'none', size: 52, label: __( 'Discover', 'kaosslider' ) } },
+		{ name: __( 'Rounded square', 'kaosslider' ), o: { icon: 'arrow', shape: 'rounded', size: 54 } },
+		{ name: __( 'Outline only', 'kaosslider' ), o: { bg: 'transparent', borderWidth: 1, glass: false, size: 70, border: 'rgba(255,255,255,0.85)' } },
+		{ name: __( 'Small triangle', 'kaosslider' ), o: { icon: 'caret', shape: 'none', size: 40, anim: 'pulse' } },
+		{ name: __( 'Your image', 'kaosslider' ), o: { icon: 'custom', size: 62 } },
+		{ name: __( 'Bottom left', 'kaosslider' ), o: { position: 'left', label: __( 'Scroll', 'kaosslider' ) } },
+		{ name: __( 'Sharp square', 'kaosslider' ), o: { icon: 'chevrons', shape: 'square', size: 52, glass: false, bg: 'rgba(0,0,0,0.35)' } }
+	];
+	const SCROLL_DEFAULTS = { enabled: false, icon: 'chevron', image: '', shape: 'circle', size: 56, color: '#ffffff', bg: 'rgba(255,255,255,0.12)', border: 'rgba(255,255,255,0.6)', borderWidth: 2, glass: true, anim: 'bounce', position: 'center', bottom: 28, offset: 0, label: '', hideMobile: false };
 
 	const EFFECTS_IN = [
 		['none', __( 'None (appears)', 'kaosslider' )], ['fade', __( 'Fade', 'kaosslider' )], ['fadeUp', __( 'From below', 'kaosslider' )], ['fadeDown', __( 'From above', 'kaosslider' )],
@@ -960,6 +985,11 @@
 		});
 		const slideEl = buildSlideEl(sl, 'is-active');
 		$.canvas.append($.css, slideEl);
+		const sd = scrollBtnEl();
+		if (sd) {
+			$.canvas.append(sd);
+			$.canvas.classList.toggle('ks-has-bullets', settings().bullets && S.data.slides.filter((x) => !x.hidden).length > 1);
+		}
 		startCanvasFx(slideEl, sl);
 		requestAnimationFrame(() => $.canvas.querySelectorAll('.ks-film').forEach((el) => window.KaosSlider.fx.film(el)));
 
@@ -975,6 +1005,24 @@
 		// Le immagini cambiano dimensione al caricamento: riallinea il riquadro di selezione.
 		$.canvas.querySelectorAll('img').forEach((img) => img.addEventListener('load', updateSelbox));
 		requestAnimationFrame(updateSelbox);
+	}
+
+	/* Anteprima del pulsante "scorri giù" (solo visiva: sulla tela non scorre). */
+	function scrollBtnEl(preset) {
+		const b = preset || settings().scrollBtn;
+		if (!b || (!preset && !b.enabled)) { return null; }
+		const cls = ['ks-scrolldown', 'kse-sd-preview', 'ks-sd-' + b.shape, 'ks-sd-' + b.position, 'ks-sd-anim-' + b.anim];
+		if (b.glass && b.shape !== 'none') { cls.push('ks-sd-glass'); }
+		const shape = h('span', { class: 'ks-sd-shape' });
+		if (b.icon === 'custom' && b.image) {
+			shape.append(h('img', { class: 'ks-sd-img', src: b.image, alt: '' }));
+		} else {
+			shape.append(svgFromString('<svg class="ks-sd-icon" viewBox="0 0 24 24" aria-hidden="true">' + (SCROLL_ICONS[b.icon] || SCROLL_ICONS.chevron) + '</svg>'));
+		}
+		const el = h('div', { class: cls.join(' '), 'aria-hidden': 'true' }, shape, b.label ? h('span', { class: 'ks-sd-label' }, b.label) : null);
+		[['--ks-sd-size', b.size + 'px'], ['--ks-sd-color', b.color || '#fff'], ['--ks-sd-bg', b.bg || 'transparent'], ['--ks-sd-border', b.border || 'transparent'], ['--ks-sd-bw', b.borderWidth + 'px'], ['--ks-sd-bottom', b.bottom + 'px']]
+			.forEach(([k, v]) => el.style.setProperty(k, v));
+		return el;
 	}
 
 	function updateCss() {
@@ -2683,7 +2731,57 @@
 			field('', toggleCtl(st.keyboard, N((v) => { st.keyboard = v; }), __( 'Keyboard arrows', 'kaosslider' ))),
 			field(__( 'Navigation colour', 'kaosslider' ), colorCtl(st.navColor, L((v) => { st.navColor = v; })))
 		));
+		wrap.append(scrollBtnSection(st, L, N));
 		return wrap;
+	}
+
+	/* Impostazioni del pulsante "scorri giù". */
+	function scrollBtnSection(st, L, N) {
+		if (!st.scrollBtn) { st.scrollBtn = Object.assign({}, SCROLL_DEFAULTS); }
+		const b = st.scrollBtn;
+		const sec = section(__( 'Scroll-down button', 'kaosslider' ),
+			field('', toggleCtl(b.enabled, N((v) => { b.enabled = v; }), __( 'Show the scroll-down button', 'kaosslider' )), { help: __( 'A button on the slider that takes visitors to the content right below it.', 'kaosslider' ) })
+		);
+		if (!b.enabled) { return sec; }
+		// Stili pronti: un clic copia i valori (posizione dal fondo, spazio per l'header e telefoni restano quelli scelti).
+		const keep = { enabled: true, bottom: b.bottom, offset: b.offset, hideMobile: b.hideMobile };
+		const presets = h('div', { class: 'kse-sd-presets' }, SCROLL_PRESETS().map((p) => {
+			const v = Object.assign({}, SCROLL_DEFAULTS, p.o, keep, { image: p.o.icon === 'custom' ? b.image : '' });
+			const mini = scrollBtnEl(Object.assign({}, v, { anim: 'none', position: 'center', image: v.image || '' }));
+			if (p.o.icon === 'custom' && !b.image) {
+				mini.querySelector('.ks-sd-shape').replaceChildren(icon('format-image'));
+			}
+			return h('button', { type: 'button', title: p.name, onclick: () => {
+				change(() => { Object.assign(b, v); }, { immediate: true });
+				if (v.icon === 'custom' && !b.image) { pickMedia('image', (a) => change(() => { b.image = a.url; }, { immediate: true })); }
+			} }, h('span', { class: 'kaosslider kse-sd-mini' }, mini), h('span', null, p.name));
+		}));
+		sec.append(field(__( 'Ready-made styles', 'kaosslider' ), presets, { wide: true, help: __( 'Click a style to start from it, then fine-tune everything below.', 'kaosslider' ) }));
+		const names = { chevron: __( 'Chevron', 'kaosslider' ), chevrons: __( 'Double chevron', 'kaosslider' ), arrow: __( 'Arrow', 'kaosslider' ), long: __( 'Long arrow', 'kaosslider' ), mouse: __( 'Mouse', 'kaosslider' ), caret: __( 'Triangle', 'kaosslider' ) };
+		const grid = h('div', { class: 'kse-shape-grid kse-sd-grid' },
+			Object.keys(SCROLL_ICONS).map((k) => h('button', { type: 'button', class: b.icon === k ? 'is-active' : '', title: names[k], onclick: () => change(() => { b.icon = k; }, { immediate: true }) },
+				svgFromString('<svg viewBox="0 0 24 24">' + SCROLL_ICONS[k] + '</svg>'), h('span', null, names[k]))),
+			h('button', { type: 'button', class: b.icon === 'custom' ? 'is-active' : '', title: __( 'Your image', 'kaosslider' ), onclick: () => change(() => { b.icon = 'custom'; }, { immediate: true }) },
+				b.image ? h('img', { src: b.image, alt: '' }) : icon('format-image'), h('span', null, __( 'Your image', 'kaosslider' ))));
+		const hasShape = b.shape !== 'none';
+		sec.append(
+			field(__( 'Icon', 'kaosslider' ), grid, { wide: true }),
+			b.icon === 'custom' ? field(__( 'Image', 'kaosslider' ), mediaCtl(b.image, 'image', (url) => change(() => { b.image = url || ''; }, { immediate: true })), { wide: true, help: __( 'A GIF, PNG or SVG of your own (animated GIFs work too).', 'kaosslider' ) }) : null,
+			field(__( 'Shape', 'kaosslider' ), segCtl(b.shape, [['circle', __( 'Circle', 'kaosslider' )], ['rounded', __( 'Rounded', 'kaosslider' )], ['square', __( 'Square', 'kaosslider' )], ['none', __( 'No shape', 'kaosslider' )]], N((v) => { b.shape = v; }))),
+			field(__( 'Size', 'kaosslider' ), rangeCtl(b.size, L((v) => { b.size = v; }), { min: 24, max: 160, step: 2 })),
+			field(__( 'Icon colour', 'kaosslider' ), colorCtl(b.color, L((v) => { b.color = v; }))),
+			hasShape ? field(__( 'Background', 'kaosslider' ), paintCtl(b.bg, L((v) => { b.bg = v; }), true), { wide: true }) : null,
+			hasShape ? field(__( 'Border colour', 'kaosslider' ), colorCtl(b.border, L((v) => { b.border = v; }), true)) : null,
+			hasShape ? field(__( 'Border thickness', 'kaosslider' ), numCtl(b.borderWidth, L((v) => { b.borderWidth = v; }), { min: 0, max: 12, unit: 'px' })) : null,
+			hasShape ? field('', toggleCtl(b.glass, N((v) => { b.glass = v; }), __( 'Glass effect (blurs what is behind)', 'kaosslider' ))) : null,
+			field(__( 'Animation', 'kaosslider' ), segCtl(b.anim, [['bounce', __( 'Up and down', 'kaosslider' )], ['pulse', __( 'Pulse', 'kaosslider' )], ['none', __( 'None', 'kaosslider' )]], N((v) => { b.anim = v; }))),
+			field(__( 'Position', 'kaosslider' ), segCtl(b.position, [['left', __( 'Left', 'kaosslider' )], ['center', __( 'Centre', 'kaosslider' )], ['right', __( 'Right', 'kaosslider' )]], N((v) => { b.position = v; }))),
+			field(__( 'Distance from the bottom', 'kaosslider' ), numCtl(b.bottom, L((v) => { b.bottom = v; }), { min: 0, max: 400, unit: 'px' }), { help: __( 'With the dots visible, a centred button sits a little higher so they do not overlap.', 'kaosslider' ) }),
+			field(__( 'Text under the icon', 'kaosslider' ), textCtl(b.label, L((v) => { b.label = v; }), { placeholder: __( 'e.g. Scroll', 'kaosslider' ) }), { help: __( 'Optional. Leave it empty to show only the icon.', 'kaosslider' ) }),
+			field(__( 'Space for a fixed header', 'kaosslider' ), numCtl(b.offset, L((v) => { b.offset = v; }), { min: 0, max: 600, unit: 'px' }), { help: __( 'If the site has a fixed header, enter its height: the page stops right below it instead of underneath.', 'kaosslider' ) }),
+			field('', toggleCtl(b.hideMobile, N((v) => { b.hideMobile = v; }), __( 'Hide on phones', 'kaosslider' )))
+		);
+		return sec;
 	}
 
 	/* ================= Salvataggio e anteprima ================= */

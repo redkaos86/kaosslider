@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-18T13:26:21+00:00\n"
+"POT-Creation-Date: 2026-10-18T14:13:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kaosslider\n"
@@ -46,60 +46,64 @@ msgid "Loading…"
 msgstr ""
 
 #. translators: %s: slider name.
-#: includes/class-kaosslider-render.php:45
+#: includes/class-kaosslider-render.php:55
 #, php-format
 msgid "Edit: %s"
 msgstr ""
 
 #. translators: %d: slider ID.
-#: includes/class-kaosslider-render.php:45
+#: includes/class-kaosslider-render.php:55
 #, php-format
 msgid "Slider #%d"
 msgstr ""
 
-#: includes/class-kaosslider-render.php:49
+#: includes/class-kaosslider-render.php:59
 msgid "Edit the sliders on this page"
 msgstr ""
 
-#: includes/class-kaosslider-render.php:57
+#: includes/class-kaosslider-render.php:67
 msgid "All sliders"
 msgstr ""
 
-#: includes/class-kaosslider-render.php:242
+#: includes/class-kaosslider-render.php:252
 msgid "KaosSlider: slider not found."
 msgstr ""
 
-#: includes/class-kaosslider-render.php:346
-#: assets/js/editor.js:926
+#: includes/class-kaosslider-render.php:359
+#: assets/js/editor.js:951
 msgid "Previous slide"
 msgstr ""
 
-#: includes/class-kaosslider-render.php:347
+#: includes/class-kaosslider-render.php:360
 msgid "Next slide"
 msgstr ""
 
 #. translators: %d: slide number.
-#: includes/class-kaosslider-render.php:352
+#: includes/class-kaosslider-render.php:365
 #, php-format
 msgid "Go to slide %d"
 msgstr ""
 
-#: includes/class-kaosslider-render.php:977
+#: includes/class-kaosslider-render.php:627
+msgid "Scroll down"
+msgstr ""
+
+#: includes/class-kaosslider-render.php:1026
 msgid "You do not have permission to view this preview."
 msgstr ""
 
-#: includes/class-kaosslider-render.php:991
+#: includes/class-kaosslider-render.php:1040
 msgid "KaosSlider preview"
 msgstr ""
 
-#: includes/class-kaosslider-render.php:996
+#: includes/class-kaosslider-render.php:1045
 msgid "Slider preview with the styles of the active theme. The content below is only here to test scrolling."
 msgstr ""
 
 #: includes/class-kaosslider-rest.php:175
 #: includes/class-kaosslider-rest.php:185
 #: includes/class-kaosslider-rest.php:201
-#: includes/class-kaosslider-store.php:235
+#: includes/class-kaosslider-store.php:260
 msgid "Slider not found"
 msgstr ""
 
@@ -144,77 +148,79 @@ msgstr ""
 msgid "Imported slider"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:118
-#: includes/class-kaosslider-store.php:76
-#: assets/js/editor.js:599
-#: assets/js/editor.js:2161
+#: includes/class-kaosslider-sanitizer.php:144
+#: includes/class-kaosslider-store.php:101
+#: assets/js/editor.js:624
+#: assets/js/editor.js:2209
 msgid "Slide"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:237
+#: includes/class-kaosslider-sanitizer.php:263
 #: assets/js/editor.js:14
-#: assets/js/editor.js:47
-#: assets/js/editor.js:778
-#: assets/js/editor.js:791
-#: assets/js/editor.js:2329
-#: assets/js/editor.js:2336
-#: assets/js/editor.js:2370
+#: assets/js/editor.js:72
+#: assets/js/editor.js:803
+#: assets/js/editor.js:816
+#: assets/js/editor.js:2377
+#: assets/js/editor.js:2384
+#: assets/js/editor.js:2418
 msgctxt "layer type"
 msgid "Text"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:238
+#: includes/class-kaosslider-sanitizer.php:264
 #: assets/js/editor.js:14
-#: assets/js/editor.js:2335
+#: assets/js/editor.js:2383
 msgid "Button"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:239
+#: includes/class-kaosslider-sanitizer.php:265
 #: assets/js/editor.js:14
-#: assets/js/editor.js:2219
-#: assets/js/editor.js:2224
-#: assets/js/editor.js:2340
+#: assets/js/editor.js:2267
+#: assets/js/editor.js:2272
+#: assets/js/editor.js:2388
+#: assets/js/editor.js:2769
 msgid "Image"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:240
+#: includes/class-kaosslider-sanitizer.php:266
 #: assets/js/editor.js:14
-#: assets/js/editor.js:778
-#: assets/js/editor.js:789
-#: assets/js/editor.js:1793
+#: assets/js/editor.js:803
+#: assets/js/editor.js:814
+#: assets/js/editor.js:1841
+#: assets/js/editor.js:2770
 msgid "Shape"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:241
+#: includes/class-kaosslider-sanitizer.php:267
 #: assets/js/editor.js:14
-#: assets/js/editor.js:48
-#: assets/js/editor.js:777
+#: assets/js/editor.js:73
+#: assets/js/editor.js:802
 msgid "Drawing"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:242
+#: includes/class-kaosslider-sanitizer.php:268
 #: assets/js/editor.js:14
-#: assets/js/editor.js:815
+#: assets/js/editor.js:840
 msgid "Filmstrip"
 msgstr ""
 
-#: includes/class-kaosslider-sanitizer.php:243
+#: includes/class-kaosslider-sanitizer.php:269
 msgid "Layer"
 msgstr ""
 
 #. translators: %d: slide number.
-#: includes/class-kaosslider-store.php:107
-#: assets/js/editor.js:594
+#: includes/class-kaosslider-store.php:132
+#: assets/js/editor.js:619
 #, php-format,js-format
 msgid "Slide %d"
 msgstr ""
 
-#: includes/class-kaosslider-store.php:203
+#: includes/class-kaosslider-store.php:228
 msgid "Untitled slider"
 msgstr ""
 
 #. translators: %s: name of the duplicated slider.
-#: includes/class-kaosslider-store.php:238
+#: includes/class-kaosslider-store.php:263
 #, php-format
 msgid "%s (copy)"
 msgstr ""
@@ -287,7 +293,7 @@ msgstr ""
 #: includes/integrations/class-kaosslider-elementor-widget.php:47
 #: assets/js/admin-list.js:186
 #: assets/js/block.js:57
-#: assets/js/editor.js:2616
+#: assets/js/editor.js:2664
 msgid "Slider"
 msgstr ""
 
@@ -306,12 +312,12 @@ msgid "KaosSlider: choose a slider in the left panel."
 msgstr ""
 
 #: assets/js/admin-list.js:33
-#: assets/js/editor.js:131
+#: assets/js/editor.js:156
 msgid "Error"
 msgstr ""
 
 #: assets/js/admin-list.js:99
-#: assets/js/editor.js:2611
+#: assets/js/editor.js:2659
 msgid "Close"
 msgstr ""
 
@@ -335,7 +341,7 @@ msgstr ""
 
 #: assets/js/admin-list.js:142
 #: assets/js/admin-list.js:355
-#: assets/js/editor.js:496
+#: assets/js/editor.js:521
 msgid "Settings"
 msgstr ""
 
@@ -372,8 +378,8 @@ msgstr ""
 
 #: assets/js/admin-list.js:186
 #: assets/js/admin-list.js:241
-#: assets/js/editor.js:2616
-#: assets/js/editor.js:2649
+#: assets/js/editor.js:2664
+#: assets/js/editor.js:2697
 msgid "Carousel"
 msgstr ""
 
@@ -386,8 +392,8 @@ msgid "Preview on the site"
 msgstr ""
 
 #: assets/js/admin-list.js:191
-#: assets/js/editor.js:671
-#: assets/js/editor.js:1233
+#: assets/js/editor.js:696
+#: assets/js/editor.js:1281
 msgid "Duplicate"
 msgstr ""
 
@@ -397,9 +403,9 @@ msgstr ""
 
 #: assets/js/admin-list.js:193
 #: assets/js/admin-list.js:332
-#: assets/js/editor.js:674
-#: assets/js/editor.js:1244
-#: assets/js/editor.js:1800
+#: assets/js/editor.js:699
+#: assets/js/editor.js:1292
+#: assets/js/editor.js:1848
 msgid "Delete"
 msgstr ""
 
@@ -449,7 +455,7 @@ msgid "Height of each card"
 msgstr ""
 
 #: assets/js/admin-list.js:260
-#: assets/js/editor.js:2626
+#: assets/js/editor.js:2674
 msgid "Fullscreen"
 msgstr ""
 
@@ -476,25 +482,25 @@ msgid "Real px sizes on every screen: on small ones, whatever goes beyond the sl
 msgstr ""
 
 #: assets/js/admin-list.js:281
-#: assets/js/editor.js:2629
+#: assets/js/editor.js:2677
 msgid "Responsive"
 msgstr ""
 
 #: assets/js/admin-list.js:285
-#: assets/js/editor.js:2165
+#: assets/js/editor.js:2213
 msgid "Name"
 msgstr ""
 
 #: assets/js/admin-list.js:286
-#: assets/js/editor.js:2191
-#: assets/js/editor.js:2219
-#: assets/js/editor.js:2616
+#: assets/js/editor.js:2239
+#: assets/js/editor.js:2267
+#: assets/js/editor.js:2664
 msgid "Type"
 msgstr ""
 
 #: assets/js/admin-list.js:287
-#: assets/js/editor.js:2589
-#: assets/js/editor.js:2626
+#: assets/js/editor.js:2637
+#: assets/js/editor.js:2674
 msgid "Height"
 msgstr ""
 
@@ -548,7 +554,7 @@ msgid "Web font loading"
 msgstr ""
 
 #: assets/js/admin-list.js:355
-#: assets/js/editor.js:502
+#: assets/js/editor.js:527
 msgid "Save"
 msgstr ""
 
@@ -601,2457 +607,2636 @@ msgstr ""
 msgid "Mobile"
 msgstr ""
 
-#: assets/js/editor.js:19
-msgid "None (appears)"
-msgstr ""
-
-#: assets/js/editor.js:19
-#: assets/js/editor.js:25
-#: assets/js/editor.js:52
-#: assets/js/editor.js:2173
-msgid "Fade"
-msgstr ""
-
-#: assets/js/editor.js:19
-msgid "From below"
-msgstr ""
-
-#: assets/js/editor.js:19
-msgid "From above"
-msgstr ""
-
-#: assets/js/editor.js:20
-msgid "From the left"
-msgstr ""
-
-#: assets/js/editor.js:20
-msgid "From the right"
-msgstr ""
-
-#: assets/js/editor.js:20
-#: assets/js/editor.js:53
-msgid "Zoom in"
-msgstr ""
-
-#: assets/js/editor.js:20
-#: assets/js/editor.js:53
-msgid "Zoom out"
-msgstr ""
-
-#: assets/js/editor.js:21
-#: assets/js/editor.js:27
-#: assets/js/editor.js:2509
-msgid "Rotation"
-msgstr ""
-
-#: assets/js/editor.js:21
-#: assets/js/editor.js:27
-#: assets/js/editor.js:52
-#: assets/js/editor.js:2129
-#: assets/js/editor.js:2513
-msgid "Blur"
-msgstr ""
-
-#: assets/js/editor.js:21
-msgid "Mask from below"
-msgstr ""
-
-#: assets/js/editor.js:21
-msgid "Mask from the left"
-msgstr ""
-
-#: assets/js/editor.js:22
 #: assets/js/editor.js:28
-msgid "Flip"
+msgid "Glass circle"
 msgstr ""
 
-#: assets/js/editor.js:22
-msgid "Reveal from below"
+#: assets/js/editor.js:29
+msgid "Double arrow"
 msgstr ""
 
-#: assets/js/editor.js:22
-#: assets/js/editor.js:28
-msgid "Skewed"
-msgstr ""
-
-#: assets/js/editor.js:22
-msgid "Drop from above"
-msgstr ""
-
-#: assets/js/editor.js:25
-msgid "None (stays visible)"
-msgstr ""
-
-#: assets/js/editor.js:25
-msgid "Downwards"
-msgstr ""
-
-#: assets/js/editor.js:25
-#: assets/js/editor.js:28
-msgid "Upwards"
-msgstr ""
-
-#: assets/js/editor.js:26
-msgid "To the left"
-msgstr ""
-
-#: assets/js/editor.js:26
-msgid "To the right"
-msgstr ""
-
-#: assets/js/editor.js:26
-msgid "Shrink"
-msgstr ""
-
-#: assets/js/editor.js:26
-msgid "Grow"
-msgstr ""
-
-#: assets/js/editor.js:27
-msgid "Mask downwards"
-msgstr ""
-
-#: assets/js/editor.js:27
-msgid "Mask to the left"
-msgstr ""
-
-#: assets/js/editor.js:28
-msgid "Sink downwards"
+#: assets/js/editor.js:30
+msgid "Solid colour"
 msgstr ""
 
 #: assets/js/editor.js:31
-#: assets/js/editor.js:36
-msgid "Bounce"
-msgstr ""
-
-#: assets/js/editor.js:31
-msgid "Elastic from below"
-msgstr ""
-
-#: assets/js/editor.js:31
-#: assets/js/editor.js:36
-msgid "Light speed"
-msgstr ""
-
-#: assets/js/editor.js:31
-#: assets/js/editor.js:36
-msgid "Roll"
+msgid "White circle"
 msgstr ""
 
 #: assets/js/editor.js:32
-#: assets/js/editor.js:37
-msgid "3D swing"
+#: assets/js/editor.js:2760
+msgid "Mouse"
 msgstr ""
 
 #: assets/js/editor.js:32
-#: assets/js/editor.js:37
-#: assets/js/editor.js:52
-msgid "Blurred zoom"
-msgstr ""
-
-#: assets/js/editor.js:32
-msgid "Stretch horizontally"
-msgstr ""
-
-#: assets/js/editor.js:32
-msgid "Stretch vertically"
-msgstr ""
-
-#: assets/js/editor.js:33
 #: assets/js/editor.js:38
-msgid "3D rotation"
+msgid "Scroll"
 msgstr ""
 
 #: assets/js/editor.js:33
-msgid "Typewriter"
+#: assets/js/editor.js:2760
+msgid "Long arrow"
 msgstr ""
 
 #: assets/js/editor.js:33
-msgid "Hand drawing"
+msgid "Discover"
 msgstr ""
 
-#: assets/js/editor.js:33
-#: assets/js/editor.js:38
-msgid "Custom…"
+#: assets/js/editor.js:34
+msgid "Rounded square"
+msgstr ""
+
+#: assets/js/editor.js:35
+msgid "Outline only"
 msgstr ""
 
 #: assets/js/editor.js:36
-msgid "Elastic downwards"
+msgid "Small triangle"
 msgstr ""
 
 #: assets/js/editor.js:37
-msgid "Squeeze horizontally"
-msgstr ""
-
-#: assets/js/editor.js:37
-msgid "Squeeze vertically"
+#: assets/js/editor.js:2764
+#: assets/js/editor.js:2765
+msgid "Your image"
 msgstr ""
 
 #: assets/js/editor.js:38
-msgid "Erase the stroke"
+#: assets/js/editor.js:93
+msgid "Bottom left"
 msgstr ""
 
-#: assets/js/editor.js:42
-msgid "Basic"
-msgstr ""
-
-#: assets/js/editor.js:43
-msgid "Zoom and rotation"
+#: assets/js/editor.js:39
+msgid "Sharp square"
 msgstr ""
 
 #: assets/js/editor.js:44
-msgid "Masks and reveals"
+msgid "None (appears)"
+msgstr ""
+
+#: assets/js/editor.js:44
+#: assets/js/editor.js:50
+#: assets/js/editor.js:77
+#: assets/js/editor.js:2221
+msgid "Fade"
+msgstr ""
+
+#: assets/js/editor.js:44
+msgid "From below"
+msgstr ""
+
+#: assets/js/editor.js:44
+msgid "From above"
 msgstr ""
 
 #: assets/js/editor.js:45
-#: assets/js/editor.js:56
-#: assets/js/editor.js:2654
-msgid "3D"
+msgid "From the left"
+msgstr ""
+
+#: assets/js/editor.js:45
+msgid "From the right"
+msgstr ""
+
+#: assets/js/editor.js:45
+#: assets/js/editor.js:78
+msgid "Zoom in"
+msgstr ""
+
+#: assets/js/editor.js:45
+#: assets/js/editor.js:78
+msgid "Zoom out"
 msgstr ""
 
 #: assets/js/editor.js:46
-msgid "Dynamic"
+#: assets/js/editor.js:52
+#: assets/js/editor.js:2557
+msgid "Rotation"
 msgstr ""
 
-#: assets/js/editor.js:49
-msgid "Advanced"
+#: assets/js/editor.js:46
+#: assets/js/editor.js:52
+#: assets/js/editor.js:77
+#: assets/js/editor.js:2177
+#: assets/js/editor.js:2561
+msgid "Blur"
+msgstr ""
+
+#: assets/js/editor.js:46
+msgid "Mask from below"
+msgstr ""
+
+#: assets/js/editor.js:46
+msgid "Mask from the left"
+msgstr ""
+
+#: assets/js/editor.js:47
+#: assets/js/editor.js:53
+msgid "Flip"
+msgstr ""
+
+#: assets/js/editor.js:47
+msgid "Reveal from below"
+msgstr ""
+
+#: assets/js/editor.js:47
+#: assets/js/editor.js:53
+msgid "Skewed"
+msgstr ""
+
+#: assets/js/editor.js:47
+msgid "Drop from above"
+msgstr ""
+
+#: assets/js/editor.js:50
+msgid "None (stays visible)"
+msgstr ""
+
+#: assets/js/editor.js:50
+msgid "Downwards"
+msgstr ""
+
+#: assets/js/editor.js:50
+#: assets/js/editor.js:53
+msgid "Upwards"
+msgstr ""
+
+#: assets/js/editor.js:51
+msgid "To the left"
+msgstr ""
+
+#: assets/js/editor.js:51
+msgid "To the right"
+msgstr ""
+
+#: assets/js/editor.js:51
+msgid "Shrink"
+msgstr ""
+
+#: assets/js/editor.js:51
+msgid "Grow"
 msgstr ""
 
 #: assets/js/editor.js:52
-msgid "Fades"
+msgid "Mask downwards"
 msgstr ""
 
 #: assets/js/editor.js:52
-msgid "Fade through background"
+msgid "Mask to the left"
 msgstr ""
 
 #: assets/js/editor.js:53
-#: assets/js/editor.js:488
+msgid "Sink downwards"
+msgstr ""
+
+#: assets/js/editor.js:56
+#: assets/js/editor.js:61
+msgid "Bounce"
+msgstr ""
+
+#: assets/js/editor.js:56
+msgid "Elastic from below"
+msgstr ""
+
+#: assets/js/editor.js:56
+#: assets/js/editor.js:61
+msgid "Light speed"
+msgstr ""
+
+#: assets/js/editor.js:56
+#: assets/js/editor.js:61
+msgid "Roll"
+msgstr ""
+
+#: assets/js/editor.js:57
+#: assets/js/editor.js:62
+msgid "3D swing"
+msgstr ""
+
+#: assets/js/editor.js:57
+#: assets/js/editor.js:62
+#: assets/js/editor.js:77
+msgid "Blurred zoom"
+msgstr ""
+
+#: assets/js/editor.js:57
+msgid "Stretch horizontally"
+msgstr ""
+
+#: assets/js/editor.js:57
+msgid "Stretch vertically"
+msgstr ""
+
+#: assets/js/editor.js:58
+#: assets/js/editor.js:63
+msgid "3D rotation"
+msgstr ""
+
+#: assets/js/editor.js:58
+msgid "Typewriter"
+msgstr ""
+
+#: assets/js/editor.js:58
+msgid "Hand drawing"
+msgstr ""
+
+#: assets/js/editor.js:58
+#: assets/js/editor.js:63
+msgid "Custom…"
+msgstr ""
+
+#: assets/js/editor.js:61
+msgid "Elastic downwards"
+msgstr ""
+
+#: assets/js/editor.js:62
+msgid "Squeeze horizontally"
+msgstr ""
+
+#: assets/js/editor.js:62
+msgid "Squeeze vertically"
+msgstr ""
+
+#: assets/js/editor.js:63
+msgid "Erase the stroke"
+msgstr ""
+
+#: assets/js/editor.js:67
+msgid "Basic"
+msgstr ""
+
+#: assets/js/editor.js:68
+msgid "Zoom and rotation"
+msgstr ""
+
+#: assets/js/editor.js:69
+msgid "Masks and reveals"
+msgstr ""
+
+#: assets/js/editor.js:70
+#: assets/js/editor.js:81
+#: assets/js/editor.js:2702
+msgid "3D"
+msgstr ""
+
+#: assets/js/editor.js:71
+msgid "Dynamic"
+msgstr ""
+
+#: assets/js/editor.js:74
+msgid "Advanced"
+msgstr ""
+
+#: assets/js/editor.js:77
+msgid "Fades"
+msgstr ""
+
+#: assets/js/editor.js:77
+msgid "Fade through background"
+msgstr ""
+
+#: assets/js/editor.js:78
+#: assets/js/editor.js:513
 msgid "Zoom"
 msgstr ""
 
-#: assets/js/editor.js:54
+#: assets/js/editor.js:79
 msgctxt "transition"
 msgid "Slide"
 msgstr ""
 
-#: assets/js/editor.js:54
+#: assets/js/editor.js:79
 msgid "Horizontal slide"
 msgstr ""
 
-#: assets/js/editor.js:54
+#: assets/js/editor.js:79
 msgid "Vertical slide"
 msgstr ""
 
-#: assets/js/editor.js:54
+#: assets/js/editor.js:79
 msgid "Cover"
 msgstr ""
 
-#: assets/js/editor.js:54
+#: assets/js/editor.js:79
 msgid "Uncover"
 msgstr ""
 
-#: assets/js/editor.js:54
+#: assets/js/editor.js:79
 msgid "Parallax slide"
 msgstr ""
 
-#: assets/js/editor.js:55
+#: assets/js/editor.js:80
 msgid "Wipes and shapes"
 msgstr ""
 
-#: assets/js/editor.js:55
+#: assets/js/editor.js:80
 msgid "Horizontal wipe"
 msgstr ""
 
-#: assets/js/editor.js:55
+#: assets/js/editor.js:80
 msgid "Vertical wipe"
 msgstr ""
 
-#: assets/js/editor.js:55
+#: assets/js/editor.js:80
 msgid "Curtain (from the centre)"
 msgstr ""
 
-#: assets/js/editor.js:55
+#: assets/js/editor.js:80
 msgid "Horizontal curtain"
 msgstr ""
 
-#: assets/js/editor.js:55
-#: assets/js/editor.js:1793
+#: assets/js/editor.js:80
+#: assets/js/editor.js:1841
+#: assets/js/editor.js:2770
 msgid "Circle"
 msgstr ""
 
-#: assets/js/editor.js:55
+#: assets/js/editor.js:80
 msgid "Diamond"
 msgstr ""
 
-#: assets/js/editor.js:56
+#: assets/js/editor.js:81
 msgid "3D cube"
 msgstr ""
 
-#: assets/js/editor.js:56
+#: assets/js/editor.js:81
 msgid "Horizontal flip"
 msgstr ""
 
-#: assets/js/editor.js:56
+#: assets/js/editor.js:81
 msgid "Vertical flip"
 msgstr ""
 
-#: assets/js/editor.js:57
+#: assets/js/editor.js:82
 msgid "In pieces"
 msgstr ""
 
-#: assets/js/editor.js:57
+#: assets/js/editor.js:82
 msgid "Vertical strips"
 msgstr ""
 
-#: assets/js/editor.js:57
+#: assets/js/editor.js:82
 msgid "Horizontal strips"
 msgstr ""
 
-#: assets/js/editor.js:57
+#: assets/js/editor.js:82
 msgid "Blinds"
 msgstr ""
 
-#: assets/js/editor.js:57
+#: assets/js/editor.js:82
 msgid "Mosaic"
 msgstr ""
 
-#: assets/js/editor.js:58
+#: assets/js/editor.js:83
 msgid "Other"
 msgstr ""
 
-#: assets/js/editor.js:58
+#: assets/js/editor.js:83
 msgid "Random (different every time)"
 msgstr ""
 
-#: assets/js/editor.js:62
+#: assets/js/editor.js:87
 msgid "Smooth landing"
 msgstr ""
 
-#: assets/js/editor.js:62
+#: assets/js/editor.js:87
 msgctxt "easing"
 msgid "Smooth"
 msgstr ""
 
-#: assets/js/editor.js:62
+#: assets/js/editor.js:87
 msgid "Accelerating"
 msgstr ""
 
-#: assets/js/editor.js:62
+#: assets/js/editor.js:87
 msgid "Exponential"
 msgstr ""
 
-#: assets/js/editor.js:63
+#: assets/js/editor.js:88
 msgid "Slight bounce"
 msgstr ""
 
-#: assets/js/editor.js:63
-#: assets/js/editor.js:1786
+#: assets/js/editor.js:88
+#: assets/js/editor.js:1834
 msgid "Linear"
 msgstr ""
 
-#: assets/js/editor.js:63
+#: assets/js/editor.js:88
 msgid "Standard"
 msgstr ""
 
-#: assets/js/editor.js:66
+#: assets/js/editor.js:91
 msgid "Top left"
 msgstr ""
 
-#: assets/js/editor.js:66
+#: assets/js/editor.js:91
 msgid "Top centre"
 msgstr ""
 
-#: assets/js/editor.js:66
+#: assets/js/editor.js:91
 msgid "Top right"
 msgstr ""
 
-#: assets/js/editor.js:67
+#: assets/js/editor.js:92
 msgid "Centre left"
 msgstr ""
 
-#: assets/js/editor.js:67
-#: assets/js/editor.js:2582
-#: assets/js/editor.js:2583
-#: assets/js/editor.js:2592
+#: assets/js/editor.js:92
+#: assets/js/editor.js:2630
+#: assets/js/editor.js:2631
+#: assets/js/editor.js:2640
+#: assets/js/editor.js:2778
 msgid "Centre"
 msgstr ""
 
-#: assets/js/editor.js:67
+#: assets/js/editor.js:92
 msgid "Centre right"
 msgstr ""
 
-#: assets/js/editor.js:68
-msgid "Bottom left"
-msgstr ""
-
-#: assets/js/editor.js:68
+#: assets/js/editor.js:93
 msgid "Bottom centre"
 msgstr ""
 
-#: assets/js/editor.js:68
+#: assets/js/editor.js:93
 msgid "Bottom right"
 msgstr ""
 
-#: assets/js/editor.js:203
+#: assets/js/editor.js:228
 msgid "Your headline here"
 msgstr ""
 
-#: assets/js/editor.js:208
+#: assets/js/editor.js:233
 msgid "Learn more"
 msgstr ""
 
-#: assets/js/editor.js:238
-#: assets/js/editor.js:245
+#: assets/js/editor.js:263
+#: assets/js/editor.js:270
 msgid "copy"
 msgstr ""
 
-#: assets/js/editor.js:260
+#: assets/js/editor.js:285
 msgctxt "glass style"
 msgid "Subtle"
 msgstr ""
 
-#: assets/js/editor.js:261
+#: assets/js/editor.js:286
 msgctxt "glass style"
 msgid "Light"
 msgstr ""
 
-#: assets/js/editor.js:262
+#: assets/js/editor.js:287
 msgctxt "glass style"
 msgid "Dark"
 msgstr ""
 
-#: assets/js/editor.js:263
+#: assets/js/editor.js:288
 msgctxt "glass style"
 msgid "Frost"
 msgstr ""
 
-#: assets/js/editor.js:264
+#: assets/js/editor.js:289
 msgctxt "glass style"
 msgid "Liquid"
 msgstr ""
 
-#: assets/js/editor.js:476
+#: assets/js/editor.js:501
 msgid "Slider name"
 msgstr ""
 
-#: assets/js/editor.js:479
+#: assets/js/editor.js:504
 msgid "Device"
 msgstr ""
 
-#: assets/js/editor.js:485
+#: assets/js/editor.js:510
 msgid "Undo (Ctrl+Z)"
 msgstr ""
 
-#: assets/js/editor.js:486
+#: assets/js/editor.js:511
 msgid "Redo (Ctrl+Shift+Z)"
 msgstr ""
 
-#: assets/js/editor.js:490
+#: assets/js/editor.js:515
 msgid "Fit"
 msgstr ""
 
-#: assets/js/editor.js:492
+#: assets/js/editor.js:517
 msgid "Save and open the preview on the site"
 msgstr ""
 
-#: assets/js/editor.js:492
+#: assets/js/editor.js:517
 msgid "Preview"
 msgstr ""
 
-#: assets/js/editor.js:499
+#: assets/js/editor.js:524
 msgid "Copy shortcode"
 msgstr ""
 
-#: assets/js/editor.js:500
+#: assets/js/editor.js:525
 msgid "Shortcode copied"
 msgstr ""
 
-#: assets/js/editor.js:505
-#: assets/js/editor.js:2790
+#: assets/js/editor.js:530
+#: assets/js/editor.js:2888
 msgid "Back to the list"
 msgstr ""
 
-#: assets/js/editor.js:537
+#: assets/js/editor.js:562
 msgid "Stop"
 msgstr ""
 
-#: assets/js/editor.js:537
+#: assets/js/editor.js:562
 msgid "Play"
 msgstr ""
 
-#: assets/js/editor.js:539
+#: assets/js/editor.js:564
 msgid "Save •"
 msgstr ""
 
-#: assets/js/editor.js:539
+#: assets/js/editor.js:564
 msgid "Saved"
 msgstr ""
 
-#: assets/js/editor.js:553
+#: assets/js/editor.js:578
 msgid "Drag to reorder"
 msgstr ""
 
-#: assets/js/editor.js:577
+#: assets/js/editor.js:602
 msgid "Duplicate slide"
 msgstr ""
 
-#: assets/js/editor.js:578
+#: assets/js/editor.js:603
 msgid "Show slide"
 msgstr ""
 
-#: assets/js/editor.js:578
+#: assets/js/editor.js:603
 msgid "Hide slide"
 msgstr ""
 
-#: assets/js/editor.js:580
+#: assets/js/editor.js:605
 msgid "Delete slide"
 msgstr ""
 
-#: assets/js/editor.js:582
+#: assets/js/editor.js:607
 #, js-format
 msgid "Delete the slide \"%s\"?"
 msgstr ""
 
-#: assets/js/editor.js:637
+#: assets/js/editor.js:662
 msgid "Add layer"
 msgstr ""
 
-#: assets/js/editor.js:641
+#: assets/js/editor.js:666
 msgid "Layers"
 msgstr ""
 
-#: assets/js/editor.js:641
+#: assets/js/editor.js:666
 msgid "top = in front"
 msgstr ""
 
-#: assets/js/editor.js:648
+#: assets/js/editor.js:673
 msgid "No layers yet. Add a text, a button, an image or a shape."
 msgstr ""
 
-#: assets/js/editor.js:672
+#: assets/js/editor.js:697
 msgid "Show"
 msgstr ""
 
-#: assets/js/editor.js:672
-#: assets/js/editor.js:1243
+#: assets/js/editor.js:697
+#: assets/js/editor.js:1291
 msgid "Hide"
 msgstr ""
 
-#: assets/js/editor.js:673
-#: assets/js/editor.js:1242
+#: assets/js/editor.js:698
+#: assets/js/editor.js:1290
 msgid "Unlock"
 msgstr ""
 
-#: assets/js/editor.js:673
-#: assets/js/editor.js:1242
+#: assets/js/editor.js:698
+#: assets/js/editor.js:1290
 msgid "Lock"
 msgstr ""
 
-#: assets/js/editor.js:679
+#: assets/js/editor.js:704
 msgid "Shortcuts"
 msgstr ""
 
-#: assets/js/editor.js:680
+#: assets/js/editor.js:705
 msgid "Double click: edit text"
 msgstr ""
 
-#: assets/js/editor.js:682
+#: assets/js/editor.js:707
 msgid "Ctrl+C / Ctrl+V: copy/paste layer"
 msgstr ""
 
-#: assets/js/editor.js:683
+#: assets/js/editor.js:708
 msgid "Ctrl+D: duplicate · Del: delete"
 msgstr ""
 
-#: assets/js/editor.js:684
+#: assets/js/editor.js:709
 msgid "Shift while dragging: no snapping"
 msgstr ""
 
-#: assets/js/editor.js:685
+#: assets/js/editor.js:710
 msgid "Right click: quick menu"
 msgstr ""
 
-#: assets/js/editor.js:739
+#: assets/js/editor.js:764
 msgid "Add the images"
 msgstr ""
 
-#: assets/js/editor.js:778
+#: assets/js/editor.js:803
 msgid "What to draw"
 msgstr ""
 
-#: assets/js/editor.js:780
+#: assets/js/editor.js:805
 msgid "Signature"
 msgstr ""
 
-#: assets/js/editor.js:792
+#: assets/js/editor.js:817
 msgid "Text to draw"
 msgstr ""
 
-#: assets/js/editor.js:793
+#: assets/js/editor.js:818
 msgid "Font and fill colour are chosen in the Style tab. Handwriting fonts (e.g. \"Dancing Script\", \"Caveat\") give the signature effect."
 msgstr ""
 
-#: assets/js/editor.js:795
+#: assets/js/editor.js:820
 msgid "Stroke"
 msgstr ""
 
-#: assets/js/editor.js:796
-#: assets/js/editor.js:870
-#: assets/js/editor.js:1981
-#: assets/js/editor.js:2104
-#: assets/js/editor.js:2205
-#: assets/js/editor.js:2219
-#: assets/js/editor.js:2383
-#: assets/js/editor.js:2398
+#: assets/js/editor.js:821
+#: assets/js/editor.js:895
+#: assets/js/editor.js:2029
+#: assets/js/editor.js:2152
+#: assets/js/editor.js:2253
+#: assets/js/editor.js:2267
+#: assets/js/editor.js:2431
+#: assets/js/editor.js:2446
 msgid "Colour"
 msgstr ""
 
-#: assets/js/editor.js:797
-#: assets/js/editor.js:2382
-#: assets/js/editor.js:2396
+#: assets/js/editor.js:822
+#: assets/js/editor.js:2430
+#: assets/js/editor.js:2444
 msgid "Thickness"
 msgstr ""
 
-#: assets/js/editor.js:798
+#: assets/js/editor.js:823
 msgid "Chalk effect"
 msgstr ""
 
-#: assets/js/editor.js:798
+#: assets/js/editor.js:823
 msgid "Rough edges, like a chalk or marker stroke."
 msgstr ""
 
-#: assets/js/editor.js:799
+#: assets/js/editor.js:824
 msgid "Fill the text after the stroke"
 msgstr ""
 
-#: assets/js/editor.js:800
+#: assets/js/editor.js:825
 msgid "Stroke speed and delay: Animation tab, \"Hand drawing\" effect."
 msgstr ""
 
-#: assets/js/editor.js:805
+#: assets/js/editor.js:830
 msgid "Choose the filmstrip images"
 msgstr ""
 
-#: assets/js/editor.js:805
+#: assets/js/editor.js:830
 msgid "Add to the filmstrip"
 msgstr ""
 
-#: assets/js/editor.js:813
+#: assets/js/editor.js:838
 msgid "Move left"
 msgstr ""
 
-#: assets/js/editor.js:814
-#: assets/js/editor.js:2017
+#: assets/js/editor.js:839
+#: assets/js/editor.js:2065
 msgid "Remove"
 msgstr ""
 
-#: assets/js/editor.js:820
+#: assets/js/editor.js:845
 msgid "Add images"
 msgstr ""
 
-#: assets/js/editor.js:821
-#: assets/js/editor.js:883
-#: assets/js/editor.js:2209
+#: assets/js/editor.js:846
+#: assets/js/editor.js:908
+#: assets/js/editor.js:2257
 msgid "Speed"
 msgstr ""
 
-#: assets/js/editor.js:821
+#: assets/js/editor.js:846
 msgid "Pixels per second."
 msgstr ""
 
-#: assets/js/editor.js:822
-#: assets/js/editor.js:2110
+#: assets/js/editor.js:847
+#: assets/js/editor.js:2158
 msgid "Direction"
 msgstr ""
 
-#: assets/js/editor.js:822
+#: assets/js/editor.js:847
 msgid "← To the left"
 msgstr ""
 
-#: assets/js/editor.js:822
+#: assets/js/editor.js:847
 msgid "To the right →"
 msgstr ""
 
-#: assets/js/editor.js:823
+#: assets/js/editor.js:848
 msgid "Space between images"
 msgstr ""
 
-#: assets/js/editor.js:824
+#: assets/js/editor.js:849
 msgid "Film perforations"
 msgstr ""
 
-#: assets/js/editor.js:825
+#: assets/js/editor.js:850
 msgid "Black and white (colour on hover)"
 msgstr ""
 
-#: assets/js/editor.js:826
-#: assets/js/editor.js:2674
+#: assets/js/editor.js:851
+#: assets/js/editor.js:2722
 msgid "Pause on hover"
 msgstr ""
 
-#: assets/js/editor.js:827
+#: assets/js/editor.js:852
 msgid "Height and width in the Position tab (\"Full width\" mode recommended)."
 msgstr ""
 
-#: assets/js/editor.js:853
+#: assets/js/editor.js:878
 msgid "Coloured ink that moves and mixes following the mouse. With \"Automatic splashes\" it also animates on its own."
 msgstr ""
 
-#: assets/js/editor.js:854
+#: assets/js/editor.js:879
 msgid "Light beams that start from a point and sway slowly. They blend with the slide in \"screen\" mode."
 msgstr ""
 
-#: assets/js/editor.js:855
+#: assets/js/editor.js:880
 msgid "Thousands of particles form the words one after another; the mouse scatters them."
 msgstr ""
 
-#: assets/js/editor.js:856
+#: assets/js/editor.js:881
 msgid "The background image ripples like a liquid on hover. It uses the slide background image, or one chosen here."
 msgstr ""
 
-#: assets/js/editor.js:857
+#: assets/js/editor.js:882
 msgid "360° spherical photo (2:1 equirectangular format) that turns when dragged. It rotates on its own when nobody touches it."
 msgstr ""
 
-#: assets/js/editor.js:861
-#: assets/js/editor.js:2468
+#: assets/js/editor.js:886
+#: assets/js/editor.js:2516
 msgid "Words"
 msgstr ""
 
-#: assets/js/editor.js:861
+#: assets/js/editor.js:886
 msgid "Separate them with | (e.g. HELLO|WELCOME|♥). Symbols like ★ ● ♥ work too."
 msgstr ""
 
-#: assets/js/editor.js:862
+#: assets/js/editor.js:887
 msgid "Change every"
 msgstr ""
 
-#: assets/js/editor.js:863
-#: assets/js/editor.js:2372
+#: assets/js/editor.js:888
+#: assets/js/editor.js:2420
 msgid "Font"
 msgstr ""
 
-#: assets/js/editor.js:863
+#: assets/js/editor.js:888
 msgid "A system font or one already loaded on the page."
 msgstr ""
 
-#: assets/js/editor.js:864
-#: assets/js/editor.js:2207
+#: assets/js/editor.js:889
+#: assets/js/editor.js:2255
 msgid "Amount"
 msgstr ""
 
-#: assets/js/editor.js:864
+#: assets/js/editor.js:889
 msgid "× 20 particles."
 msgstr ""
 
-#: assets/js/editor.js:867
+#: assets/js/editor.js:892
 msgid "360° image"
 msgstr ""
 
-#: assets/js/editor.js:867
+#: assets/js/editor.js:892
 msgid "Image (optional)"
 msgstr ""
 
-#: assets/js/editor.js:871
+#: assets/js/editor.js:896
 msgid "Light colour."
 msgstr ""
 
-#: assets/js/editor.js:871
+#: assets/js/editor.js:896
 msgid "Several colours separated by commas; empty = rainbow."
 msgstr ""
 
-#: assets/js/editor.js:874
+#: assets/js/editor.js:899
 msgid "Horizontal source"
 msgstr ""
 
-#: assets/js/editor.js:874
+#: assets/js/editor.js:899
 msgid "%: 0 = left, 100 = right."
 msgstr ""
 
-#: assets/js/editor.js:875
+#: assets/js/editor.js:900
 msgid "Vertical source"
 msgstr ""
 
-#: assets/js/editor.js:875
+#: assets/js/editor.js:900
 msgid "%: 0 = top, 100 = bottom."
 msgstr ""
 
-#: assets/js/editor.js:878
+#: assets/js/editor.js:903
 msgid "Starting direction"
 msgstr ""
 
-#: assets/js/editor.js:880
+#: assets/js/editor.js:905
 msgid "Splash and swirl size"
 msgstr ""
 
-#: assets/js/editor.js:880
+#: assets/js/editor.js:905
 msgid "Number of rays"
 msgstr ""
 
-#: assets/js/editor.js:880
+#: assets/js/editor.js:905
 msgid "Particle size"
 msgstr ""
 
-#: assets/js/editor.js:880
+#: assets/js/editor.js:905
 msgid "Distortion radius"
 msgstr ""
 
-#: assets/js/editor.js:880
+#: assets/js/editor.js:905
 msgid "Zoom (field of view)"
 msgstr ""
 
-#: assets/js/editor.js:883
+#: assets/js/editor.js:908
 msgid "Ink duration"
 msgstr ""
 
-#: assets/js/editor.js:883
+#: assets/js/editor.js:908
 msgid "Reassembly speed"
 msgstr ""
 
-#: assets/js/editor.js:883
+#: assets/js/editor.js:908
 msgid "Rotation speed"
 msgstr ""
 
-#: assets/js/editor.js:886
+#: assets/js/editor.js:911
 msgid "Strength"
 msgstr ""
 
-#: assets/js/editor.js:886
-#: assets/js/editor.js:2131
+#: assets/js/editor.js:911
+#: assets/js/editor.js:2179
 msgid "Brightness"
 msgstr ""
 
-#: assets/js/editor.js:886
+#: assets/js/editor.js:911
 msgid "Intensity"
 msgstr ""
 
-#: assets/js/editor.js:889
-#: assets/js/editor.js:1802
-#: assets/js/editor.js:2105
-#: assets/js/editor.js:2210
-#: assets/js/editor.js:2384
-#: assets/js/editor.js:2399
-#: assets/js/editor.js:2400
-#: assets/js/editor.js:2514
+#: assets/js/editor.js:914
+#: assets/js/editor.js:1850
+#: assets/js/editor.js:2153
+#: assets/js/editor.js:2258
+#: assets/js/editor.js:2432
+#: assets/js/editor.js:2447
+#: assets/js/editor.js:2448
+#: assets/js/editor.js:2562
 msgid "Opacity"
 msgstr ""
 
-#: assets/js/editor.js:892
+#: assets/js/editor.js:917
 msgid "Automatic splashes"
 msgstr ""
 
-#: assets/js/editor.js:892
+#: assets/js/editor.js:917
 msgid "Automatic rotation"
 msgstr ""
 
-#: assets/js/editor.js:895
+#: assets/js/editor.js:920
 msgid "Reacts to the mouse"
 msgstr ""
 
-#: assets/js/editor.js:898
-#: assets/js/editor.js:2213
+#: assets/js/editor.js:923
+#: assets/js/editor.js:2261
 msgid "In front of the layers"
 msgstr ""
 
-#: assets/js/editor.js:900
+#: assets/js/editor.js:925
 msgid "WebGL effect: if the device does not support it, the normal slide background stays visible."
 msgstr ""
 
-#: assets/js/editor.js:1226
-#: assets/js/editor.js:2310
-#: assets/js/editor.js:2331
+#: assets/js/editor.js:1274
+#: assets/js/editor.js:2358
+#: assets/js/editor.js:2379
 msgid "Content"
 msgstr ""
 
-#: assets/js/editor.js:1227
-#: assets/js/editor.js:2310
-#: assets/js/editor.js:2397
-#: assets/js/editor.js:2654
+#: assets/js/editor.js:1275
+#: assets/js/editor.js:2358
+#: assets/js/editor.js:2445
+#: assets/js/editor.js:2702
 msgid "Style"
 msgstr ""
 
-#: assets/js/editor.js:1228
-#: assets/js/editor.js:2310
+#: assets/js/editor.js:1276
+#: assets/js/editor.js:2358
+#: assets/js/editor.js:2777
 msgid "Animation"
 msgstr ""
 
-#: assets/js/editor.js:1229
+#: assets/js/editor.js:1277
 msgid "Position and size"
 msgstr ""
 
-#: assets/js/editor.js:1230
+#: assets/js/editor.js:1278
 msgid "Edit the text on the canvas"
 msgstr ""
 
-#: assets/js/editor.js:1231
-#: assets/js/editor.js:2354
+#: assets/js/editor.js:1279
+#: assets/js/editor.js:2402
 msgid "Link"
 msgstr ""
 
-#: assets/js/editor.js:1234
+#: assets/js/editor.js:1282
 msgid "Copy"
 msgstr ""
 
-#: assets/js/editor.js:1234
-#: assets/js/editor.js:2749
+#: assets/js/editor.js:1282
+#: assets/js/editor.js:2847
 msgid "Layer copied"
 msgstr ""
 
-#: assets/js/editor.js:1235
+#: assets/js/editor.js:1283
 msgid "Paste"
 msgstr ""
 
-#: assets/js/editor.js:1237
+#: assets/js/editor.js:1285
 msgid "Bring to front"
 msgstr ""
 
-#: assets/js/editor.js:1238
+#: assets/js/editor.js:1286
 msgid "Bring forward"
 msgstr ""
 
-#: assets/js/editor.js:1239
+#: assets/js/editor.js:1287
 msgid "Send backward"
 msgstr ""
 
-#: assets/js/editor.js:1240
+#: assets/js/editor.js:1288
 msgid "Send to back"
 msgstr ""
 
-#: assets/js/editor.js:1244
+#: assets/js/editor.js:1292
 msgid "Del"
 msgstr ""
 
-#: assets/js/editor.js:1250
+#: assets/js/editor.js:1298
 #, js-format
 msgid "Slide: %s"
 msgstr ""
 
-#: assets/js/editor.js:1251
+#: assets/js/editor.js:1299
 msgid "Slide background"
 msgstr ""
 
-#: assets/js/editor.js:1251
-#: assets/js/editor.js:2218
-#: assets/js/editor.js:2391
-#: assets/js/editor.js:2410
+#: assets/js/editor.js:1299
+#: assets/js/editor.js:2266
+#: assets/js/editor.js:2439
+#: assets/js/editor.js:2458
+#: assets/js/editor.js:2773
 msgid "Background"
 msgstr ""
 
-#: assets/js/editor.js:1252
-#: assets/js/editor.js:2174
+#: assets/js/editor.js:1300
+#: assets/js/editor.js:2222
 msgid "Entrance transition"
 msgstr ""
 
-#: assets/js/editor.js:1253
-#: assets/js/editor.js:2190
+#: assets/js/editor.js:1301
+#: assets/js/editor.js:2238
 msgid "Animated effect"
 msgstr ""
 
-#: assets/js/editor.js:1254
+#: assets/js/editor.js:1302
 msgid "Name and duration"
 msgstr ""
 
-#: assets/js/editor.js:1254
-#: assets/js/editor.js:2164
-#: assets/js/editor.js:2614
+#: assets/js/editor.js:1302
+#: assets/js/editor.js:2212
+#: assets/js/editor.js:2662
 msgid "General"
 msgstr ""
 
-#: assets/js/editor.js:1256
+#: assets/js/editor.js:1304
 msgid "Paste layer"
 msgstr ""
 
-#: assets/js/editor.js:1257
+#: assets/js/editor.js:1305
 msgid "Add text"
 msgstr ""
 
-#: assets/js/editor.js:1258
+#: assets/js/editor.js:1306
 msgid "Add button"
 msgstr ""
 
-#: assets/js/editor.js:1259
+#: assets/js/editor.js:1307
 msgid "Add image"
 msgstr ""
 
-#: assets/js/editor.js:1260
+#: assets/js/editor.js:1308
 msgid "Add shape"
 msgstr ""
 
-#: assets/js/editor.js:1261
+#: assets/js/editor.js:1309
 msgid "Add drawing"
 msgstr ""
 
-#: assets/js/editor.js:1262
+#: assets/js/editor.js:1310
 msgid "Add filmstrip"
 msgstr ""
 
-#: assets/js/editor.js:1264
+#: assets/js/editor.js:1312
 msgid "Play the slide"
 msgstr ""
 
-#: assets/js/editor.js:1265
+#: assets/js/editor.js:1313
 msgctxt "menu"
 msgid "Slider settings"
 msgstr ""
 
-#: assets/js/editor.js:1392
+#: assets/js/editor.js:1440
 msgid "Slide end"
 msgstr ""
 
-#: assets/js/editor.js:1396
+#: assets/js/editor.js:1444
 msgid "Duration of this slide in milliseconds (empty or 0 = slider default duration)"
 msgstr ""
 
-#: assets/js/editor.js:1401
+#: assets/js/editor.js:1449
 msgid "Timeline"
 msgstr ""
 
-#: assets/js/editor.js:1401
-#: assets/js/editor.js:2176
-#: assets/js/editor.js:2459
-#: assets/js/editor.js:2480
+#: assets/js/editor.js:1449
+#: assets/js/editor.js:2224
+#: assets/js/editor.js:2507
+#: assets/js/editor.js:2528
 msgid "Duration"
 msgstr ""
 
-#: assets/js/editor.js:1414
+#: assets/js/editor.js:1462
 msgid "Drag to change the entrance delay"
 msgstr ""
 
-#: assets/js/editor.js:1417
+#: assets/js/editor.js:1465
 msgid "Entrance duration"
 msgstr ""
 
-#: assets/js/editor.js:1421
+#: assets/js/editor.js:1469
 msgid "Drag to change the exit time"
 msgstr ""
 
-#: assets/js/editor.js:1433
+#: assets/js/editor.js:1481
 msgid "Add some layers to see their timeline."
 msgstr ""
 
-#: assets/js/editor.js:1542
-#: assets/js/editor.js:1544
-#: assets/js/editor.js:1552
+#: assets/js/editor.js:1590
+#: assets/js/editor.js:1592
+#: assets/js/editor.js:1600
 msgid "Colour opacity"
 msgstr ""
 
-#: assets/js/editor.js:1552
+#: assets/js/editor.js:1600
 msgid "Opacity is available for hex, rgb and named colours"
 msgstr ""
 
-#: assets/js/editor.js:1691
+#: assets/js/editor.js:1739
 msgid "Invalid CSS: use linear-gradient(…), radial-gradient(…) or conic-gradient(…), without url() or semicolons."
 msgstr ""
 
-#: assets/js/editor.js:1709
+#: assets/js/editor.js:1757
 msgid "Advanced gradient (several layers, conic or with multiple positions): edit it in the CSS below."
 msgstr ""
 
-#: assets/js/editor.js:1714
+#: assets/js/editor.js:1762
 msgid "Click the bar to add a colour, drag the points to move them"
 msgstr ""
 
-#: assets/js/editor.js:1780
+#: assets/js/editor.js:1828
 msgid "Opacity not available for this colour"
 msgstr ""
 
-#: assets/js/editor.js:1786
+#: assets/js/editor.js:1834
 msgid "Radial"
 msgstr ""
 
-#: assets/js/editor.js:1788
+#: assets/js/editor.js:1836
 msgid "Reverse the colours"
 msgstr ""
 
-#: assets/js/editor.js:1792
+#: assets/js/editor.js:1840
 msgid "Angle"
 msgstr ""
 
-#: assets/js/editor.js:1793
+#: assets/js/editor.js:1841
 msgid "Ellipse"
 msgstr ""
 
-#: assets/js/editor.js:1796
+#: assets/js/editor.js:1844
 msgid "Selected colour"
 msgstr ""
 
-#: assets/js/editor.js:1803
-#: assets/js/editor.js:2227
-#: assets/js/editor.js:2310
-#: assets/js/editor.js:2578
+#: assets/js/editor.js:1851
+#: assets/js/editor.js:2275
+#: assets/js/editor.js:2358
+#: assets/js/editor.js:2626
+#: assets/js/editor.js:2778
 msgid "Position"
 msgstr ""
 
-#: assets/js/editor.js:1809
+#: assets/js/editor.js:1857
 msgid "Gradient CSS"
 msgstr ""
 
-#: assets/js/editor.js:1810
+#: assets/js/editor.js:1858
 msgid "You can paste any CSS gradient, even with several colours or several layers separated by commas."
 msgstr ""
 
-#: assets/js/editor.js:1816
+#: assets/js/editor.js:1864
 msgid "Sans serif"
 msgstr ""
 
-#: assets/js/editor.js:1816
+#: assets/js/editor.js:1864
 msgid "Serif"
 msgstr ""
 
-#: assets/js/editor.js:1816
+#: assets/js/editor.js:1864
 msgid "Display"
 msgstr ""
 
-#: assets/js/editor.js:1816
+#: assets/js/editor.js:1864
 msgid "Handwriting"
 msgstr ""
 
-#: assets/js/editor.js:1816
+#: assets/js/editor.js:1864
 msgid "Monospace"
 msgstr ""
 
-#: assets/js/editor.js:1848
+#: assets/js/editor.js:1896
 msgctxt "font"
 msgid "Custom"
 msgstr ""
 
-#: assets/js/editor.js:1848
-#: assets/js/editor.js:1933
+#: assets/js/editor.js:1896
+#: assets/js/editor.js:1981
 msgid "Theme font"
 msgstr ""
 
-#: assets/js/editor.js:1893
+#: assets/js/editor.js:1941
 #, js-format
 msgid "%d weight"
 msgid_plural "%d weights"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/editor.js:1904
+#: assets/js/editor.js:1952
 #, js-format
 msgid "%d font"
 msgid_plural "%d fonts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/editor.js:1912
+#: assets/js/editor.js:1960
 #, js-format
 msgid "Search %d fonts…"
 msgstr ""
 
-#: assets/js/editor.js:1914
+#: assets/js/editor.js:1962
 msgid "All"
 msgstr ""
 
-#: assets/js/editor.js:1919
+#: assets/js/editor.js:1967
 msgid "e.g. var(--e-global-typography-primary-font-family)"
 msgstr ""
 
-#: assets/js/editor.js:1925
+#: assets/js/editor.js:1973
 msgid "Use"
 msgstr ""
 
-#: assets/js/editor.js:1927
+#: assets/js/editor.js:1975
 msgid "Choose the font"
 msgstr ""
 
-#: assets/js/editor.js:1933
+#: assets/js/editor.js:1981
 msgid "use the site font"
 msgstr ""
 
-#: assets/js/editor.js:1935
+#: assets/js/editor.js:1983
 msgid "Custom CSS value"
 msgstr ""
 
-#: assets/js/editor.js:1936
+#: assets/js/editor.js:1984
 msgid "For fonts already loaded by the theme or by the Elementor/Kadence global fonts."
 msgstr ""
 
-#: assets/js/editor.js:1981
+#: assets/js/editor.js:2029
 msgid "Gradient"
 msgstr ""
 
-#: assets/js/editor.js:1989
+#: assets/js/editor.js:2037
 msgid "Choose a video"
 msgstr ""
 
-#: assets/js/editor.js:1989
+#: assets/js/editor.js:2037
 msgid "Choose an image"
 msgstr ""
 
-#: assets/js/editor.js:1989
+#: assets/js/editor.js:2037
 msgid "Use this file"
 msgstr ""
 
-#: assets/js/editor.js:2001
+#: assets/js/editor.js:2049
 #, js-format
 msgid "⚠ Browsers cannot play .%s files: convert it to MP4 (H.264) or WebM."
 msgstr ""
 
-#: assets/js/editor.js:2004
+#: assets/js/editor.js:2052
 msgid "Note: MOV files shot on iPhone (HEVC) do not play in every browser, add an MP4 or WebM as an alternative."
 msgstr ""
 
-#: assets/js/editor.js:2016
+#: assets/js/editor.js:2064
 msgid "Change"
 msgstr ""
 
-#: assets/js/editor.js:2016
+#: assets/js/editor.js:2064
 msgid "Choose from the library"
 msgstr ""
 
-#: assets/js/editor.js:2018
+#: assets/js/editor.js:2066
 msgid "or paste a URL"
 msgstr ""
 
-#: assets/js/editor.js:2081
+#: assets/js/editor.js:2129
 #, js-format
 msgid "Custom value for %s: click to restore inheritance"
 msgstr ""
 
-#: assets/js/editor.js:2084
+#: assets/js/editor.js:2132
 msgid "Inherited value"
 msgstr ""
 
-#: assets/js/editor.js:2097
-#: assets/js/editor.js:2226
-#: assets/js/editor.js:2486
+#: assets/js/editor.js:2145
+#: assets/js/editor.js:2274
+#: assets/js/editor.js:2534
 msgctxt "shadow"
 msgid "None"
 msgstr ""
 
-#: assets/js/editor.js:2097
+#: assets/js/editor.js:2145
 msgctxt "shadow"
 msgid "Soft"
 msgstr ""
 
-#: assets/js/editor.js:2097
+#: assets/js/editor.js:2145
 msgctxt "shadow"
 msgid "Sharp"
 msgstr ""
 
-#: assets/js/editor.js:2097
-#: assets/js/editor.js:2572
+#: assets/js/editor.js:2145
+#: assets/js/editor.js:2620
 msgctxt "shadow"
 msgid "Custom"
 msgstr ""
 
-#: assets/js/editor.js:2106
-#: assets/js/editor.js:2208
-#: assets/js/editor.js:2225
+#: assets/js/editor.js:2154
+#: assets/js/editor.js:2256
+#: assets/js/editor.js:2273
+#: assets/js/editor.js:2771
 msgid "Size"
 msgstr ""
 
-#: assets/js/editor.js:2106
+#: assets/js/editor.js:2154
 msgid "How blurred and wide the shadow is."
 msgstr ""
 
-#: assets/js/editor.js:2107
+#: assets/js/editor.js:2155
 msgid "Density"
 msgstr ""
 
-#: assets/js/editor.js:2108
+#: assets/js/editor.js:2156
 msgid "Higher = fuller, darker shadow around the letters."
 msgstr ""
 
-#: assets/js/editor.js:2108
+#: assets/js/editor.js:2156
 msgid "Higher = fuller shadow that spreads beyond the box."
 msgstr ""
 
-#: assets/js/editor.js:2109
+#: assets/js/editor.js:2157
 msgid "Distance"
 msgstr ""
 
-#: assets/js/editor.js:2109
+#: assets/js/editor.js:2157
 msgid "0 = shadow all around (glow effect)."
 msgstr ""
 
-#: assets/js/editor.js:2110
+#: assets/js/editor.js:2158
 msgid "In degrees: 90 = down, 0 = right, 180 = left, 270 = up."
 msgstr ""
 
-#: assets/js/editor.js:2116
+#: assets/js/editor.js:2164
 msgid "Glass effect"
 msgstr ""
 
-#: assets/js/editor.js:2123
+#: assets/js/editor.js:2171
 msgid "Frosted glass"
 msgstr ""
 
-#: assets/js/editor.js:2124
+#: assets/js/editor.js:2172
 msgid "Blurs and brightens what is behind the box, like the glass surfaces of iOS and macOS. The glass tint is the Background colour above: use it semi-transparent."
 msgstr ""
 
-#: assets/js/editor.js:2125
+#: assets/js/editor.js:2173
 msgid "Starting style"
 msgstr ""
 
-#: assets/js/editor.js:2126
+#: assets/js/editor.js:2174
 #, js-format
 msgid "Apply the %s style"
 msgstr ""
 
-#: assets/js/editor.js:2128
+#: assets/js/editor.js:2176
 msgid "Sets the values below, which you can then fine-tune."
 msgstr ""
 
-#: assets/js/editor.js:2130
+#: assets/js/editor.js:2178
 msgid "Saturation"
 msgstr ""
 
-#: assets/js/editor.js:2130
+#: assets/js/editor.js:2178
 msgid "Makes the colours behind the glass more vivid."
 msgstr ""
 
-#: assets/js/editor.js:2131
+#: assets/js/editor.js:2179
 msgid "Below 100 the glass darkens, above 100 it brightens."
 msgstr ""
 
-#: assets/js/editor.js:2132
+#: assets/js/editor.js:2180
 msgid "Edge highlight"
 msgstr ""
 
-#: assets/js/editor.js:2132
+#: assets/js/editor.js:2180
 msgid "Thin line of light on the top edge and along the outline."
 msgstr ""
 
-#: assets/js/editor.js:2133
+#: assets/js/editor.js:2181
 msgid "Sheen"
 msgstr ""
 
-#: assets/js/editor.js:2133
+#: assets/js/editor.js:2181
 msgid "Diagonal reflection from the top left corner."
 msgstr ""
 
-#: assets/js/editor.js:2134
+#: assets/js/editor.js:2182
 msgid "Grain"
 msgstr ""
 
-#: assets/js/editor.js:2134
+#: assets/js/editor.js:2182
 msgid "Light matte texture, typical of frosted glass."
 msgstr ""
 
-#: assets/js/editor.js:2135
-#: assets/js/editor.js:2490
+#: assets/js/editor.js:2183
+#: assets/js/editor.js:2538
 msgid "Depth"
 msgstr ""
 
-#: assets/js/editor.js:2135
+#: assets/js/editor.js:2183
 msgid "Soft shadow that lifts the glass off the background."
 msgstr ""
 
-#: assets/js/editor.js:2150
+#: assets/js/editor.js:2198
 msgid "Collapse all"
 msgstr ""
 
-#: assets/js/editor.js:2151
+#: assets/js/editor.js:2199
 msgid "Expand all"
 msgstr ""
 
-#: assets/js/editor.js:2162
+#: assets/js/editor.js:2210
 msgid "Click a layer on the canvas to edit it, or add one from the panel on the left."
 msgstr ""
 
-#: assets/js/editor.js:2166
+#: assets/js/editor.js:2214
 msgid "Duration (ms)"
 msgstr ""
 
-#: assets/js/editor.js:2166
+#: assets/js/editor.js:2214
 #, js-format
 msgid "0 = default duration (%d ms)"
 msgstr ""
 
-#: assets/js/editor.js:2175
-#: assets/js/editor.js:2452
-#: assets/js/editor.js:2478
+#: assets/js/editor.js:2223
+#: assets/js/editor.js:2500
+#: assets/js/editor.js:2526
 msgid "Effect"
 msgstr ""
 
-#: assets/js/editor.js:2175
+#: assets/js/editor.js:2223
 #, js-format
 msgid "Slider default (%s)"
 msgstr ""
 
-#: assets/js/editor.js:2176
+#: assets/js/editor.js:2224
 #, js-format
 msgid "0 = default speed (%d ms)."
 msgstr ""
 
-#: assets/js/editor.js:2177
-#: assets/js/editor.js:2461
-#: assets/js/editor.js:2482
+#: assets/js/editor.js:2225
+#: assets/js/editor.js:2509
+#: assets/js/editor.js:2530
 msgid "Easing"
 msgstr ""
 
-#: assets/js/editor.js:2177
-#: assets/js/editor.js:2373
+#: assets/js/editor.js:2225
+#: assets/js/editor.js:2421
 msgctxt "easing"
 msgid "Default"
 msgstr ""
 
-#: assets/js/editor.js:2178
+#: assets/js/editor.js:2226
 msgid "Mosaic columns"
 msgstr ""
 
-#: assets/js/editor.js:2178
+#: assets/js/editor.js:2226
 msgid "Number of strips"
 msgstr ""
 
-#: assets/js/editor.js:2178
+#: assets/js/editor.js:2226
 msgid "0 = automatic. With video backgrounds these transitions become a fade."
 msgstr ""
 
-#: assets/js/editor.js:2179
+#: assets/js/editor.js:2227
 msgid "Preview transition"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Particles and weather"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Snow"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Rain"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Twinkling stars"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Bubbles"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Confetti"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Particle network"
 msgstr ""
 
-#: assets/js/editor.js:2186
+#: assets/js/editor.js:2234
 msgid "Fireflies"
 msgstr ""
 
-#: assets/js/editor.js:2187
+#: assets/js/editor.js:2235
 msgid "Fluid / ink"
 msgstr ""
 
-#: assets/js/editor.js:2187
+#: assets/js/editor.js:2235
 msgid "Light rays"
 msgstr ""
 
-#: assets/js/editor.js:2187
+#: assets/js/editor.js:2235
 msgid "Particles that become words"
 msgstr ""
 
-#: assets/js/editor.js:2187
+#: assets/js/editor.js:2235
 msgid "Liquid background distortion"
 msgstr ""
 
-#: assets/js/editor.js:2187
+#: assets/js/editor.js:2235
 msgid "360° panorama"
 msgstr ""
 
-#: assets/js/editor.js:2206
+#: assets/js/editor.js:2254
 msgid "You can enter several colours separated by commas (e.g. #ff0000,#ffd166). Empty with confetti = multicoloured."
 msgstr ""
 
-#: assets/js/editor.js:2207
+#: assets/js/editor.js:2255
 msgid "Based on a 1240×700 slide: on phones it shrinks proportionally."
 msgstr ""
 
-#: assets/js/editor.js:2211
+#: assets/js/editor.js:2259
 msgid "Wind"
 msgstr ""
 
-#: assets/js/editor.js:2211
+#: assets/js/editor.js:2259
 msgid "Negative = to the left, positive = to the right."
 msgstr ""
 
-#: assets/js/editor.js:2212
+#: assets/js/editor.js:2260
 msgid "Connect the particles to the mouse"
 msgstr ""
 
-#: assets/js/editor.js:2212
+#: assets/js/editor.js:2260
 msgid "The particles move away from the mouse"
 msgstr ""
 
-#: assets/js/editor.js:2213
+#: assets/js/editor.js:2261
 msgid "Off: the effect sits between the background and the texts."
 msgstr ""
 
-#: assets/js/editor.js:2219
-#: assets/js/editor.js:2234
+#: assets/js/editor.js:2267
+#: assets/js/editor.js:2282
 msgid "Video"
 msgstr ""
 
-#: assets/js/editor.js:2220
+#: assets/js/editor.js:2268
 msgid "Colour / gradient"
 msgstr ""
 
-#: assets/js/editor.js:2220
+#: assets/js/editor.js:2268
 msgid "Visible under the image or video while they load."
 msgstr ""
 
-#: assets/js/editor.js:2225
+#: assets/js/editor.js:2273
 msgid "Cover (fills, may crop)"
 msgstr ""
 
-#: assets/js/editor.js:2225
+#: assets/js/editor.js:2273
 msgid "Contain (whole, may leave edges)"
 msgstr ""
 
-#: assets/js/editor.js:2225
-#: assets/js/editor.js:2572
+#: assets/js/editor.js:2273
+#: assets/js/editor.js:2620
 msgid "Full width"
 msgstr ""
 
-#: assets/js/editor.js:2225
-#: assets/js/editor.js:2572
+#: assets/js/editor.js:2273
+#: assets/js/editor.js:2620
 msgid "Full height"
 msgstr ""
 
-#: assets/js/editor.js:2225
+#: assets/js/editor.js:2273
 msgid "Stretch (distorts)"
 msgstr ""
 
-#: assets/js/editor.js:2225
+#: assets/js/editor.js:2273
 msgid "Original size"
 msgstr ""
 
-#: assets/js/editor.js:2226
+#: assets/js/editor.js:2274
 msgid "Tiling"
 msgstr ""
 
-#: assets/js/editor.js:2226
+#: assets/js/editor.js:2274
 msgid "Repeat"
 msgstr ""
 
-#: assets/js/editor.js:2226
+#: assets/js/editor.js:2274
 msgid "Repeat horizontally"
 msgstr ""
 
-#: assets/js/editor.js:2226
+#: assets/js/editor.js:2274
 msgid "Repeat vertically"
 msgstr ""
 
-#: assets/js/editor.js:2228
+#: assets/js/editor.js:2276
 msgid "Ken Burns effect"
 msgstr ""
 
-#: assets/js/editor.js:2228
+#: assets/js/editor.js:2276
 msgctxt "effect"
 msgid "None"
 msgstr ""
 
-#: assets/js/editor.js:2228
+#: assets/js/editor.js:2276
 msgid "Slow zoom in"
 msgstr ""
 
-#: assets/js/editor.js:2228
+#: assets/js/editor.js:2276
 msgid "Slow zoom out"
 msgstr ""
 
-#: assets/js/editor.js:2228
+#: assets/js/editor.js:2276
 msgid "Pan left"
 msgstr ""
 
-#: assets/js/editor.js:2228
+#: assets/js/editor.js:2276
 msgid "Pan right"
 msgstr ""
 
-#: assets/js/editor.js:2228
+#: assets/js/editor.js:2276
 msgid "Visible in the preview and on the site."
 msgstr ""
 
-#: assets/js/editor.js:2233
+#: assets/js/editor.js:2281
 msgid "Source"
 msgstr ""
 
-#: assets/js/editor.js:2233
+#: assets/js/editor.js:2281
 msgid "Video file"
 msgstr ""
 
-#: assets/js/editor.js:2234
+#: assets/js/editor.js:2282
 msgid "Formats: MP4 (H.264), WebM, OGV or MOV. Recommended: 10–30 seconds, under 5 MB."
 msgstr ""
 
-#: assets/js/editor.js:2235
+#: assets/js/editor.js:2283
 msgid "Alternative format"
 msgstr ""
 
-#: assets/js/editor.js:2235
+#: assets/js/editor.js:2283
 msgid "Optional: the same video in another format. The browser uses the first one it can play, e.g. WebM (lighter) + MP4 for Safari and iPhone."
 msgstr ""
 
-#: assets/js/editor.js:2237
+#: assets/js/editor.js:2285
 msgid "Poster image"
 msgstr ""
 
-#: assets/js/editor.js:2237
+#: assets/js/editor.js:2285
 msgid "Shown while the video loads."
 msgstr ""
 
-#: assets/js/editor.js:2241
+#: assets/js/editor.js:2289
 msgid "Overlay"
 msgstr ""
 
-#: assets/js/editor.js:2241
+#: assets/js/editor.js:2289
 msgid "A gradient from transparent to black darkens only part of the slide (e.g. the bottom, where the text is)."
 msgstr ""
 
-#: assets/js/editor.js:2242
+#: assets/js/editor.js:2290
 msgid "Overlay opacity"
 msgstr ""
 
-#: assets/js/editor.js:2242
+#: assets/js/editor.js:2290
 msgid "Darkens the background to make the text readable."
 msgstr ""
 
-#: assets/js/editor.js:2243
+#: assets/js/editor.js:2291
 msgid "Background parallax (mouse)"
 msgstr ""
 
-#: assets/js/editor.js:2244
+#: assets/js/editor.js:2292
 msgid "0 = still. Usually the background has a low depth (1–3) and the foreground layers a higher one."
 msgstr ""
 
-#: assets/js/editor.js:2244
-#: assets/js/editor.js:2493
+#: assets/js/editor.js:2292
+#: assets/js/editor.js:2541
 msgid "First turn on \"Mouse parallax\" in the slider settings."
 msgstr ""
 
-#: assets/js/editor.js:2262
+#: assets/js/editor.js:2310
 msgid "Checking the video…"
 msgstr ""
 
-#: assets/js/editor.js:2267
+#: assets/js/editor.js:2315
 msgid "Video available"
 msgstr ""
 
-#: assets/js/editor.js:2272
+#: assets/js/editor.js:2320
 msgid "Replace the poster with the thumbnail"
 msgstr ""
 
-#: assets/js/editor.js:2272
+#: assets/js/editor.js:2320
 msgid "Use the thumbnail as poster"
 msgstr ""
 
-#: assets/js/editor.js:2278
+#: assets/js/editor.js:2326
 msgid "On the site the poster (or the background colour) will be shown instead of the video."
 msgstr ""
 
-#: assets/js/editor.js:2306
+#: assets/js/editor.js:2354
 msgid "Video link"
 msgstr ""
 
-#: assets/js/editor.js:2306
+#: assets/js/editor.js:2354
 msgid "The video starts muted and looping, without controls."
 msgstr ""
 
-#: assets/js/editor.js:2314
+#: assets/js/editor.js:2362
 msgid "Close (Esc)"
 msgstr ""
 
-#: assets/js/editor.js:2327
+#: assets/js/editor.js:2375
 msgid "Layer name"
 msgstr ""
 
-#: assets/js/editor.js:2330
+#: assets/js/editor.js:2378
 msgid "HTML tag"
 msgstr ""
 
-#: assets/js/editor.js:2330
+#: assets/js/editor.js:2378
 msgid "Use only one H1 per page (SEO)."
 msgstr ""
 
-#: assets/js/editor.js:2331
+#: assets/js/editor.js:2379
 msgid "You can use simple HTML: <br>, <strong>, <em>, <span style=\"…\">. Or double-click the text on the canvas."
 msgstr ""
 
-#: assets/js/editor.js:2341
+#: assets/js/editor.js:2389
 msgid "File"
 msgstr ""
 
-#: assets/js/editor.js:2345
+#: assets/js/editor.js:2393
 msgid "Alternative text"
 msgstr ""
 
-#: assets/js/editor.js:2345
+#: assets/js/editor.js:2393
 msgid "Describes the image (accessibility and SEO)."
 msgstr ""
 
-#: assets/js/editor.js:2349
+#: assets/js/editor.js:2397
 msgid "Shapes are for decorative lines, boxes and backgrounds behind text. Colour and corners in \"Style\", size in \"Position\"."
 msgstr ""
 
-#: assets/js/editor.js:2355
+#: assets/js/editor.js:2403
 msgid "URL"
 msgstr ""
 
-#: assets/js/editor.js:2356
+#: assets/js/editor.js:2404
 msgid "Open in"
 msgstr ""
 
-#: assets/js/editor.js:2356
+#: assets/js/editor.js:2404
 msgid "Same tab"
 msgstr ""
 
-#: assets/js/editor.js:2356
+#: assets/js/editor.js:2404
 msgid "New tab"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Thin"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Extra light"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Light"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Regular"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Medium"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Semibold"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Bold"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Extra bold"
 msgstr ""
 
-#: assets/js/editor.js:2367
+#: assets/js/editor.js:2415
 msgctxt "font weight"
 msgid "Black"
 msgstr ""
 
-#: assets/js/editor.js:2371
-#: assets/js/editor.js:2409
+#: assets/js/editor.js:2419
+#: assets/js/editor.js:2457
 msgid "Text colour"
 msgstr ""
 
-#: assets/js/editor.js:2371
+#: assets/js/editor.js:2419
 msgid "With a gradient the text is filled with it (the box background is not shown)."
 msgstr ""
 
-#: assets/js/editor.js:2373
+#: assets/js/editor.js:2421
 msgid "Weight"
 msgstr ""
 
-#: assets/js/editor.js:2374
+#: assets/js/editor.js:2422
 #, js-format
 msgid "Only the weights available for %s are listed."
 msgstr ""
 
-#: assets/js/editor.js:2375
+#: assets/js/editor.js:2423
 msgid "Line height"
 msgstr ""
 
-#: assets/js/editor.js:2376
+#: assets/js/editor.js:2424
 msgid "Letter spacing"
 msgstr ""
 
-#: assets/js/editor.js:2378
+#: assets/js/editor.js:2426
 msgid "Italic"
 msgstr ""
 
-#: assets/js/editor.js:2379
+#: assets/js/editor.js:2427
 msgid "Uppercase"
 msgstr ""
 
-#: assets/js/editor.js:2381
+#: assets/js/editor.js:2429
 msgid "Letter outline"
 msgstr ""
 
-#: assets/js/editor.js:2382
+#: assets/js/editor.js:2430
 msgid "0 = no outline."
 msgstr ""
 
-#: assets/js/editor.js:2384
-#: assets/js/editor.js:2399
+#: assets/js/editor.js:2432
+#: assets/js/editor.js:2447
 msgid "Previous setting: you can now set the opacity directly in the colour and put this back to 1."
 msgstr ""
 
-#: assets/js/editor.js:2385
+#: assets/js/editor.js:2433
 msgid "Outline only (hollow letters)"
 msgstr ""
 
-#: assets/js/editor.js:2386
+#: assets/js/editor.js:2434
 msgid "The \"outline\" effect, popular for headlines. The outline is always a solid colour, even when the text uses a gradient."
 msgstr ""
 
-#: assets/js/editor.js:2388
+#: assets/js/editor.js:2436
 msgid "Letter shadow"
 msgstr ""
 
-#: assets/js/editor.js:2390
+#: assets/js/editor.js:2438
 msgid "Box"
 msgstr ""
 
-#: assets/js/editor.js:2391
+#: assets/js/editor.js:2439
 msgid "Shape colour"
 msgstr ""
 
-#: assets/js/editor.js:2391
+#: assets/js/editor.js:2439
 msgid "Solid colour (rgba(…) and var(--global-colour) work too) or gradient."
 msgstr ""
 
-#: assets/js/editor.js:2392
+#: assets/js/editor.js:2440
 msgid "Vertical padding"
 msgstr ""
 
-#: assets/js/editor.js:2393
+#: assets/js/editor.js:2441
 msgid "Horizontal padding"
 msgstr ""
 
-#: assets/js/editor.js:2394
+#: assets/js/editor.js:2442
 msgid "Rounded corners"
 msgstr ""
 
-#: assets/js/editor.js:2395
+#: assets/js/editor.js:2443
 msgid "Box border"
 msgstr ""
 
-#: assets/js/editor.js:2396
+#: assets/js/editor.js:2444
 msgid "0 = no border."
 msgstr ""
 
-#: assets/js/editor.js:2397
+#: assets/js/editor.js:2445
 msgctxt "border style"
 msgid "Solid"
 msgstr ""
 
-#: assets/js/editor.js:2397
+#: assets/js/editor.js:2445
 msgid "Dashed"
 msgstr ""
 
-#: assets/js/editor.js:2397
+#: assets/js/editor.js:2445
 msgid "Dotted"
 msgstr ""
 
-#: assets/js/editor.js:2397
+#: assets/js/editor.js:2445
 msgid "Double"
 msgstr ""
 
-#: assets/js/editor.js:2402
+#: assets/js/editor.js:2450
 msgid "Box shadow"
 msgstr ""
 
-#: assets/js/editor.js:2402
+#: assets/js/editor.js:2450
 msgid "Shadow"
 msgstr ""
 
-#: assets/js/editor.js:2404
+#: assets/js/editor.js:2452
 msgid "Fit inside the box"
 msgstr ""
 
-#: assets/js/editor.js:2404
+#: assets/js/editor.js:2452
 msgid "Cover (crops)"
 msgstr ""
 
-#: assets/js/editor.js:2404
+#: assets/js/editor.js:2452
 msgid "Contain (whole)"
 msgstr ""
 
-#: assets/js/editor.js:2404
+#: assets/js/editor.js:2452
 msgid "Stretch"
 msgstr ""
 
-#: assets/js/editor.js:2404
+#: assets/js/editor.js:2452
 msgid "When you set both width and height. In \"Cover/Contain the whole slide\" the mode chosen in Position applies."
 msgstr ""
 
-#: assets/js/editor.js:2405
+#: assets/js/editor.js:2453
 msgid "Focal point"
 msgstr ""
 
-#: assets/js/editor.js:2405
+#: assets/js/editor.js:2453
 msgid "Which part of the image stays visible when it is cropped."
 msgstr ""
 
-#: assets/js/editor.js:2408
+#: assets/js/editor.js:2456
 msgid "On hover"
 msgstr ""
 
-#: assets/js/editor.js:2410
+#: assets/js/editor.js:2458
 msgid "Visible on the site and in the preview."
 msgstr ""
 
-#: assets/js/editor.js:2420
+#: assets/js/editor.js:2468
 msgid "Linked corners: click to set them one by one"
 msgstr ""
 
-#: assets/js/editor.js:2420
+#: assets/js/editor.js:2468
 msgid "Separate corners: click to link them"
 msgstr ""
 
-#: assets/js/editor.js:2437
+#: assets/js/editor.js:2485
 msgid "↖ Top left"
 msgstr ""
 
-#: assets/js/editor.js:2437
+#: assets/js/editor.js:2485
 msgid "↗ Top right"
 msgstr ""
 
-#: assets/js/editor.js:2438
+#: assets/js/editor.js:2486
 msgid "↙ Bottom left"
 msgstr ""
 
-#: assets/js/editor.js:2438
+#: assets/js/editor.js:2486
 msgid "↘ Bottom right"
 msgstr ""
 
-#: assets/js/editor.js:2447
+#: assets/js/editor.js:2495
 msgid "Test this layer"
 msgstr ""
 
-#: assets/js/editor.js:2448
+#: assets/js/editor.js:2496
 msgid "Play slide"
 msgstr ""
 
-#: assets/js/editor.js:2451
+#: assets/js/editor.js:2499
 msgid "Entrance"
 msgstr ""
 
-#: assets/js/editor.js:2456
+#: assets/js/editor.js:2504
 msgid "Starting state"
 msgstr ""
 
-#: assets/js/editor.js:2458
+#: assets/js/editor.js:2506
 msgid "Typing speed"
 msgstr ""
 
-#: assets/js/editor.js:2458
+#: assets/js/editor.js:2506
 msgid "Milliseconds between one letter and the next. When typing ends a blinking cursor appears."
 msgstr ""
 
-#: assets/js/editor.js:2460
+#: assets/js/editor.js:2508
 msgid "Delay"
 msgstr ""
 
-#: assets/js/editor.js:2460
+#: assets/js/editor.js:2508
 msgid "From the start of the slide. You can also drag the bar in the timeline."
 msgstr ""
 
-#: assets/js/editor.js:2464
+#: assets/js/editor.js:2512
 msgid "The typewriter works on text layers: here the layer will fade in."
 msgstr ""
 
-#: assets/js/editor.js:2468
+#: assets/js/editor.js:2516
 msgid "Animate by"
 msgstr ""
 
-#: assets/js/editor.js:2468
+#: assets/js/editor.js:2516
 msgid "Block"
 msgstr ""
 
-#: assets/js/editor.js:2468
+#: assets/js/editor.js:2516
 msgid "Lines"
 msgstr ""
 
-#: assets/js/editor.js:2468
+#: assets/js/editor.js:2516
 msgid "Letters"
 msgstr ""
 
-#: assets/js/editor.js:2469
-#: assets/js/editor.js:2673
+#: assets/js/editor.js:2517
+#: assets/js/editor.js:2721
 msgid "Interval"
 msgstr ""
 
-#: assets/js/editor.js:2469
+#: assets/js/editor.js:2517
 msgid "Delay between one word/letter/line and the next."
 msgstr ""
 
-#: assets/js/editor.js:2472
+#: assets/js/editor.js:2520
 msgid "\"Reveal\" effect with split text: each part rises from under a mask. Great for hero headlines."
 msgstr ""
 
-#: assets/js/editor.js:2477
+#: assets/js/editor.js:2525
 msgid "Exit"
 msgstr ""
 
-#: assets/js/editor.js:2479
+#: assets/js/editor.js:2527
 msgid "End state"
 msgstr ""
 
-#: assets/js/editor.js:2481
+#: assets/js/editor.js:2529
 msgid "Time"
 msgstr ""
 
-#: assets/js/editor.js:2481
+#: assets/js/editor.js:2529
 msgid "0 = exits at the end of the slide. Otherwise, milliseconds from the start of the slide."
 msgstr ""
 
-#: assets/js/editor.js:2485
+#: assets/js/editor.js:2533
 msgid "Continuous animation"
 msgstr ""
 
-#: assets/js/editor.js:2486
+#: assets/js/editor.js:2534
 msgid "After the entrance"
 msgstr ""
 
-#: assets/js/editor.js:2486
+#: assets/js/editor.js:2534
+#: assets/js/editor.js:2777
 msgid "Pulse"
 msgstr ""
 
-#: assets/js/editor.js:2486
+#: assets/js/editor.js:2534
 msgid "Float"
 msgstr ""
 
-#: assets/js/editor.js:2486
+#: assets/js/editor.js:2534
 msgid "Continuous rotation"
 msgstr ""
 
-#: assets/js/editor.js:2486
+#: assets/js/editor.js:2534
 msgid "Swing"
 msgstr ""
 
-#: assets/js/editor.js:2486
+#: assets/js/editor.js:2534
 msgid "Blink"
 msgstr ""
 
-#: assets/js/editor.js:2489
-#: assets/js/editor.js:2669
+#: assets/js/editor.js:2537
+#: assets/js/editor.js:2717
 msgid "Mouse parallax"
 msgstr ""
 
-#: assets/js/editor.js:2492
+#: assets/js/editor.js:2540
 msgid "0 = still. The higher it is, the more the layer moves with the mouse: layers with different depths create the 3D effect."
 msgstr ""
 
-#: assets/js/editor.js:2506
+#: assets/js/editor.js:2554
 msgid "Move X"
 msgstr ""
 
-#: assets/js/editor.js:2507
+#: assets/js/editor.js:2555
 msgid "Move Y"
 msgstr ""
 
-#: assets/js/editor.js:2508
+#: assets/js/editor.js:2556
 msgid "Scale"
 msgstr ""
 
-#: assets/js/editor.js:2510
+#: assets/js/editor.js:2558
 msgid "3D rotation X"
 msgstr ""
 
-#: assets/js/editor.js:2511
+#: assets/js/editor.js:2559
 msgid "3D rotation Y"
 msgstr ""
 
-#: assets/js/editor.js:2512
+#: assets/js/editor.js:2560
 msgid "Skew"
 msgstr ""
 
-#: assets/js/editor.js:2515
+#: assets/js/editor.js:2563
 msgid "Rotation point"
 msgstr ""
 
-#: assets/js/editor.js:2544
+#: assets/js/editor.js:2592
 msgid "You are editing Desktop: tablet and mobile inherit these values."
 msgstr ""
 
-#: assets/js/editor.js:2545
+#: assets/js/editor.js:2593
 #, js-format
 msgid "You are editing %s: the values changed here apply only to this device."
 msgstr ""
 
-#: assets/js/editor.js:2548
+#: assets/js/editor.js:2596
 msgid "Align left"
 msgstr ""
 
-#: assets/js/editor.js:2548
+#: assets/js/editor.js:2596
 msgid "Centre horizontally"
 msgstr ""
 
-#: assets/js/editor.js:2548
+#: assets/js/editor.js:2596
 msgid "Align right"
 msgstr ""
 
-#: assets/js/editor.js:2551
+#: assets/js/editor.js:2599
 msgid "Top"
 msgstr ""
 
-#: assets/js/editor.js:2551
+#: assets/js/editor.js:2599
 msgid "Centre vertically"
 msgstr ""
 
-#: assets/js/editor.js:2551
+#: assets/js/editor.js:2599
 msgid "Bottom"
 msgstr ""
 
-#: assets/js/editor.js:2557
+#: assets/js/editor.js:2605
 #, js-format
 msgid "Anchor point: %s"
 msgstr ""
 
-#: assets/js/editor.js:2564
+#: assets/js/editor.js:2612
 msgid "Width and height in px, scaled proportionally on small screens."
 msgstr ""
 
-#: assets/js/editor.js:2565
+#: assets/js/editor.js:2613
 msgid "Takes up the full width of the slide; you can only move it vertically."
 msgstr ""
 
-#: assets/js/editor.js:2566
+#: assets/js/editor.js:2614
 msgid "Takes up the full height of the slide; you can only move it horizontally."
 msgstr ""
 
-#: assets/js/editor.js:2567
+#: assets/js/editor.js:2615
 msgid "Fills the whole slide, cropping the edges if the proportions do not match."
 msgstr ""
 
-#: assets/js/editor.js:2568
+#: assets/js/editor.js:2616
 msgid "Fits entirely inside the slide without cropping, leaving empty space at the sides if needed."
 msgstr ""
 
-#: assets/js/editor.js:2571
+#: assets/js/editor.js:2619
 msgid "Sizing"
 msgstr ""
 
-#: assets/js/editor.js:2572
+#: assets/js/editor.js:2620
 msgid "Mode"
 msgstr ""
 
-#: assets/js/editor.js:2572
+#: assets/js/editor.js:2620
 msgid "Cover the whole slide"
 msgstr ""
 
-#: assets/js/editor.js:2572
+#: assets/js/editor.js:2620
 msgid "Contain in the slide"
 msgstr ""
 
-#: assets/js/editor.js:2579
+#: assets/js/editor.js:2627
 msgid "X (horizontal)"
 msgstr ""
 
-#: assets/js/editor.js:2580
+#: assets/js/editor.js:2628
 msgid "Y (vertical)"
 msgstr ""
 
-#: assets/js/editor.js:2581
+#: assets/js/editor.js:2629
 msgid "Anchor"
 msgstr ""
 
-#: assets/js/editor.js:2581
+#: assets/js/editor.js:2629
 msgid "Which point of the layer sits at the X/Y coordinates."
 msgstr ""
 
-#: assets/js/editor.js:2582
+#: assets/js/editor.js:2630
 msgid "Vertical anchor"
 msgstr ""
 
-#: assets/js/editor.js:2582
+#: assets/js/editor.js:2630
 msgctxt "anchor"
 msgid "Top"
 msgstr ""
 
-#: assets/js/editor.js:2582
+#: assets/js/editor.js:2630
 msgctxt "anchor"
 msgid "Bottom"
 msgstr ""
 
-#: assets/js/editor.js:2583
+#: assets/js/editor.js:2631
 msgid "Horizontal anchor"
 msgstr ""
 
-#: assets/js/editor.js:2583
-#: assets/js/editor.js:2592
+#: assets/js/editor.js:2631
+#: assets/js/editor.js:2640
+#: assets/js/editor.js:2778
 msgid "Left"
 msgstr ""
 
-#: assets/js/editor.js:2583
-#: assets/js/editor.js:2592
+#: assets/js/editor.js:2631
+#: assets/js/editor.js:2640
+#: assets/js/editor.js:2778
 msgid "Right"
 msgstr ""
 
-#: assets/js/editor.js:2587
+#: assets/js/editor.js:2635
 msgid "Dimensions"
 msgstr ""
 
-#: assets/js/editor.js:2588
+#: assets/js/editor.js:2636
 msgid "Width"
 msgstr ""
 
-#: assets/js/editor.js:2588
+#: assets/js/editor.js:2636
 msgid "0 = automatic (the text does not wrap on its own)."
 msgstr ""
 
-#: assets/js/editor.js:2588
+#: assets/js/editor.js:2636
 msgid "0 = automatic."
 msgstr ""
 
-#: assets/js/editor.js:2589
+#: assets/js/editor.js:2637
 msgid "0 = automatic (original proportions)."
 msgstr ""
 
-#: assets/js/editor.js:2590
+#: assets/js/editor.js:2638
 msgid "Automatic size: the layer always follows the slide."
 msgstr ""
 
-#: assets/js/editor.js:2591
+#: assets/js/editor.js:2639
 msgid "Text size"
 msgstr ""
 
-#: assets/js/editor.js:2592
+#: assets/js/editor.js:2640
 msgid "Text alignment"
 msgstr ""
 
-#: assets/js/editor.js:2595
+#: assets/js/editor.js:2643
 msgid "Visibility"
 msgstr ""
 
-#: assets/js/editor.js:2596
+#: assets/js/editor.js:2644
 #, js-format
 msgid "Hide on %s"
 msgstr ""
 
-#: assets/js/editor.js:2598
+#: assets/js/editor.js:2646
 #, js-format
 msgid "Sizes in px refer to the %dpx canvas and shrink proportionally on smaller screens."
 msgstr ""
 
-#: assets/js/editor.js:2610
+#: assets/js/editor.js:2658
 msgid "Slider settings"
 msgstr ""
 
-#: assets/js/editor.js:2615
+#: assets/js/editor.js:2663
 msgid "Alias"
 msgstr ""
 
-#: assets/js/editor.js:2615
+#: assets/js/editor.js:2663
 #, js-format
 msgid "Also allows [kaosslider alias=\"%s\"]."
 msgstr ""
 
-#: assets/js/editor.js:2615
+#: assets/js/editor.js:2663
 msgid "name"
 msgstr ""
 
-#: assets/js/editor.js:2626
+#: assets/js/editor.js:2674
 msgid "Proportional"
 msgstr ""
 
-#: assets/js/editor.js:2626
+#: assets/js/editor.js:2674
 msgid "Takes up the full height of the window."
 msgstr ""
 
-#: assets/js/editor.js:2626
+#: assets/js/editor.js:2674
 msgid "Height = canvas height, reduced proportionally on narrow screens."
 msgstr ""
 
-#: assets/js/editor.js:2627
+#: assets/js/editor.js:2675
 msgid "Subtract from the height"
 msgstr ""
 
-#: assets/js/editor.js:2627
+#: assets/js/editor.js:2675
 msgid "E.g. the header height, if the slider must fit entirely above the fold."
 msgstr ""
 
-#: assets/js/editor.js:2628
+#: assets/js/editor.js:2676
 msgid "Full width (breaks out of the theme container)"
 msgstr ""
 
-#: assets/js/editor.js:2631
+#: assets/js/editor.js:2679
 msgid "On screens narrower than the canvas, layers and texts shrink proportionally (the tablet/mobile versions can still be customised)."
 msgstr ""
 
-#: assets/js/editor.js:2632
+#: assets/js/editor.js:2680
 msgid "Real px sizes on every screen: on narrower ones, whatever goes beyond the slide is cut off."
 msgstr ""
 
-#: assets/js/editor.js:2633
+#: assets/js/editor.js:2681
 msgid "Slider background"
 msgstr ""
 
-#: assets/js/editor.js:2636
+#: assets/js/editor.js:2684
 msgid "Card size (canvas)"
 msgstr ""
 
-#: assets/js/editor.js:2636
+#: assets/js/editor.js:2684
 msgid "Canvas size"
 msgstr ""
 
-#: assets/js/editor.js:2638
+#: assets/js/editor.js:2686
 msgid "Reference size of each card. Cards adapt to the available width keeping their proportions."
 msgstr ""
 
-#: assets/js/editor.js:2639
+#: assets/js/editor.js:2687
 msgid "Work area where you position the layers. On screens narrower than the canvas, everything is reduced proportionally."
 msgstr ""
 
-#: assets/js/editor.js:2643
+#: assets/js/editor.js:2691
 msgctxt "width abbreviation"
 msgid "W"
 msgstr ""
 
-#: assets/js/editor.js:2644
+#: assets/js/editor.js:2692
 msgctxt "height abbreviation"
 msgid "H"
 msgstr ""
 
-#: assets/js/editor.js:2651
+#: assets/js/editor.js:2699
 #, js-format
 msgid "Visible cards · %s"
 msgstr ""
 
-#: assets/js/editor.js:2653
+#: assets/js/editor.js:2701
 msgid "Space between cards"
 msgstr ""
 
-#: assets/js/editor.js:2654
+#: assets/js/editor.js:2702
 msgid "Flat"
 msgstr ""
 
-#: assets/js/editor.js:2654
+#: assets/js/editor.js:2702
 msgid "Centre zoom"
 msgstr ""
 
-#: assets/js/editor.js:2655
+#: assets/js/editor.js:2703
 msgid "The active card sits in the centre and the side ones rotate or shrink. It looks best with 3 visible cards."
 msgstr ""
 
-#: assets/js/editor.js:2655
+#: assets/js/editor.js:2703
 msgid "Identical cards side by side."
 msgstr ""
 
-#: assets/js/editor.js:2660
+#: assets/js/editor.js:2708
 msgid "Scroll-driven video"
 msgstr ""
 
-#: assets/js/editor.js:2661
+#: assets/js/editor.js:2709
 msgid "Enable"
 msgstr ""
 
-#: assets/js/editor.js:2662
+#: assets/js/editor.js:2710
 msgid "The background video (file) of the first slide moves forwards and backwards with the scroll, while the slide stays fixed on screen. The other slides are not shown."
 msgstr ""
 
-#: assets/js/editor.js:2663
+#: assets/js/editor.js:2711
 msgid "Scroll length"
 msgstr ""
 
-#: assets/js/editor.js:2663
+#: assets/js/editor.js:2711
 msgid "In % of the screen height (300 = three screens of scrolling to see the whole video)."
 msgstr ""
 
-#: assets/js/editor.js:2664
+#: assets/js/editor.js:2712
 msgid "For smooth scrubbing use a short MP4 (5–15 s) with a keyframe every few frames, e.g. with ffmpeg: -g 5. Visible only on the site and in the preview."
 msgstr ""
 
-#: assets/js/editor.js:2666
+#: assets/js/editor.js:2714
 msgid "Playback"
 msgstr ""
 
-#: assets/js/editor.js:2667
+#: assets/js/editor.js:2715
 msgid "Default transition"
 msgstr ""
 
-#: assets/js/editor.js:2667
+#: assets/js/editor.js:2715
 msgid "Each slide can use a different one (slide panel)."
 msgstr ""
 
-#: assets/js/editor.js:2668
+#: assets/js/editor.js:2716
 msgid "Transition speed"
 msgstr ""
 
-#: assets/js/editor.js:2669
+#: assets/js/editor.js:2717
 msgid "Layers and background follow the mouse according to the \"depth\" set on each one. Desktop computers only."
 msgstr ""
 
-#: assets/js/editor.js:2670
+#: assets/js/editor.js:2718
 msgid "Parallax intensity"
 msgstr ""
 
-#: assets/js/editor.js:2671
+#: assets/js/editor.js:2719
 msgid "Background parallax on scroll"
 msgstr ""
 
-#: assets/js/editor.js:2671
+#: assets/js/editor.js:2719
 msgid "The background scrolls more slowly than the page."
 msgstr ""
 
-#: assets/js/editor.js:2672
+#: assets/js/editor.js:2720
 msgid "Autoplay"
 msgstr ""
 
-#: assets/js/editor.js:2673
+#: assets/js/editor.js:2721
 msgid "Default slide duration"
 msgstr ""
 
-#: assets/js/editor.js:2675
+#: assets/js/editor.js:2723
 msgid "Start over after the last slide"
 msgstr ""
 
-#: assets/js/editor.js:2678
+#: assets/js/editor.js:2726
 msgid "Navigation"
 msgstr ""
 
-#: assets/js/editor.js:2679
+#: assets/js/editor.js:2727
 msgid "Arrows"
 msgstr ""
 
-#: assets/js/editor.js:2680
+#: assets/js/editor.js:2728
 msgid "Dots"
 msgstr ""
 
-#: assets/js/editor.js:2681
+#: assets/js/editor.js:2729
 msgid "Progress bar"
 msgstr ""
 
-#: assets/js/editor.js:2682
+#: assets/js/editor.js:2730
 msgid "Swipe / drag"
 msgstr ""
 
-#: assets/js/editor.js:2683
+#: assets/js/editor.js:2731
 msgid "Keyboard arrows"
 msgstr ""
 
-#: assets/js/editor.js:2684
+#: assets/js/editor.js:2732
 msgid "Navigation colour"
 msgstr ""
 
-#: assets/js/editor.js:2696
+#: assets/js/editor.js:2742
+msgid "Scroll-down button"
+msgstr ""
+
+#: assets/js/editor.js:2743
+msgid "Show the scroll-down button"
+msgstr ""
+
+#: assets/js/editor.js:2743
+msgid "A button on the slider that takes visitors to the content right below it."
+msgstr ""
+
+#: assets/js/editor.js:2759
+msgid "Ready-made styles"
+msgstr ""
+
+#: assets/js/editor.js:2759
+msgid "Click a style to start from it, then fine-tune everything below."
+msgstr ""
+
+#: assets/js/editor.js:2760
+msgid "Chevron"
+msgstr ""
+
+#: assets/js/editor.js:2760
+msgid "Double chevron"
+msgstr ""
+
+#: assets/js/editor.js:2760
+msgid "Arrow"
+msgstr ""
+
+#: assets/js/editor.js:2760
+msgid "Triangle"
+msgstr ""
+
+#: assets/js/editor.js:2768
+msgid "Icon"
+msgstr ""
+
+#: assets/js/editor.js:2769
+msgid "A GIF, PNG or SVG of your own (animated GIFs work too)."
+msgstr ""
+
+#: assets/js/editor.js:2770
+msgid "Rounded"
+msgstr ""
+
+#: assets/js/editor.js:2770
+msgid "Square"
+msgstr ""
+
+#: assets/js/editor.js:2770
+msgid "No shape"
+msgstr ""
+
+#: assets/js/editor.js:2772
+msgid "Icon colour"
+msgstr ""
+
+#: assets/js/editor.js:2774
+msgid "Border colour"
+msgstr ""
+
+#: assets/js/editor.js:2775
+msgid "Border thickness"
+msgstr ""
+
+#: assets/js/editor.js:2776
+msgid "Glass effect (blurs what is behind)"
+msgstr ""
+
+#: assets/js/editor.js:2777
+msgid "Up and down"
+msgstr ""
+
+#: assets/js/editor.js:2777
+msgid "None"
+msgstr ""
+
+#: assets/js/editor.js:2779
+msgid "Distance from the bottom"
+msgstr ""
+
+#: assets/js/editor.js:2779
+msgid "With the dots visible, a centred button sits a little higher so they do not overlap."
+msgstr ""
+
+#: assets/js/editor.js:2780
+msgid "Text under the icon"
+msgstr ""
+
+#: assets/js/editor.js:2780
+msgid "e.g. Scroll"
+msgstr ""
+
+#: assets/js/editor.js:2780
+msgid "Optional. Leave it empty to show only the icon."
+msgstr ""
+
+#: assets/js/editor.js:2781
+msgid "Space for a fixed header"
+msgstr ""
+
+#: assets/js/editor.js:2781
+msgid "If the site has a fixed header, enter its height: the page stops right below it instead of underneath."
+msgstr ""
+
+#: assets/js/editor.js:2782
+msgid "Hide on phones"
+msgstr ""
+
+#: assets/js/editor.js:2794
 msgid "Saving…"
 msgstr ""
 
-#: assets/js/editor.js:2708
+#: assets/js/editor.js:2806
 msgid "Slider saved"
 msgstr ""
 
-#: assets/js/editor.js:2711
+#: assets/js/editor.js:2809
 #, js-format
 msgid "Error: %s"
 msgstr ""
 
-#: assets/js/editor.js:2790
+#: assets/js/editor.js:2888
 #, js-format
 msgid "Unable to load the slider: %s"
 msgstr ""

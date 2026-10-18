@@ -787,6 +787,17 @@
 			b.addEventListener('click', function () { self.goTo(i); });
 		});
 
+		// Pulsante "scorri giù": porta la pagina subito sotto lo slider (meno l'eventuale header fisso).
+		var scrollBtn = root.querySelector('.ks-scrolldown');
+		if (scrollBtn) {
+			scrollBtn.addEventListener('click', function () {
+				var bar = document.getElementById('wpadminbar'); // barra di WordPress fissa in alto, per chi è collegato
+				var barH = bar && getComputedStyle(bar).position === 'fixed' ? bar.offsetHeight : 0;
+				var top = root.getBoundingClientRect().bottom + window.pageYOffset - (parseInt(scrollBtn.getAttribute('data-ks-offset'), 10) || 0) - barH;
+				window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion ? 'auto' : 'smooth' });
+			});
+		}
+
 		if (this.s.keyboard) {
 			root.addEventListener('keydown', function (e) {
 				if (e.key === 'ArrowLeft') { self.prev(); }
